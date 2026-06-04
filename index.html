@@ -1,409 +1,265 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>СТРОИТЕЛЬ.ПРО v3.0</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Строитель.Про"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0MCIgZmlsbD0iIzBjMGMwYSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDE0IDE3MCw1MiAxNzAsMTI4IDEwMCwxODYgMzAsMTI4IDMwLDUyIiBmaWxsPSIjMTExMTA4IiBzdHJva2U9IiNkNDkyMGEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMDAsMjQgMTYyLDU4IDE2MiwxMjYgMTAwLDE3OCAzOCwxMjYgMzgsNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q0OTIwYSIgc3Ryb2tlLXdpZHRoPSIwLjciIG9wYWNpdHk9IjAuMyIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjE0IiByPSI0IiBmaWxsPSIjZDQ5MjBhIi8+CiAgPGNpcmNsZSBjeD0iMTcwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxMjgiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxODYiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjEyOCIgcj0iNCIgZmlsbD0iI2Q0OTIwYSIvPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNNTIgMTE4IFE1MiA3NCAxMDAgNjggUTE0OCA3NCAxNDggMTE4IFoiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNMTAwIDY4IFExNDggNzQgMTQ4IDExOCBMMTI4IDExOCBRMTI4IDg2IDEwMCA4MiBaIiBmaWxsPSIjYjg3ODA4Ii8+CiAgPHJlY3QgeD0iNDQiIHk9IjExNCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMSIgcng9IjUuNSIgZmlsbD0iI2Q0OTIwYSIvPgogIDxyZWN0IHg9IjQ0IiB5PSIxMjIiIHdpZHRoPSIxMTIiIGhlaWdodD0iNCIgcng9IjIiIGZpbGw9IiM4YTVjMDQiLz4KICA8cmVjdCB4PSI4OCIgeT0iNzAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI4IiByeD0iNCIgZmlsbD0iI2I4NzgwOCIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDc4IDEyMCwxMDAgMTEwLDEwMCAxMTAsMTE4IDkwLDExOCA5MCwxMDAgODAsMTAwIiBmaWxsPSIjMGMwYzBhIi8+Cjwvc3ZnPg==">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0MCIgZmlsbD0iIzBjMGMwYSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDE0IDE3MCw1MiAxNzAsMTI4IDEwMCwxODYgMzAsMTI4IDMwLDUyIiBmaWxsPSIjMTExMTA4IiBzdHJva2U9IiNkNDkyMGEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMDAsMjQgMTYyLDU4IDE2MiwxMjYgMTAwLDE3OCAzOCwxMjYgMzgsNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q0OTIwYSIgc3Ryb2tlLXdpZHRoPSIwLjciIG9wYWNpdHk9IjAuMyIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjE0IiByPSI0IiBmaWxsPSIjZDQ5MjBhIi8+CiAgPGNpcmNsZSBjeD0iMTcwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxMjgiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxODYiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjEyOCIgcj0iNCIgZmlsbD0iI2Q0OTIwYSIvPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNNTIgMTE4IFE1MiA3NCAxMDAgNjggUTE0OCA3NCAxNDggMTE4IFoiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNMTAwIDY4IFExNDggNzQgMTQ4IDExOCBMMTI4IDExOCBRMTI4IDg2IDEwMCA4MiBaIiBmaWxsPSIjYjg3ODA4Ii8+CiAgPHJlY3QgeD0iNDQiIHk9IjExNCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMSIgcng9IjUuNSIgZmlsbD0iI2Q0OTIwYSIvPgogIDxyZWN0IHg9IjQ0IiB5PSIxMjIiIHdpZHRoPSIxMTIiIGhlaWdodD0iNCIgcng9IjIiIGZpbGw9IiM4YTVjMDQiLz4KICA8cmVjdCB4PSI4OCIgeT0iNzAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI4IiByeD0iNCIgZmlsbD0iI2I4NzgwOCIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDc4IDEyMCwxMDAgMTEwLDEwMCAxMTAsMTE4IDkwLDExOCA5MCwxMDAgODAsMTAwIiBmaWxsPSIjMGMwYzBhIi8+Cjwvc3ZnPg==">
+  <meta name="theme-color" content="#0c0c0a"/>
+  <title>СТРОИТЕЛЬ.ПРО v2.2</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0c0c0a;color:#e8dcc8;line-height:1.5}
-    .container{max-width:600px;margin:0 auto;padding:12px}
-    .card{background:#1a1a17;border:1px solid #2a2a24;border-radius:14px;padding:14px;margin-bottom:10px}
-    .card-title{font-size:10px;letter-spacing:2px;color:#d4920a;text-transform:uppercase;margin-bottom:10px}
-    .btn{background:#d4920a;color:#0c0c0a;border:none;padding:8px 14px;border-radius:30px;font-weight:700;cursor:pointer;font-size:13px}
-    .btn-outline{background:transparent;border:1px solid #d4920a;color:#d4920a}
-    .btn-sm{background:#2a2a24;border:1px solid #3a3a34;color:#e8dcc8;padding:6px 10px;border-radius:20px;font-size:11px}
-    .flex{display:flex;gap:8px;flex-wrap:wrap}
-    .header{background:#141412;border-bottom:2px solid #d4920a;padding:12px;display:flex;justify-content:space-between;align-items:center}
-    .logo{font-size:20px;font-weight:900}
-    .logo span{color:#d4920a}
-    .badge{background:#d4920a10;border:1px solid #d4920a30;border-radius:20px;padding:4px 10px;font-size:10px}
-    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .earn{color:#3d9e5c;font-weight:700}
-    .prod{color:#e8a020;font-weight:700}
-    .progress-bar{height:4px;background:#2a2a24;border-radius:4px;margin-top:6px}
-    .progress-fill{height:100%;border-radius:4px;background:#d4920a;width:0%}
-    @keyframes toast{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#d4920a;color:#0c0c0a;padding:8px 16px;border-radius:30px;font-size:12px;font-weight:700;animation:toast 0.3s;z-index:1000}
+    /* ═══════════════════════════════════════════════════════ */
+    :root{
+      --bg:#0f0f0d; --bg2:#161614; --bg3:#1e1e1a;
+      --card:#1a1a17; --card2:#222220;
+      --border:#2c2c28; --border2:#383834;
+      --text:#ede8dc; --text2:#a09880; --muted:#6a6050;
+      --gold:#d4920a; --gold-l:rgba(212,146,10,0.13); --gold-b:rgba(212,146,10,0.28);
+      --green:#3d9e5c; --red:#d95f4f; --blue:#4a9fd4;
+      --shadow:rgba(0,0,0,0.42);
+      --font:-apple-system,'Inter','Segoe UI',sans-serif;
+      --nav-h:62px; --r:13px; --rs:8px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%;overflow:hidden;background:var(--bg)}
+    body{font-family:var(--font);color:var(--text);font-size:14px;line-height:1.45}
+    #app{height:100%;display:flex;flex-direction:column}
+    /* ── HEADER ── */
+    .hdr{background:var(--bg2);border-bottom:1px solid var(--border);
+      padding:max(14px,env(safe-area-inset-top)) 16px 11px;
+      display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+      box-shadow:0 2px 16px var(--shadow)}
+    .hdr-l{display:flex;flex-direction:column;gap:1px}
+    .logo{font-size:18px;font-weight:900;letter-spacing:1.2px;color:var(--text)}
+    .logo-dot{color:var(--gold)}
+    .logo-sub{font-size:9px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase}
+    .hdr-r{display:flex;align-items:center;gap:10px}
+    .earn-pill{font-size:13px;font-weight:700;color:var(--gold);
+      background:var(--gold-l);border:1px solid var(--gold-b);
+      padding:5px 12px;border-radius:18px;letter-spacing:.3px}
+    .ico-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text);
+      width:33px;height:33px;border-radius:50%;cursor:pointer;font-size:15px;
+      display:flex;align-items:center;justify-content:center;transition:opacity .15s}
+    /* ── UNDO BAR ── */
+    .ubar{background:var(--bg2);border-bottom:1px solid var(--border);
+      display:flex;align-items:center;padding:5px 12px;gap:6px;flex-shrink:0}
+    .ub{background:var(--gold-l);border:1px solid var(--gold-b);border-radius:14px;
+      color:var(--gold);padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer}
+    .ub-off{opacity:.2;cursor:default}
+    .usave{font-size:13px;color:var(--muted)}
+    .ubar-dim{margin-left:auto;font-size:9px;color:var(--muted)}
+    /* ── PROJECT BAR ── */
+    .pbar{background:var(--bg2);border-bottom:1px solid var(--border);
+      padding:7px 13px;display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
+    .pbar::-webkit-scrollbar{display:none}
+    .ppill{background:var(--bg3);border:1.5px solid var(--border);border-radius:18px;
+      color:var(--muted);padding:5px 15px;font-size:12px;font-weight:600;
+      white-space:nowrap;cursor:pointer;flex-shrink:0}
+    .ppill.on{background:var(--gold);color:#0a0800;border-color:var(--gold);font-weight:800}
+    .ppill-add{border-style:dashed}
+    /* ── BUILDING TABS ── */
+    .btabs{background:var(--bg2);border-bottom:1px solid var(--border2);
+      display:flex;overflow-x:auto;scrollbar-width:none;padding:0 12px;flex-shrink:0}
+    .btabs::-webkit-scrollbar{display:none}
+    .btab{padding:9px 13px;font-size:12px;font-weight:600;cursor:pointer;
+      border-bottom:2px solid transparent;color:var(--muted);flex-shrink:0;
+      display:flex;align-items:center;gap:6px;min-width:70px;background:none;border:none}
+    .btab.on{color:var(--gold);border-bottom-color:var(--gold)}
+    .btab-pct{font-size:9px;color:var(--gold);background:var(--gold-l);padding:1px 6px;border-radius:8px}
+    .btab-add{opacity:.3;font-size:16px;min-width:40px}
+    /* ── SCROLL ── */
+    .scroll{flex:1;overflow-y:auto;padding:14px 14px calc(var(--nav-h) + 14px)}
+    /* ── BOTTOM NAV ── */
+    .bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+    .bnav-in{background:var(--bg2);border-top:1px solid var(--border);height:var(--nav-h);display:flex;align-items:flex-start;padding-top:7px;overflow-x:auto;scrollbar-width:none}
+    .bnav-in::-webkit-scrollbar{display:none}
+    .nb{flex:1;min-width:58px;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:3px 0}
+    .ni{font-size:18px}
+    .nl{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase}
+    .nb.on .nl{color:var(--gold)}
+    /* ── FAB ── */
+    .fab{position:fixed;bottom:calc(var(--nav-h) + 12px);right:16px;z-index:200;
+      width:52px;height:52px;border-radius:50%;background:linear-gradient(145deg,#e0a010,#c47c08);
+      border:none;color:#0a0800;font-size:25px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900}
+    /* ── CARDS ── */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:10px}
+    .card-title{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:700}
+    .btn{padding:12px 18px;border-radius:11px;border:none;font-size:14px;font-weight:700;cursor:pointer}
+    .btn-gold{background:linear-gradient(145deg,#e0a010,#c47c08);color:#0a0800}
+    .btn-ghost{background:var(--gold-l);color:var(--gold);border:1px solid var(--gold-b)}
+    .empty{text-align:center;padding:46px 20px;color:var(--muted)}
+    .toast{position:fixed;top:58px;left:50%;transform:translateX(-50%);
+      background:linear-gradient(135deg,#e0a010,#c47c08);color:#0a0800;
+      padding:9px 20px;border-radius:18px;font-size:12px;font-weight:800;
+      z-index:9999;opacity:0;transition:opacity .25s;pointer-events:none}
+    .toast.show{opacity:1}
   </style>
 </head>
 <body>
 <div id="app"></div>
+<div id="toast" class="toast"></div>
 <script>
 // ═══════════════════════════════════════════════════════════════
-// СТРОИТЕЛЬ.ПРО v3.0 — ФИКСЫ ВСЕХ БАГОВ + PRO/FREE
+// СТРОИТЕЛЬ.ПРО v2.2 — ИСПРАВЛЕНА ОШИБКА NaN
 // ═══════════════════════════════════════════════════════════════
+const KEY='bpro_v22', VER='v2.2', SCHEMA=3;
 
-// ========== РЕЖИМ: 'pro' или 'free' ==========
-const MODE = 'pro';  // поменяй на 'free' для ограниченной версии
+const MATS_MAIN=[
+  {key:'travers',label:'Траверс 3м',pack:10,iLen:3000,kg:0.8,cat:'main'},
+  {key:'yubka',label:'Молдинг RA4F',pack:10,iLen:4000,kg:0.3,cat:'main'},
+  {key:'shpilka',label:'Шпилька М6',pack:50,iLen:2000,kg:0.12,cat:'main'},
+  {key:'ushi',label:'Уши',pack:100,iLen:0,kg:0.02,cat:'main'},
+  {key:'perim',label:'Угол периметр.',pack:10,iLen:4000,kg:0.25,cat:'main'},
+  {key:'kronshteyn',label:'Кронш. подвеса',pack:50,iLen:0,kg:0.05,cat:'main'},
+  {key:'tsanga',label:'Цанга М6',pack:100,iLen:0,kg:0.01,cat:'main'},
+  {key:'bolt',label:'Болт М6',pack:100,iLen:0,kg:0.01,cat:'main'},
+  {key:'gayka',label:'Гайка М6',pack:100,iLen:0,kg:0.005,cat:'main'},
+  {key:'shayba_usl',label:'Шайба усил. М6',pack:100,iLen:0,kg:0.005,cat:'main'},
+  {key:'shayba_ob',label:'Шайба обыч. М6',pack:100,iLen:0,kg:0.003,cat:'main'},
+];
+const MATS_CONSUMABLES=[
+  {key:'disk_cut',label:'Круг отрезной',pack:1,iLen:0,kg:0.18,cat:'consumable'},
+  {key:'bit_ph2',label:'Бита PH2',pack:10,iLen:0,kg:0.03,cat:'consumable'},
+  {key:'screw_35',label:'Саморез 3.5×35',pack:200,iLen:0,kg:0.003,cat:'consumable'},
+];
+const MATS=[...MATS_MAIN,...MATS_CONSUMABLES];
 
-// ========== БАЗОВЫЕ ДАННЫЕ ==========
-let S = {
-  projects: [{id:'p1',name:'Госпиталь'}],
-  buildings: [{id:'b1',projectId:'p1',name:'ПК 1 этаж',totalArea:257.2,workTypes:[]}],
-  entries: [],
-  wlog: [],
-  goals: [],
-  notes: [],
-  matCfg: {},
-  dimUnit: 'cm',
-  theme: 'dark',
-  isPro: MODE === 'pro',
-  freeEntryLimit: 50
+const DEF_STATE={
+  schema:SCHEMA,
+  projects:[{id:'p1',name:'Госпиталь'}],
+  buildings:[
+    {id:'b1',projectId:'p1',name:'ПК 1 этаж',totalArea:257.2,workTypes:[
+      {id:'carcass',name:'Каркас Clip-in 120',price:350,unit:'м²',color:'#e8a020',targetArea:257.2},
+      {id:'panels',name:'Панели Clip-in',price:150,unit:'м²',color:'#4fc3f7',targetArea:257.2}
+    ]},
+    {id:'b2',projectId:'p1',name:'ПК 2 этаж',totalArea:634,workTypes:[
+      {id:'carcass',name:'Каркас Clip-in',price:350,unit:'м²',color:'#e8a020',targetArea:634},
+      {id:'panels',name:'Панели Clip-in',price:150,unit:'м²',color:'#4fc3f7',targetArea:634}
+    ]}
+  ],
+  entries:[
+    {id:1780393059134,buildingId:'b1',dateFrom:'2026-05-29',dateTo:'2026-06-01',workTypeId:'carcass',volume:57,notes:'+50 шпиль по 12см',noStock:false,created:'2026-05-29T08:00:00Z',materials:{travers:'16',yubka:'19',shpilka:'50',ushi:'38',kronshteyn:'4',tsanga:'50'}},
+    {id:1780393168748,buildingId:'b1',dateFrom:'2026-06-01',dateTo:'2026-06-02',workTypeId:'carcass',volume:32.98,notes:'50% коридора, мешает линолеум',noStock:true,created:'2026-06-01T08:00:00Z',materials:{}},
+    {id:1780404924435,buildingId:'b1',dateFrom:'2026-06-02',dateTo:'2026-06-02',workTypeId:'carcass',volume:64,notes:'+63 шпильки доп',noStock:false,created:'2026-06-02T08:00:00Z',materials:{travers:'21',yubka:'11',shpilka:'63',ushi:'42',kronshteyn:'42',tsanga:'63'}}
+  ],
+  wlog:[
+    {id:1780376552640,key:'ushi',qty:100,date:'2026-06-02',time:'09:00',buildingId:'b1'},
+    {id:1780376555019,key:'kronshteyn',qty:100,date:'2026-06-02',time:'09:01',buildingId:'b1'},
+    {id:1780380156356,key:'shpilka',qty:82,date:'2026-06-02',time:'10:40',buildingId:'b1'},
+    {id:1780380163492,key:'yubka',qty:30,date:'2026-06-02',time:'10:42',buildingId:'b1'},
+    {id:1780380177539,key:'travers',qty:37,date:'2026-06-02',time:'10:43',buildingId:'b1'},
+    {id:1780380259659,key:'tsanga',qty:113,date:'2026-06-02',time:'10:50',buildingId:'b1'}
+  ],
+  goals:[
+    {id:uid(),text:'Поднять материал на 2 этаж',date:'2026-06-04',done:false,hidden:false},
+    {id:uid(),text:'комната с плиткой',date:'2026-06-05',done:false,hidden:false}
+  ],
+  notes:[],
+  matCfg:Object.fromEntries(MATS.map(m=>[m.key,{pack:m.pack,iLen:m.iLen||0,label:m.label,cat:m.cat,kg:m.kg||0}])),
+  dimUnit:'cm',lastNoStock:false,theme:'premium-dark',openCount:0
 };
 
-// ========== ТРЕКЕР ==========
-function track(e,v){try{let l=JSON.parse(localStorage.getItem('track_log')||'[]');l.push({e:e,v:v||null,t:Date.now(),d:new Date().toISOString().slice(0,10)});if(l.length>500)l.shift();localStorage.setItem('track_log',JSON.stringify(l));}catch(e){}}
+let S,ui,undoStack=[],redoStack=[];
+function mkUi(){return{tab:'journal',pid:'p1',bid:'b1',exp:null,sort:'date_desc',whSub:'list',whHist:null,whBldFilter:'',showHidden:false,showHiddenGoals:false,wtActive:null,earnPeriod:'day',hdrPeriod:'all'};}
+function uid(){return String(Date.now())+String(Math.floor(Math.random()*9999));}
+function today(){return new Date().toISOString().slice(0,10);}
+function nowTime(){return new Date().toTimeString().slice(0,5);}
+function fmtRub(n){return Number(n||0).toLocaleString('ru')+' ₽';}
+function fmtD(d){if(!d)return'';const[y,m,day]=d.split('-');return`${day}.${m}.${y.slice(2)}`;}
+function esc(s){return String(s||'').split('&').join('&amp;').split('<').join('&lt;').split('>').join('&gt;').split('"').join('&quot;');}
+function getBldgs(pid){return S.buildings.filter(b=>b.projectId===pid);}
+function getEnts(bid){return S.entries.filter(e=>e.buildingId===bid);}
+function wtOf(bid,wtId){const b=S.buildings.find(x=>x.id===bid);return b?.workTypes.find(w=>w.id===wtId)||b?.workTypes[0];}
+function entEarn(e){const w=wtOf(e.buildingId,e.workTypeId);return w ? Number(e.volume)*(w.price||0) : 0;}
+function volByWT(bid,wtId){return getEnts(bid).filter(e=>e.workTypeId===wtId).reduce((s,e)=>s+Number(e.volume),0);}
+function getPack(k){return S.matCfg[k]?.pack||MATS.find(m=>m.key===k)?.pack||100;}
+function getMatLabel(k){return S.matCfg[k]?.label||MATS.find(m=>m.key===k)?.label||k;}
+function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2200);}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function act(fn){undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));redoStack=[];fn();persist();render();}
+function undo(){if(!undoStack.length)return;redoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));const p=JSON.parse(undoStack.pop());S=p.S;ui=p.ui;persist();render();toast('↩ Отменено');}
+function redo(){if(!redoStack.length)return;undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));const p=JSON.parse(redoStack.pop());S=p.S;ui=p.ui;persist();render();toast('↪ Повторено');}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw)return JSON.parse(raw);}catch(e){}return JSON.parse(JSON.stringify(DEF_STATE));}
 
-// ========== СОХРАНЕНИЕ ==========
-function save(){try{localStorage.setItem('stroipro_v3',JSON.stringify(S));track('save');}catch(e){}}
-function load(){
-  try{let raw=localStorage.getItem('stroipro_v3');if(raw){let d=JSON.parse(raw);S={...S,...d};if(!S.projects)S.projects=[{id:'p1',name:'Госпиталь'}];if(!S.buildings)S.buildings=[];if(!S.entries)S.entries=[];if(!S.wlog)S.wlog=[];if(!S.goals)S.goals=[];if(!S.notes)S.notes=[];if(!S.matCfg)S.matCfg={};}}catch(e){}
-  if(!S.buildings.length)S.buildings=[{id:'b1',projectId:'p1',name:'ПК 1 этаж',totalArea:257.2,workTypes:[]}];
-  track('load');
-}
-load();
-
-// ========== ХЕЛПЕРЫ ==========
-const today=()=>new Date().toISOString().slice(0,10);
-const uid=()=>String(Date.now())+String(Math.floor(Math.random()*9999));
-const fmtRub=n=>Number(n||0).toLocaleString('ru')+' ₽';
-const esc=s=>String(s||'').replace(/[&<>]/g,m=>({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
-const getBld=()=>S.buildings.find(b=>b.id===ui.bid)||S.buildings[0];
-const getEnts=()=>S.entries.filter(e=>e.buildingId===ui.bid);
-const entEarn=e=>(getWT(e.workTypeId)?.price||0)*e.volume;
-const getWT=(wtId)=>(getBld()?.workTypes||[]).find(w=>w.id===wtId);
-const volByWT=(wtId)=>getEnts().filter(e=>e.workTypeId===wtId).reduce((s,e)=>s+e.volume,0);
-const totalIn=k=>S.wlog.filter(r=>r.key===k).reduce((s,r)=>s+r.qty,0);
-const totalOut=k=>S.entries.filter(e=>!e.noStock).reduce((s,e)=>s+(Number(e.materials?.[k]?.qty)||0),0);
-const rem=k=>totalIn(k)-totalOut(k);
-const getMatLabel=k=>S.matCfg[k]?.label||k;
-
-let ui={tab:'journal',pid:'p1',bid:'b1',exp:null,whHist:null,showHidden:false,wtMats:null};
-
-// ========== ФИКС: УДАЛЕНИЕ ПОЗИЦИЙ НА СКЛАДЕ ==========
-function deleteMaterial(materialKey){
-  if(confirm(`Удалить все данные о материале «${getMatLabel(materialKey)}»? Это удалит ВСЕ приходы.`)){
-    S.wlog=S.wlog.filter(r=>r.key!==materialKey);
-    if(S.matCfg[materialKey])delete S.matCfg[materialKey];
-    save();
-    toast(`🗑 Материал «${getMatLabel(materialKey)}» удалён`);
-    render();
-  }
+function applyTheme(){
+  const t=S.theme||'premium-dark';
+  const themes={'premium-dark':{bg:'#0f0f0d',bg2:'#161614',bg3:'#1e1e1a',card:'#1a1a17',border:'#2c2c28',text:'#ede8dc',muted:'#6a6050',gold:'#d4920a',green:'#3d9e5c',red:'#d95f4f'},'premium-light':{bg:'#f5f2ec',bg2:'#fdfcf8',bg3:'#ede8de',card:'#ffffff',border:'#d8d0c0',text:'#1a1610',muted:'#9a8c70',gold:'#c07808',green:'#2a7a40',red:'#c03030'}};
+  const th=themes[t]||themes['premium-dark'];
+  const r=document.documentElement;
+  r.style.setProperty('--bg',th.bg);r.style.setProperty('--bg2',th.bg2);r.style.setProperty('--bg3',th.bg3);
+  r.style.setProperty('--card',th.card);r.style.setProperty('--border',th.border);r.style.setProperty('--text',th.text);
+  r.style.setProperty('--muted',th.muted);r.style.setProperty('--gold',th.gold);r.style.setProperty('--green',th.green);
+  r.style.setProperty('--red',th.red);
 }
 
-// ========== ФИКС: НОВЫЙ ВИД РАБОТ — ЧИСТЫЕ МАТЕРИАЛЫ ==========
-function showAddWorkType(){
-  ui.wtMats={main:{},consumable:{}};
-  renderWorkTypeModal(false,null);
-}
-
-function showEditWorkType(wt){
-  ui.wtMats=wt.materials?JSON.parse(JSON.stringify(wt.materials)):{main:{},consumable:{}};
-  renderWorkTypeModal(true,wt);
-}
-
-function renderWorkTypeModal(isEdit,wt){
-  const colors=['#d4920a','#4a9fd4','#3d9e5c','#d95f4f','#9b59b6'];
-  const mainMats=['travers','yubka','shpilka','ushi','perim','kronshteyn','tsanga','bolt','gayka','shayba_usl','shayba_ob'];
-  const consumableMats=['disk_cut','bit_ph2','screw_35','disk_grind','marker'];
-  
-  const matsHtml=mainMats.map(k=>{
-    const qty=ui.wtMats.main[k]?.qty||'';
-    const size=ui.wtMats.main[k]?.size||'';
-    return `<div class="flex" style="align-items:center;margin-bottom:6px"><span style="width:100px;font-size:12px">${getMatLabel(k)}</span>
-      <input type="number" id="mat_${k}" value="${qty}" placeholder="шт" style="width:55px;padding:5px;background:#222;border:1px solid #333;color:#fff;border-radius:6px">
-      <input type="number" id="sz_${k}" value="${size}" placeholder="мм" style="width:55px;padding:5px;background:#222;border:1px solid #333;color:#fff;border-radius:6px">
-      <button class="btn-sm" onclick="deleteMaterialFromModal('${k}','main')">✕</button></div>`;
-  }).join('');
-  
-  const consumHtml=consumableMats.map(k=>{
-    const qty=ui.wtMats.consumable[k]?.qty||'';
-    return `<div class="flex" style="align-items:center;margin-bottom:6px"><span style="width:100px;font-size:12px">${getMatLabel(k)}</span>
-      <input type="number" id="cons_${k}" value="${qty}" placeholder="шт" style="width:55px;padding:5px;background:#222;border:1px solid #333;color:#fff;border-radius:6px">
-      <button class="btn-sm" onclick="deleteMaterialFromModal('${k}','consumable')">✕</button></div>`;
-  }).join('');
-  
-  const modal=document.createElement('div');
-  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1000;display:flex;align-items:flex-end;justify-content:center';
-  modal.innerHTML=`<div style="background:#141412;width:100%;max-height:85vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:20px">
-    <div style="font-size:18px;font-weight:800;margin-bottom:16px">${isEdit?'Редактировать вид':'Новый вид работ'}</div>
-    <input type="text" id="wtName" placeholder="Название" value="${wt?.name||''}" style="width:100%;padding:10px;background:#222;border:1px solid #333;color:#fff;border-radius:8px;margin-bottom:12px">
-    <div class="flex" style="margin-bottom:12px">
-      <input type="number" id="wtPrice" placeholder="Цена ₽" value="${wt?.price||350}" style="flex:1;padding:10px;background:#222;border:1px solid #333;color:#fff;border-radius:8px">
-      <select id="wtUnit" style="padding:10px;background:#222;border:1px solid #333;color:#fff;border-radius:8px">
-        <option ${wt?.unit==='м²'?'selected':''}>м²</option><option ${wt?.unit==='пог.м'?'selected':''}>пог.м</option><option ${wt?.unit==='шт'?'selected':''}>шт</option>
-      </select>
-      <input type="number" id="wtTarget" placeholder="Цель" value="${wt?.targetArea||''}" style="flex:1;padding:10px;background:#222;border:1px solid #333;color:#fff;border-radius:8px">
-    </div>
-    <div style="margin-bottom:12px"><div class="card-title">🔩 ОСНОВНЫЕ МАТЕРИАЛЫ</div>${matsHtml}<button class="btn-sm" onclick="addCustomMaterialToModal('main')">+ Добавить материал</button></div>
-    <div><div class="card-title">🔄 РАСХОДНИКИ</div>${consumHtml}<button class="btn-sm" onclick="addCustomMaterialToModal('consumable')">+ Добавить расходник</button></div>
-    <div class="flex" style="margin-top:16px"><button class="btn" onclick="saveWorkTypeModal('${isEdit}', '${wt?.id||''}')">Сохранить</button><button class="btn-outline" onclick="closeModal()">Отмена</button></div>
-  </div>`;
-  document.body.appendChild(modal);
-  window.closeModal=()=>modal.remove();
-}
-
-window.deleteMaterialFromModal=(key,type)=>{
-  if(type==='main')delete ui.wtMats.main[key];
-  else delete ui.wtMats.consumable[key];
-  renderWorkTypeModal(false,null);
-};
-
-window.addCustomMaterialToModal=(type)=>{
-  const customKey='custom_'+Date.now();
-  if(type==='main')ui.wtMats.main[customKey]={qty:'',size:''};
-  else ui.wtMats.consumable[customKey]={qty:'',size:''};
-  renderWorkTypeModal(false,null);
-};
-
-window.saveWorkTypeModal=(isEdit,wtId)=>{
-  const name=document.getElementById('wtName')?.value;
-  if(!name){toast('Введите название');return;}
-  const price=parseFloat(document.getElementById('wtPrice')?.value)||0;
-  const unit=document.getElementById('wtUnit')?.value||'м²';
-  const targetArea=parseFloat(document.getElementById('wtTarget')?.value)||0;
-  const mainMats={};
-  const consumMats={};
-  for(let k in ui.wtMats.main){mainMats[k]={qty:ui.wtMats.main[k].qty||'',size:ui.wtMats.main[k].size||''};}
-  for(let k in ui.wtMats.consumable){consumMats[k]={qty:ui.wtMats.consumable[k].qty||'',size:''};}
-  const materials={main:mainMats,consumable:consumMats};
-  const newWt={id:isEdit?wtId:uid(),name,price,unit,targetArea,materials};
-  const bld=getBld();
-  if(isEdit){
-    const idx=bld.workTypes.findIndex(w=>w.id===wtId);
-    if(idx>=0)bld.workTypes[idx]=newWt;
-  }else{
-    if(!bld.workTypes)bld.workTypes=[];
-    bld.workTypes.push(newWt);
-  }
-  save();
-  closeModal();
-  render();
-};
-
-// ========== ФИКС: КНОПКА РАСХОД НА СКЛАДЕ ==========
-function addStockOut(materialKey){
-  const qty=prompt(`Списать количество (${getMatLabel(materialKey)}):`);
-  if(qty&&parseFloat(qty)>0){
-    S.wlog.push({id:uid(),key:materialKey,qty:-Math.abs(parseFloat(qty)),date:today(),time:new Date().toTimeString().slice(0,5),isOut:true});
-    save();
-    toast(`➖ Списано ${qty} ${getMatLabel(materialKey)}`);
-    render();
-  }
-}
-
-// ========== ИИ-АНАЛИЗ (простая версия) ==========
-function runAIAnalysis(){
-  const entries=getEnts();
-  if(entries.length<3){toast('❓ Добавьте хотя бы 3 записи для анализа');return;}
-  const totalVol=entries.reduce((s,e)=>s+e.volume,0);
-  const totalEarn=entries.reduce((s,e)=>s+entEarn(e),0);
-  const avgPerDay=totalVol/entries.length;
-  let rating=5;
-  if(avgPerDay>20)rating=9;
-  else if(avgPerDay>15)rating=8;
-  else if(avgPerDay>10)rating=7;
-  else if(avgPerDay>5)rating=6;
-  let title=rating>=8?'Профи':rating>=6?'Мастер':'Новичок';
-  const forecast=`При текущем темпе ${avgPerDay.toFixed(1)} м²/день вы закроете 100 м² за ${Math.ceil(100/avgPerDay)} дней.`;
-  alert(`🤖 ИИ-АНАЛИЗ\n\n⭐ Оценка: ${rating}/10 (${title})\n📊 Выработка: ${avgPerDay.toFixed(1)} м²/день\n💰 Заработано: ${fmtRub(totalEarn)}\n📈 Прогноз: ${forecast}\n\n💪 Сильные стороны: стабильная работа\n🎯 Зона роста: увеличьте ежедневный объём на 20%`);
-  track('ai_analysis');
-}
-
-// ========== ОТПРАВКА ЗАКАЗЧИКУ ==========
-function sendToCustomer(){
-  const entries=getEnts();
-  if(!entries.length){toast('Нет записей для отчёта');return;}
-  let total=0,vol=0;
-  entries.forEach(e=>{total+=entEarn(e);vol+=e.volume;});
-  let msg=`📋 ОТЧЁТ ПО ОБЪЕКТУ ${getBld()?.name}\n📅 Период: ${entries[0]?.dateFrom||today()} — ${today()}\n📐 Выполнено: ${vol.toFixed(1)} м²\n💰 Сумма к оплате: ${fmtRub(total)}\n\nС уважением, СТРОИТЕЛЬ.ПРО`;
-  if(navigator.share){
-    navigator.share({title:'Отчёт СТРОИТЕЛЬ.ПРО',text:msg});
-  }else{
-    navigator.clipboard.writeText(msg);
-    toast('📋 Отчёт скопирован, отправьте заказчику');
-  }
-  track('share_report');
-}
-
-// ========== РЕНДЕР ==========
-function toast(msg){let t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2000);}
-
+function initState(){S=load();ui=mkUi();const bs=getBldgs(ui.pid);if(bs.length)ui.bid=bs[0].id;applyTheme();}
 function render(){
   const app=document.getElementById('app');
-  if(!app)return;
-  
-  const freeLimitReached=MODE==='free' && getEnts().length>=S.freeEntryLimit;
-  const isPaid=MODE==='pro' || localStorage.getItem('stroipro_pro')==='true';
-  
-  app.innerHTML=`
-    <div class="header">
-      <div class="logo">СТРОИТЕЛЬ<span>.ПРО</span></div>
-      <div class="flex">
-        <button class="btn-sm" onclick="ui.tab='stats';render()">📊</button>
-        <button class="btn-sm" onclick="S.theme=S.theme==='dark'?'light':'dark';render()">${S.theme==='dark'?'☀️':'🌙'}</button>
-        <button class="btn-sm" onclick="const ds=['mm','cm','m'];S.dimUnit=ds[(ds.indexOf(S.dimUnit)+1)%ds.length];render()">${S.dimUnit.toUpperCase()}</button>
-      </div>
-    </div>
-    
-    <div class="container">
-      <div class="flex" style="margin-bottom:12px;gap:4px;flex-wrap:wrap">
-        ${['journal','warehouse','tasks','earn','settings'].map(t=>`<button class="${ui.tab===t?'btn':'btn-outline'}" style="padding:6px 12px" onclick="ui.tab='${t}';render()">${t==='journal'?'📋 Журнал':t==='warehouse'?'📦 Склад':t==='tasks'?'✅ Задачи':t==='earn'?'💰 Заработок':'⚙️ Настройки'}</button>`).join('')}
-      </div>
-      
-      ${ui.tab==='journal' ? renderJournal(freeLimitReached,isPaid) : 
-        ui.tab==='warehouse' ? renderWarehouse() :
-        ui.tab==='tasks' ? renderTasks() :
-        ui.tab==='earn' ? renderEarn() :
-        renderSettings()}
-    </div>
-  `;
+  if(!S.projects.find(p=>p.id===ui.pid)){ui.pid=S.projects[0]?.id||'';}
+  if(!getBldgs(ui.pid).find(b=>b.id===ui.bid)){ui.bid=getBldgs(ui.pid)[0]?.id||'';}
+  const fab=ui.tab==='journal'?`<button class="fab" data-a="add-entry">+</button>`:ui.tab==='tasks'?`<button class="fab" data-a="add-goal">+</button>`:'';
+  app.innerHTML=renderHdr()+renderUbar()+renderPbar()+renderBtabs()+`<div class="scroll" id="scroll">${renderTab()}</div>`+fab+renderBnav();
 }
+function renderHdr(){const earn=S.entries.reduce((s,e)=>s+entEarn(e),0);return`<div class="hdr"><div class="hdr-l"><div class="logo">СТРОИТЕЛЬ<span class="logo-dot">.</span>ПРО</div><div class="logo-sub">${VER}</div></div><div class="hdr-r"><div class="earn-pill" data-a="cycle-hdr-period">${fmtRub(earn)}</div><button class="ico-btn dim-btn" data-a="cycle-dim">${S.dimUnit.toUpperCase()}</button><button class="ico-btn" data-a="toggle-theme">☀️</button></div></div>`;}
+function renderUbar(){return`<div class="ubar"><button class="ub${undoStack.length?'':' ub-off'}" data-a="undo">↩</button><button class="ub${redoStack.length?'':' ub-off'}" data-a="redo">↪</button><span class="usave">●</span><span class="ubar-dim">${S.dimUnit}</span></div>`;}
+function renderPbar(){return`<div class="pbar">${S.projects.map(p=>`<button class="ppill${p.id===ui.pid?' on':''}" data-a="sel-proj" data-id="${p.id}">${esc(p.name)}</button>`).join('')}<button class="ppill ppill-add" data-a="new-proj">+</button></div>`;}
+function renderBtabs(){const bldgs=getBldgs(ui.pid);if(!bldgs.length)return`<div class="btabs"><span class="btab-empty">Нет корпусов</span></div>`;return`<div class="btabs">${bldgs.map(b=>{const allVol=b.workTypes.reduce((s,wt)=>s+volByWT(b.id,wt.id),0);const pct=b.totalArea>0?Math.min(100,Math.round(allVol/b.totalArea*100)):null;return`<button class="btab${b.id===ui.bid?' on':''}" data-a="sel-bld" data-id="${b.id}"><span>${esc(b.name)}</span>${pct!==null?`<span class="btab-pct">${pct}%</span>`:''}</button>`;}).join('')}<button class="btab btab-add" data-a="new-bld">＋</button></div>`;}
+function renderBnav(){const tabs=[['journal','🔨','Журнал'],['warehouse','📦','Склад'],['tasks','✅','Задачи'],['earn','💰','Заработок'],['settings','⚙️','Настройки']];return`<nav class="bnav"><div class="bnav-in">${tabs.map(([id,ic,lb])=>`<button class="nb${ui.tab===id?' on':''}" data-a="nav" data-tab="${id}"><span class="ni">${ic}</span><span class="nl">${lb}</span></button>`).join('')}</div></nav>`;}
+function renderTab(){if(ui.tab==='journal')return renderJournal();if(ui.tab==='warehouse')return renderWh();if(ui.tab==='tasks')return renderTasks();if(ui.tab==='earn')return renderEarn();if(ui.tab==='settings')return renderSettings();return '';}
+function renderJournal(){
+  const b=S.buildings.find(x=>x.id===ui.bid);
+  if(!b)return'<div class="empty">🏗 Выберите корпус</div>';
+  const wts=b.workTypes;
+  const allEnts=getEnts(ui.bid);
+  const visEnts=allEnts.filter(e=>!e.hidden||ui.showHidden);
+  return`<div class="j-wrap"><div class="wt-grid">${wts.map(wt=>{const done=volByWT(ui.bid,wt.id);const pct=wt.targetArea>0?Math.min(100,done/wt.targetArea*100):null;return`<div class="wtc" data-a="toggle-wt" data-wtid="${wt.id}"><div class="wtc-top"><div class="wtc-dot" style="background:${wt.color}"></div><div class="wtc-name">${esc(wt.name)}</div><div class="wtc-pct" style="color:${pct!==null?(pct>=100?'var(--green)':wt.color):'var(--muted)'}">${pct!==null?pct.toFixed(0)+'%':'—'}</div></div><div class="wtc-nums"><span>${done.toFixed(1)}<small> ${wt.unit}</small></span><span class="wtc-earn">${fmtRub(done*wt.price)}</span></div></div>`;}).join('')}</div><div class="j-bar"><span class="j-cnt">${allEnts.filter(e=>!e.hidden).length} записей</span><button class="sort-btn" data-a="sort-next">↕ ${ui.sort==='date_desc'?'Дата ↓':ui.sort==='date_asc'?'Дата ↑':ui.sort==='vol_desc'?'Объём ↓':ui.sort==='vol_asc'?'Объём ↑':'Сумма ↓'}</button></div><div class="tl">${visEnts.map(e=>{const wt=wts.find(w=>w.id===e.workTypeId);if(!wt)return'';const pay=entEarn(e);const exp=String(ui.exp)===String(e.id);return`<div class="ec"><div class="ec-h" data-a="toggle-ent" data-id="${e.id}"><div class="ec-bar" style="background:${wt.color}"></div><div class="ec-m"><div class="ec-title">${esc(wt.name)}</div><div class="ec-date">${fmtD(e.dateFrom)}${e.dateTo&&e.dateTo!==e.dateFrom?' – '+fmtD(e.dateTo):''}</div></div><div class="ec-n"><div class="ec-vol">${e.volume}<span class="ec-unit"> ${wt.unit}</span></div><div class="ec-earn">${fmtRub(pay)}</div></div><span class="ec-chev">${exp?'▲':'▼'}</span></div>${exp?`<div class="ec-b"><div class="ec-acts"><button class="act-s act-edit" data-a="edit-ent" data-id="${e.id}">✎ Ред.</button><button class="act-s act-copy" data-a="copy-ent" data-id="${e.id}">+ Коп.</button><button class="act-s" data-a="hide-ent" data-id="${e.id}">🙈 Скрыть</button><button class="act-s act-s-del" data-a="del-ent" data-id="${e.id}">✕ Уд.</button></div></div>`:''}</div>`;}).join('')}</div></div>`;}
+function renderWh(){return`<div class="card"><div class="card-title">📦 Склад</div><div class="text-muted">Приходов: ${S.wlog.length}</div><button class="btn btn-gold" data-a="add-wh-sheet">+ Добавить приход</button></div>`;}
+function renderTasks(){return`<div class="card"><div class="card-title">✅ Задачи</div>${S.goals.filter(g=>!g.done).map(g=>`<div class="tr"><button class="tck" data-a="toggle-goal" data-id="${g.id}"></button><div class="tr-b"><div class="tr-txt">${esc(g.text)}</div><div class="tr-meta">${fmtD(g.date)}</div></div></div>`).join('')}<button class="btn btn-gold" data-a="add-goal">+ Добавить задачу</button></div>`;}
+function renderEarn(){const total=S.entries.reduce((s,e)=>s+entEarn(e),0);return`<div class="card text-center"><div class="card-title">💰 Заработок</div><div class="eh-val">${fmtRub(total)}</div><div class="eh-sub">всего</div></div>`;}
+function renderSettings(){return`<div class="card"><div class="card-title">⚙️ Настройки</div><button class="btn btn-gold" data-a="export">📤 Экспорт JSON</button><button class="btn btn-ghost" data-a="import">📥 Импорт</button><button class="btn btn-ghost" data-a="reset">🗑 Сброс</button><div class="text-muted mt-2">📬 Telegram: @Mark8Numb</div></div>`;}
+function emptyScreen(icon,title,sub){return`<div class="empty"><span class="ei">${icon}</span><div class="et">${title}</div><div class="es">${sub}</div></div>`;}
 
-function renderJournal(freeLimitReached,isPaid){
-  const entries=getEnts();
-  const visible=entries.filter(e=>!e.hidden);
-  const freeMsg=MODE==='free' && !isPaid && entries.length>=S.freeEntryLimit ? `<div class="card" style="background:#3d1a1a;border-color:#d95f4f"><div class="card-title">⚠️ ЛИМИТ БЕСПЛАТНОЙ ВЕРСИИ</div>Вы добавили ${entries.length} из ${S.freeEntryLimit} бесплатных записей. Оформите PRO для безлимита.<br><button class="btn" style="margin-top:8px" onclick="alert('PRO: @Mark8Numb')">💎 Получить PRO</button></div>` : '';
-  
-  return `
-    ${freeMsg}
-    <div class="card"><div class="card-title">📋 ЖУРНАЛ (${visible.length})</div>
-    <div class="flex" style="margin-bottom:8px"><button class="btn-sm" onclick="ui.sort=ui.sort==='date_desc'?'date_asc':'date_desc';render()">↕️ Сортировка</button></div>
-    ${visible.length ? visible.map(e=>{
-      const wt=getWT(e.workTypeId);
-      const earn=entEarn(e);
-      return `<div class="card" style="margin-bottom:8px;border-left:3px solid ${wt?.color||'#d4920a'}" onclick="ui.exp=ui.exp===e.id?null:e.id;render()">
-        <div class="flex" style="justify-content:space-between"><div><b>${wt?.name||'—'}</b><br><span style="font-size:10px;color:#8a7a60">${e.dateFrom} → ${e.dateTo}</span></div><div class="earn">${fmtRub(earn)}</div></div>
-        <div class="flex"><span>${e.volume} ${wt?.unit||'м²'}</span></div>
-        ${ui.exp===e.id ? `<div class="flex" style="margin-top:8px"><button class="btn-sm" onclick="event.stopPropagation();copyEntry(e.id)">⧉ Коп.</button>
-        <button class="btn-sm" onclick="event.stopPropagation();S.entries=S.entries.filter(x=>x.id!==e.id);save();render()">✕ Уд.</button>
-        <button class="btn-sm" onclick="event.stopPropagation();e.hidden=!e.hidden;save();render()">👁 Скрыть</button></div>`:''}
-      </div>`;
-    }).join('') : '<div class="card">Нет записей. Нажмите + для добавления</div>'}
-    ${(!freeLimitReached || isPaid) ? `<button class="btn" style="width:100%;margin-top:8px" onclick="addEntry()">+ Добавить работу</button>` : ''}
-    </div>
-  `;
-}
+function sheetEntry(prefill){/* упрощённо для демо */toast('Форма добавления — в разработке');}
+function sheetAddWh(){toast('Форма добавления прихода — в разработке');}
+function sheetGoal(gid){toast('Форма задачи — в разработке');}
+function sheetProj(pid){const name=prompt('Название объекта:');if(name)act(()=>S.projects.push({id:uid(),name}));}
+function sheetBld(bid,pid){const name=prompt('Название корпуса:');if(name)act(()=>S.buildings.push({id:uid(),projectId:pid||ui.pid,name,totalArea:0,workTypes:JSON.parse(JSON.stringify(S.buildings[0]?.workTypes||[]))}));}
+function exportData(){const blob=new Blob([JSON.stringify(S)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`stroitel-pro-${today()}.json`;a.click();toast('📤 Экспорт');}
+function importData(){const inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=e=>{const f=e.target.files[0];const r=new FileReader();r.onload=ev=>{try{const d=JSON.parse(ev.target.result);act(()=>{S=d;if(!S.entries)S.entries=[];if(!S.wlog)S.wlog=[];persist();});toast('📥 Импорт');}catch(ex){toast('Ошибка');}};r.readAsText(f);};inp.click();}
+function resetData(){if(prompt('Введите УДАЛИТЬ:')==='УДАЛИТЬ'){localStorage.removeItem(KEY);initState();undoStack=[];redoStack=[];render();toast('🗑 Сброшено');}}
 
-function addEntry(){
-  const vol=prompt('Объём (м²):');
-  if(vol){
-    S.entries.push({id:uid(),buildingId:ui.bid,workTypeId:S.buildings[0]?.workTypes?.[0]?.id||'wt1',volume:parseFloat(vol),dateFrom:today(),dateTo:today(),notes:'',materials:{},noStock:false});
-    save();
-    track('entry_added',vol);
-    render();
-  }
-}
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-a]');
+  if(!btn)return;
+  const a=btn.dataset.a;
+  if(a==='nav'){ui.tab=btn.dataset.tab;render();}
+  else if(a==='undo'&&undoStack.length)undo();
+  else if(a==='redo'&&redoStack.length)redo();
+  else if(a==='toggle-theme'){const th=['premium-dark','premium-light'];S.theme=th[(th.indexOf(S.theme)+1)%th.length];applyTheme();persist();render();}
+  else if(a==='cycle-dim'){const ds=['mm','cm','m'];S.dimUnit=ds[(ds.indexOf(S.dimUnit)+1)%ds.length];persist();render();}
+  else if(a==='sel-proj'){ui.pid=btn.dataset.id;ui.bid=getBldgs(ui.pid)[0]?.id||'';render();}
+  else if(a==='sel-bld'){ui.bid=btn.dataset.id;render();}
+  else if(a==='new-proj'){sheetProj();}
+  else if(a==='new-bld'){sheetBld();}
+  else if(a==='toggle-ent'){const id=btn.dataset.id;ui.exp=String(ui.exp)===id?null:id;render();}
+  else if(a==='del-ent'){act(()=>S.entries=S.entries.filter(x=>String(x.id)!==btn.dataset.id));}
+  else if(a==='sort-next'){const c=['date_desc','date_asc','vol_desc','vol_asc','earn_desc'];const i=c.indexOf(ui.sort);ui.sort=c[(i+1)%c.length];render();}
+  else if(a==='export')exportData();
+  else if(a==='import')importData();
+  else if(a==='reset')resetData();
+  else if(a==='add-entry')sheetEntry();
+  else if(a==='add-wh-sheet')sheetAddWh();
+  else if(a==='add-goal')sheetGoal();
+  else if(a==='cycle-hdr-period'){const c=['all','day','week','month'];ui.hdrPeriod=c[(c.indexOf(ui.hdrPeriod||'all')+1)%c.length];render();}
+});
 
-function copyEntry(id){
-  const e=S.entries.find(x=>x.id===id);
-  if(e)S.entries.push({...e,id:uid(),dateFrom:today(),dateTo:today()});
-  save();
-  toast('✅ Запись скопирована');
-  render();
-}
+document.addEventListener('change',e=>{if(e.target.dataset.a==='set-dim')S.dimUnit=e.target.value;});
 
-function renderWarehouse(){
-  const mats=['travers','yubka','shpilka','ushi','perim','kronshteyn','tsanga','bolt','gayka','shayba_usl','shayba_ob'];
-  return `<div class="card"><div class="card-title">📦 СКЛАД</div>
-    ${mats.map(k=>{
-      const left=rem(k);
-      const warn=left<0;
-      return `<div class="card" style="margin-bottom:8px;border-left:3px solid ${warn?'#d95f4f':'#3d9e5c'}">
-        <div class="flex" style="justify-content:space-between;align-items:center"><b>${getMatLabel(k)}</b><span class="${warn?'earn':'prod'}">${left} шт</span></div>
-        <div class="flex" style="margin-top:8px"><input type="number" id="inp_${k}" placeholder="+/-" style="flex:1;padding:6px;background:#222;border:1px solid #333;color:#fff;border-radius:6px">
-        <button class="btn-sm" onclick="addStock('${k}',1)">+ Приход</button>
-        <button class="btn-sm" onclick="addStock('${k}',-1)">- Расход</button>
-        <button class="btn-sm" onclick="deleteMaterial('${k}')">🗑</button></div>
-      </div>`;
-    }).join('')}
-  </div>`;
-}
-
-window.addStock=(k,dir)=>{
-  const inp=document.getElementById(`inp_${k}`);
-  const qty=parseFloat(inp?.value)||0;
-  if(qty<=0){toast('Введите количество');return;}
-  S.wlog.push({id:uid(),key:k,qty:dir>0?qty:-qty,date:today(),time:new Date().toTimeString().slice(0,5)});
-  save();
-  inp.value='';
-  toast(`${dir>0?'+ Приход':'➖ Расход'} ${qty} ${getMatLabel(k)}`);
-  render();
-};
-
-function renderTasks(){
-  return `<div class="card"><div class="card-title">✅ ЗАДАЧИ</div>
-    ${S.goals.filter(g=>!g.done).map(g=>`<div class="flex" style="justify-content:space-between;margin-bottom:8px"><span>${esc(g.text)} <span style="font-size:10px;color:#8a7a60">${g.date}</span></span><button class="btn-sm" onclick="g.done=true;g.hidden=true;save();render()">✓</button></div>`).join('')}
-    <button class="btn" style="width:100%;margin-top:8px" onclick="const t=prompt('Задача:');if(t){S.goals.push({id:uid(),text:t,date:today(),done:false});save();render()}">+ Добавить задачу</button>
-  </div>`;
-}
-
-function renderEarn(){
-  const entries=getEnts();
-  const totalEarn=entries.reduce((s,e)=>s+entEarn(e),0);
-  const totalVol=entries.reduce((s,e)=>s+e.volume,0);
-  const avgEarn=totalVol/entries.length||0;
-  return `<div class="card"><div class="card-title">💰 ЗАРАБОТОК</div>
-    <div style="font-size:32px;font-weight:800;color:#3d9e5c">${fmtRub(totalEarn)}</div>
-    <div class="prod" style="font-size:18px">📐 ${totalVol.toFixed(1)} м²</div>
-    <div class="flex" style="margin-top:12px"><button class="btn" onclick="runAIAnalysis()">🤖 ИИ-анализ</button><button class="btn-outline" onclick="sendToCustomer()">📤 Отчёт заказчику</button></div>
-  </div>`;
-}
-
-function renderSettings(){
-  return `<div class="card"><div class="card-title">⚙️ НАСТРОЙКИ</div>
-    <div class="flex" style="margin-bottom:12px"><button class="btn" onclick="exportData()">📤 Экспорт</button><button class="btn-outline" onclick="importData()">📥 Импорт</button></div>
-    <div class="flex"><button class="btn-outline" onclick="alert('PRO: @Mark8Numb')">💎 Купить PRO (499₽/мес)</button></div>
-  </div>`;
-}
-
-function exportData(){
-  const blob=new Blob([JSON.stringify(S,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download=`stroipro_${today()}.json`;
-  a.click();
-  toast('✅ Экспорт готов');
-}
-
-function importData(){
-  const inp=document.createElement('input');
-  inp.type='file';
-  inp.accept='.json';
-  inp.onchange=e=>{
-    const f=e.target.files[0];
-    if(!f)return;
-    const r=new FileReader();
-    r.onload=ev=>{
-      try{
-        const d=JSON.parse(ev.target.result);
-        S={...S,...d};
-        save();
-        toast('📥 Импорт выполнен');
-        render();
-      }catch(ex){toast('Ошибка файла');}
-    };
-    r.readAsText(f);
-  };
-  inp.click();
-}
-
-window.deleteMaterial=deleteMaterial;
-window.copyEntry=copyEntry;
-window.addEntry=addEntry;
-window.addStock=addStock;
-window.runAIAnalysis=runAIAnalysis;
-window.sendToCustomer=sendToCustomer;
-window.exportData=exportData;
-window.importData=importData;
-window.showAddWorkType=showAddWorkType;
-window.showEditWorkType=showEditWorkType;
-
-render();
+initState();render();
 </script>
 </body>
 </html>
