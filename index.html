@@ -868,6 +868,19 @@ b.wn-crit{color:var(--red)!important;font-weight:900!important}
 // ═══════════════════════════════════════════════════════════════
 const KEY='bpro_v20', VER='v2.2', SCHEMA=3;
 
+// ═══════════════════════════════════════════════════════════════
+// 🟢 ТРЕКЕР (аналитика внутри приложения)
+// ═══════════════════════════════════════════════════════════════
+function track(eventName, eventValue = null) {
+  try {
+    let log = JSON.parse(localStorage.getItem('stroitel_track') || '[]');
+    log.push({ e: eventName, v: eventValue, t: Date.now(), d: new Date().toISOString().slice(0,10) });
+    if (log.length > 500) log.shift();
+    localStorage.setItem('stroitel_track', JSON.stringify(log));
+    console.log('📊 Трек:', eventName, eventValue);
+  } catch(e) {}
+}
+
 // ── MATERIALS ─────────────────────────────────────────────────
 const MATS_MAIN=[
   {key:'travers',    label:'Траверс 3м',          pack:10,  iLen:3000, kg:0.8,  cat:'main'},
@@ -969,6 +982,7 @@ function migrate(s){
 }
 
 function load(){
+  track('app_start', 1);
   try{const raw=localStorage.getItem(KEY);if(raw)return migrate(JSON.parse(raw));}catch(e){}
   // Try to migrate from old key
   for(const oldKey of['bpro_v102','bpro_v11','bpro_v10']){
@@ -980,6 +994,7 @@ function load(){
 function initState(){
   S=load();ui=mkUi();
   S.openCount=(S.openCount||0)+1;
+  track('app_opened', S.openCount);
   const bs=getBldgs(ui.pid);if(bs.length)ui.bid=bs[0].id;
   // Auto-transfer overdue goals
   const td=today();(S.goals||[]).forEach(g=>{if(!g.done&&!g.hidden&&g.date<td)g.date=td;});
@@ -987,6 +1002,7 @@ function initState(){
   // Export reminder every 7 opens
   if(S.openCount%7===0&&S.openCount>0){
     setTimeout(()=>toast('💾 Не забудьте экспортировать данные!',4000),1500);
+    track('export_reminder_shown', S.openCount);
   }
 }
 
@@ -1067,12 +1083,13 @@ function persist(){
   });
 }
 function act(fn,noHist){
+  track('action_performed', fn.name || 'unknown');
   if(!noHist){undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));
     if(undoStack.length>40)undoStack.shift();redoStack=[];}
   fn();persist();render();
 }
-function undo(){if(!undoStack.length)return;redoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));const p=JSON.parse(undoStack.pop());S=p.S;ui=p.ui;persist();render();toast('↩ Отменено');}
-function redo(){if(!redoStack.length)return;undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));const p=JSON.parse(redoStack.pop());S=p.S;ui=p.ui;persist();render();toast('↪ Повторено');}
+function undo(){if(!undoStack.length)return;track('undo');redoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));const p=JSON.parse(undoStack.pop());S=p.S;ui=p.ui;persist();render();toast('↩ Отменено');}
+function redo(){if(!redoStack.length)return;track('redo');undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));const p=JSON.parse(redoStack.pop());S=p.S;ui=p.ui;persist();render();toast('↪ Повторено');}
 
 function applyTheme(){
   const r=document.documentElement;
@@ -1111,23 +1128,11 @@ function applyTheme(){
 }
 function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return r+','+g+','+b;}
 
-
-
-
-
-
-
-
-
 function remKg(k,bid){return(rem(k,bid)*getKg(k)).toFixed(2);}
-
-
-
-
-
 
 function render(){
   const app=document.getElementById('app');if(!app)return;
+  track('render', ui.tab);
   const sc=document.getElementById('scroll');const sy=sc?sc.scrollTop:0;
   if(!S.projects.find(p=>p.id===ui.pid)){ui.pid=S.projects[0]?.id||'';}
   if(!getBldgs(ui.pid).find(b=>b.id===ui.bid)){ui.bid=getBldgs(ui.pid)[0]?.id||'';}
@@ -1138,7 +1143,6 @@ function render(){
     `\x3cdiv class="scroll" id="scroll">${renderTab()}\x3c/div>`+fab+renderBnav();
   requestAnimationFrame(()=>{const s2=document.getElementById('scroll');if(s2&&sy)s2.scrollTop=sy;});
 }
-
 
 function renderHdr(){
   const earn=getHdrEarn();
@@ -1632,7 +1636,7 @@ function renderSettings(){
 
 function emptyScreen(icon,title,sub){return`\x3cdiv class="empty">\x3cspan class="ei">${icon}\x3c/span>\x3cdiv class="et">${title}\x3c/div>\x3cdiv class="es">${sub}\x3c/div>\x3c/div>`;}
 
-// ── SHEETS ────────────────────────────────────────────────────
+// ── SHEETS (оставлены основные для работы) ────────────────────────────────────────────────────
 function sheetEntry(prefill){
   const b=S.buildings.find(x=>x.id===ui.bid);if(!b)return;
   const wts=b.workTypes||DEF_WTS;const f=prefill||{};const td=today();
@@ -1843,14 +1847,12 @@ function _renderWtSheet(bid,reopen,isEdit,existingWt){
   setTimeout(_wmWire,50);
 }
 
-
 function sheetEditWt(bid,wtid){
   const b=S.buildings.find(x=>x.id===bid);if(!b)return;
   const wt=(b.workTypes||DEF_WTS).find(w=>w.id===wtid);if(!wt)return;
   window._wtMats=MATS_MAIN.map(m=>({key:m.key,label:getMatLabel(m.key),iLen:getILen(m.key)||0,qty:'',size:''}));
   _renderWtSheet(bid,false,true,wt);
 }
-
 
 function sheetMat(key){
   const iLen=getILen(key),pSz=getPack(key),lbl=getMatLabel(key),kg=getKg(key);
@@ -1874,6 +1876,7 @@ function exportData(){
   const url=URL.createObjectURL(blob);const a=document.createElement('a');
   a.href=url;a.download='stroitel-pro-'+today()+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
   S.lastExportReminder=today();persist();toast('📤 Файл сохранён');
+  track('export_json');
 }
 function importData(){
   const inp=document.createElement('input');inp.type='file';inp.accept='.json';
@@ -1881,17 +1884,16 @@ function importData(){
     const r=new FileReader();r.onload=ev=>{try{
       const d=JSON.parse(ev.target.result);
       if(!d.projects&&!d.entries&&!d.wlog){toast('⚠ Неверный формат файла');return;}
-      // No confirm() — just import and show toast with undo option
       undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));
       const newS=migrate(d);
       localStorage.setItem(KEY,JSON.stringify(newS));
       S=newS;
-      // Reset UI to first project/building
       ui=mkUi();
       if(S.projects.length)ui.pid=S.projects[0].id;
       const bs=getBldgs(ui.pid);if(bs.length)ui.bid=bs[0].id;
       render();
       toast('📥 Загружено: '+S.entries.length+' записей (↩ Отмена)');
+      track('import_json', S.entries.length);
     }catch(ex){toast('⚠ Ошибка: '+ex.message);}};r.readAsText(f);};
   document.body.appendChild(inp);inp.click();document.body.removeChild(inp);
 }
@@ -1901,6 +1903,7 @@ let lpt=null;
 document.addEventListener('click',e=>{
   const btn=e.target.closest('[data-a]');if(!btn)return;
   const a=btn.dataset.a;
+  track('click', a);
   switch(a){
     case 'nav':           ui.tab=btn.dataset.tab;render();break;
     case 'undo':          undo();break;
@@ -1926,13 +1929,13 @@ document.addEventListener('click',e=>{
     case 'import':        importData();break;
     case 'sort-next':     {const c=['date_desc','date_asc','vol_desc','vol_asc','earn_desc'];const i=c.indexOf(ui.sort||'date_desc');ui.sort=c[(i+1)%c.length];render();break;}
     case 'toggle-ent':    {const id=btn.dataset.id;ui.exp=(String(ui.exp)===id?null:id);render();break;}
-    case 'edit-ent':      {const ent=S.entries.find(x=>String(x.id)===String(btn.dataset.id));if(ent)sheetEntry({...JSON.parse(JSON.stringify(ent)),_editId:String(ent.id)});break;}
-    case 'copy-ent':      {const ent=S.entries.find(x=>String(x.id)===String(btn.dataset.id));if(ent)sheetEntry({...JSON.parse(JSON.stringify(ent)),dateFrom:today(),dateTo:today()});break;}
-    case 'hide-ent':      act(()=>{const e=S.entries.find(x=>String(x.id)===String(btn.dataset.id));if(e)e.hidden=!e.hidden;});break;
+    case 'edit-ent':      {const ent=S.entries.find(x=>String(x.id)===String(btn.dataset.id));if(ent)sheetEntry({...JSON.parse(JSON.stringify(ent)),_editId:String(ent.id)});track('edit_entry');break;}
+    case 'copy-ent':      {const ent=S.entries.find(x=>String(x.id)===String(btn.dataset.id));if(ent)sheetEntry({...JSON.parse(JSON.stringify(ent)),dateFrom:today(),dateTo:today()});track('copy_entry');break;}
+    case 'hide-ent':      act(()=>{const e=S.entries.find(x=>String(x.id)===String(btn.dataset.id));if(e)e.hidden=!e.hidden;});track('hide_entry');break;
     case 'toggle-hidden': ui.showHidden=!ui.showHidden;render();break;
-    case 'del-ent':       {const _i=btn.dataset.id;act(()=>S.entries=S.entries.filter(e=>String(e.id)!==_i));toast('🗑 Удалено (↩ отмена)');break;}
+    case 'del-ent':       {const _i=btn.dataset.id;act(()=>S.entries=S.entries.filter(e=>String(e.id)!==_i));toast('🗑 Удалено (↩ отмена)');track('delete_entry');break;}
     case 'del-all-hidden':{const cnt=S.entries.filter(e=>e.hidden).length;act(()=>S.entries=S.entries.filter(e=>!e.hidden));ui.showHidden=false;toast('🗑 Удалено: '+cnt);break;}
-    case 'add-goal':      sheetGoal();break;
+    case 'add-goal':      sheetGoal();track('add_goal');break;
     case 'edit-goal':     sheetGoal(btn.dataset.id);break;
     case 'toggle-goal':   {const g=S.goals.find(x=>String(x.id)===String(btn.dataset.id));if(!g)return;
       if(g.done)act(()=>{g.done=false;g.hidden=false;});
@@ -1949,11 +1952,11 @@ document.addEventListener('click',e=>{
       const bid=document.getElementById('whbid')?.value||ui.bid;
       if(!k||!q){toast('⚠ Укажите материал и кол-во');return;}
       act(()=>S.wlog.push({id:uid(),key:k,qty:q,date:d,time:t,buildingId:bid}));
-      closeModal();toast('✓ Приход добавлен');break;}
+      closeModal();toast('✓ Приход добавлен');track('stock_added', k);break;}
     case 'add-wh':        {const k=btn.dataset.key,inp=document.querySelector(`[data-wk="${k}"]`);
       const qty=parseInt(inp?.value)||0;if(qty<=0){toast('⚠ Введите кол-во');return;}
       act(()=>S.wlog.push({id:uid(),key:k,qty,date:today(),time:nowTime(),buildingId:ui.bid}));
-      if(inp)inp.value='';toast('✓ +'+qty+' '+getMatLabel(k));break;}
+      if(inp)inp.value='';toast('✓ +'+qty+' '+getMatLabel(k));track('stock_quick_add', k);break;}
     case 'toggle-wh-hist':ui.whHist=(ui.whHist===btn.dataset.key?null:btn.dataset.key);render();break;
     case 'wh-sub':        ui.whSub=btn.dataset.s;render();break;
     case 'wh-bld':        ui.whBldFilter=btn.dataset.bid;render();break;
@@ -1973,13 +1976,11 @@ document.addEventListener('click',e=>{
       const unit=document.getElementById('wtu')?.value||'м²',color=document.getElementById('wtc')?.value||'#d4920a';
       const targetArea=parseFloat(document.getElementById('wta')?.value)||0;
       if(!name){toast('Введите название');return;}
-      // Collect materials
       const wtMats={};
       (window._wtMats||[]).forEach(m=>{if(m.qty)wtMats[m.key]={qty:m.qty,size:m.size||''};});
       MATS_CONSUMABLES.forEach(m=>{const q=document.getElementById('wmc_'+m.key)?.value||'';if(q)wtMats[m.key]={qty:q,size:''};});
       const bid5=btn.dataset.bid||ui.bid;
       act(()=>{const b5=S.buildings.find(x=>x.id===bid5);if(b5){if(!b5.workTypes)b5.workTypes=[];b5.workTypes.push({id:uid(),name,price,unit,color,targetArea});}
-        // Auto-add stock entry if materials specified
         if(Object.keys(wtMats).length>0){S.entries.push({id:uid(),buildingId:bid5,dateFrom:today(),dateTo:today(),workTypeId:'',volume:0,notes:'Начало вида: '+name,materials:wtMats,noStock:false,created:new Date().toISOString()});}
       });
       closeModal();toast('✓ Вид добавлен'+(Object.keys(wtMats).length>0?' + материалы':''));if(btn.dataset.reopen==='true')sheetEntry();break;}
@@ -2004,14 +2005,13 @@ document.addEventListener('click',e=>{
         closeModal();toast('✓ Обновлено');}
       else{act(()=>S.entries.push({id:uid(),buildingId:ui.bid,dateFrom:df,dateTo:dt||df,workTypeId:wt2,volume:vol,notes,materials,noStock:noStock2,created:new Date().toISOString()}));
         closeModal();
-        // Praise by volume
         const praiseMsg=vol>=30?'🏆 Рекорд! '+vol+' '+((b2.workTypes||DEF_WTS).find(w=>w.id===wt2)?.unit||'м²')+'!'
           :vol>=15?'💪 Отлично! '+vol+' м² — хорошая выработка!'
           :vol>=5?'👍 Неплохо! '+vol+' м²'
           :'';
         if(praiseMsg)setTimeout(()=>toast(praiseMsg,3000),400);
         if(noteText){setTimeout(()=>{if(confirm('Создать задачу из примечания?\n«'+noteText+'»')){act(()=>{S.goals.push({id:uid(),text:noteText,date:today(),time:'',done:false,hidden:false,created:new Date().toISOString()});S.notes.push({id:uid(),text:noteText,date:today(),source:(b2.workTypes||DEF_WTS).find(w=>w.id===wt2)?.name||''});});toast('✓ Задача и заметка созданы');}},300);}
-        toast('✓ Запись добавлена');}break;}
+        toast('✓ Запись добавлена');track('entry_added', vol);}break;}
     case 'save-proj':     {const name=document.getElementById('pn')?.value?.trim();if(!name)return;const pid2=btn.dataset.id;if(pid2)act(()=>S.projects=S.projects.map(p=>p.id===pid2?{...p,name}:p));else act(()=>S.projects.push({id:uid(),name}));closeModal();break;}
     case 'save-bld':      {const name=document.getElementById('bn')?.value?.trim(),area=parseFloat(document.getElementById('ba')?.value)||0;const bid2=btn.dataset.bid,pid3=btn.dataset.pid||ui.pid;if(!name)return;
       if(bid2)act(()=>S.buildings=S.buildings.map(b=>b.id===bid2?{...b,name,totalArea:area}:b));
@@ -2025,16 +2025,16 @@ document.addEventListener('click',e=>{
       if(!txt){toast('Введите задачу');return;}const gid=btn.dataset.id;
       if(gid)act(()=>{const g=S.goals.find(x=>x.id===gid);if(g){g.text=txt;g.date=gdate||g.date;g.time=gtime;}});
       else act(()=>S.goals.push({id:uid(),text:txt,date:gdate||today(),time:gtime,done:false,hidden:false,created:new Date().toISOString()}));
-      closeModal();toast('✓ Задача сохранена');break;}
+      closeModal();toast('✓ Задача сохранена');track('goal_added');break;}
     case 'del-proj':      {if(confirm('Удалить объект?')){act(()=>{const pid4=btn.dataset.id;const bids=S.buildings.filter(b=>b.projectId===pid4).map(b=>b.id);S.entries=S.entries.filter(e=>!bids.includes(e.buildingId));S.buildings=S.buildings.filter(b=>b.projectId!==pid4);S.projects=S.projects.filter(p=>p.id!==pid4);if(S.projects.length){ui.pid=S.projects[0].id;ui.bid=getBldgs(ui.pid)[0]?.id||'';}});}break;}
     case 'del-bld':       {if(confirm('Удалить корпус?')){act(()=>{const bid3=btn.dataset.bid;S.entries=S.entries.filter(e=>e.buildingId!==bid3);S.buildings=S.buildings.filter(b=>b.id!==bid3);ui.bid=getBldgs(ui.pid)[0]?.id||'';});}break;}
     case 'set-theme': S.theme=btn.dataset.t;applyTheme();persist();render();break;
-    case 'buy-pro': toast('🚀 Свяжитесь: @Mark8Numb в Telegram',4000);break;
+    case 'buy-pro': toast('🚀 Свяжитесь: @Mark8Numb в Telegram',4000);track('pro_click');break;
     case 'cycle-dim': {const ds=['mm','cm','m'];act(()=>S.dimUnit=ds[(ds.indexOf(S.dimUnit)+1)%ds.length]);break;}
     case 'earn-period':   ui.earnPeriod=btn.dataset.p;render();break;
     case 'cycle-hdr-period': {const c=['all','day','week','month'];
       ui.hdrPeriod=c[(c.indexOf(ui.hdrPeriod||'all')+1)%c.length];render();break;}
-    case 'reset':         {const c=prompt('Введите УДАЛИТЬ:');if(c==='УДАЛИТЬ'){localStorage.removeItem(KEY);initState();undoStack=[];redoStack=[];render();toast('🗑 Сброшено');}break;}
+    case 'reset':         {const c=prompt('Введите УДАЛИТЬ:');if(c==='УДАЛИТЬ'){localStorage.removeItem(KEY);initState();undoStack=[];redoStack=[];render();toast('🗑 Сброшено');track('reset_data');}break;}
   }
 });
 
@@ -2061,6 +2061,7 @@ function showOnboard(){
   if(localStorage.getItem('bpro_onboarded'))return;
   const ob=document.createElement('div');ob.id='onboard';ob.className='onboard';
   document.body.appendChild(ob);renderOb();
+  track('onboard_shown');
 }
 function renderOb(){
   const ob=document.getElementById('onboard');if(!ob)return;
@@ -2076,6 +2077,7 @@ function nextOb(){
   if(obStep>=OB_STEPS.length){
     localStorage.setItem('bpro_onboarded','1');
     document.getElementById('onboard')?.remove();
+    track('onboard_completed');
     return;
   }
   renderOb();
