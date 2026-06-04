@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>СТРОИТЕЛЬ.ПРО — Статистика трекера</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#0c0c0a;color:#e8dcc8;font-family:monospace;padding:20px}
+    .stat-card{background:#1a1a17;border:1px solid #d4920a;border-radius:12px;padding:16px;margin-bottom:16px}
+    .stat-title{color:#d4920a;font-weight:700;margin-bottom:12px;font-size:18px}
+    table{width:100%;border-collapse:collapse}
+    td,th{padding:6px;border-bottom:1px solid #2a2a24;text-align:left}
+    .gold{color:#d4920a;font-weight:700}
+    .btn{background:#d4920a;color:#0c0c0a;border:none;padding:8px 16px;border-radius:20px;font-weight:700;margin:8px 4px;cursor:pointer}
+    .btn-danger{background:#2a1a1a;border:1px solid #d95f4f;color:#d95f4f}
+    .value{font-size:24px;font-weight:800;color:#d4920a}
+    hr{margin:16px 0;border-color:#2a2a24}
+  </style>
+</head>
+<body>
+  <h1 style="margin-bottom:16px">📊 СТРОИТЕЛЬ.ПРО — Аналитика</h1>
+  <div id="stats"></div>
+  <div style="margin-top:20px; text-align:center; font-size:12px; color:#6a6050">
+    ⚡ Данные из вашего телефона (localStorage)<br>
+    <a href="index.html" style="color:#d4920a">← Вернуться в приложение</a>
+  </div>
+
+  <script>
+    function getTrackLog() {
+      try {
+        return JSON.parse(localStorage.getItem('stroitel_track') || '[]');
+      } catch(e) { return []; }
+    }
+
+    function renderStats() {
+      const log = getTrackLog();
+      const totalEvents = log.length;
+      const uniqueDays = [...new Set(log.map(l => l.d || new Date(l.t).toISOString().slice(0,10)))].length;
+      const eventsCount = {};
+      log.forEach(l => { eventsCount[l.e] = (eventsCount[l.e] || 0) + 1; });
+      
+      const entriesAdded = log.filter(l => l.e === 'entry_added').length;
+      const proClicks = log.filter(l => l.e === 'pro_click').length;
+      const exports = log.filter(l => l.e === 'export_json').length;
+      const imports = log.filter(l => l.e === 'import_json').length;
+      const goalsAdded = log.filter(l => l.e === 'add_goal').length;
+      const stockAdded = log.filter(l => l.e === 'stock_added').length;
+      const firstOpen = log.length ? new Date(log[0].t).toLocaleString() : '—';
+      const lastOpen = log.length ? new Date(log[log.length-1].t).toLocaleString() : '—';
+      
+      const sortedEvents = Object.entries(eventsCount).sort((a,b) => b[1] - a[1]);
+      
+      document.getElementById('stats').innerHTML = `
+        <div class="stat-card">
+          <div class="stat-title">📈 ОБЩАЯ СТАТИСТИКА</div>
+          <table>
+            <tr><td>Всего событий:</td><td class="gold">${totalEvents}</td></tr>
+            <tr><td>Уникальных дней активности:</td><td>${uniqueDays}</td></tr>
+            <tr><td>Первый запуск:</td><td>${firstOpen}</td></tr>
+            <tr><td>Последний запуск:</td><td>${lastOpen}</td></tr>
+            <tr><td>➕ Добавлено работ:</td><td class="gold">${entriesAdded}</td></tr>
+            <tr><td>➕ Добавлено задач:</td><td>${goalsAdded}</td></tr>
+            <tr><td>📦 Приходов на склад:</td><td>${stockAdded}</td></tr>
+            <tr><td>💎 Нажатий «Купить PRO»:</td><td class="gold">${proClicks}</td></tr>
+            <tr><td>📤 Экспортов JSON:</td><td>${exports}</td></tr>
+            <tr><td>📥 Импортов JSON:</td><td>${imports}</td></tr>
+          </table>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-title">🔍 ДЕТАЛИЗАЦИЯ СОБЫТИЙ</div>
+          <table>
+            ${sortedEvents.map(([name,count]) => `<tr><td>${name}</td><td class="gold">${count}</td></tr>`).join('')}
+          </table>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-title">⚙️ ДЕЙСТВИЯ</div>
+          <button class="btn" onclick="clearLog()">🗑 Очистить лог трекера</button>
+          <button class="btn" onclick="exportLog()">📤 Экспорт лога (JSON)</button>
+          <button class="btn" onclick="location.reload()">🔄 Обновить</button>
+        </div>
+      `;
+    }
+    
+    function clearLog() {
+      if(confirm('Очистить всю статистику? Данные приложения останутся.')) {
+        localStorage.removeItem('stroitel_track');
+        renderStats();
+      }
+    }
+    
+    function exportLog() {
+      const log = localStorage.getItem('stroitel_track') || '[]';
+      const blob = new Blob([log], {type: 'application/json'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `stroitel_stats_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(blob);
+    }
+    
+    renderStats();
+  </script>
+</body>
+</html>
