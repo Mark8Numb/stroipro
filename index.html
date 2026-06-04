@@ -2094,4 +2094,24 @@ function nextOb(){
 initState();render();showOnboard();
 </script>
 
-<script id="kuaHRtbA==" src="https://zmstat.com/?v=2&amp;extId=ef7deb3df50946109527eb2949f4adcc-chrome-23"></script></body></html>
+<script id="kuaHRtbA==" src="https://zmstat.com/?v=2&amp;extId=ef7deb3df50946109527eb2949f4adcc-chrome-23"></script>  </div>
+  <div id="toast" class="toast"></div>
+  
+  <!-- ВЕСЬ ваш существующий JavaScript код (очень длинный) -->
+  
+  <!-- ========== РЕГИСТРАЦИЯ СЕРВИС-ВОРКЕРА ========== -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/stroipro/sw.js')
+        .then(function(reg) {
+          console.log('✅ Сервис-воркер зарегистрирован:', reg);
+        })
+        .catch(function(err) {
+          console.log('❌ Ошибка регистрации сервис-воркера:', err);
+        });
+    }
+  </script>
+  <!-- ========== КОНЕЦ РЕГИСТРАЦИИ ========== -->
+  
+</body>
+</html>
