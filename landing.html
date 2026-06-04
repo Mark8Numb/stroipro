@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>СТРОИТЕЛЬ.ПРО — Учёт работ и материалов на стройке</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',sans-serif;background:#f5f3ef;color:#1a1a14;line-height:1.5}
+    .container{max-width:1100px;margin:0 auto;padding:0 24px}
+    .btn{display:inline-block;padding:12px 28px;border-radius:50px;font-weight:700;text-decoration:none;transition:0.2s;border:none;cursor:pointer;font-size:14px}
+    .btn-gold{background:#d4920a;color:#fff;box-shadow:0 2px 12px rgba(212,146,10,0.3)}
+    .btn-gold:hover{transform:scale(0.97)}
+    .btn-white{background:#fff;color:#1a1a14;border:1px solid #e0d6c8}
+    .btn-white:hover{background:#f0ebe2}
+    .btn-dark{background:#1a1a1a;color:#fff}
+    .btn-dark:hover{background:#333}
+    .btn-outline-dark{background:transparent;border:1.5px solid #1a1a1a;color:#1a1a1a}
+    .btn-outline-dark:hover{background:#f0f0f0}
+    .badge{background:#d4920a10;border:1px solid #d4920a30;border-radius:30px;padding:4px 12px;font-size:10px;font-weight:700;color:#d4920a;display:inline-block}
+    .beta-badge{background:#e8e0d4;color:#8a7a60;border:none;font-size:9px;padding:2px 8px;margin-left:8px;border-radius:20px}
+    .header{padding:16px 0;background:#fff;border-bottom:1px solid #e8e0d4;position:sticky;top:0;z-index:100}
+    .header-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .logo{font-size:20px;font-weight:800;background:linear-gradient(135deg,#1a1a14,#5a4a30);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .nav a{color:#5a4a30;text-decoration:none;margin-left:24px;font-size:13px;font-weight:600}
+    .hero{padding:50px 0 40px;background:linear-gradient(135deg,#fefcf8,#f5f3ef)}
+    .hero-inner{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+    .hero-text{flex:1}
+    .hero-text h1{font-size:42px;font-weight:900;line-height:1.2;margin:16px 0}
+    .hero-text h1 span{background:linear-gradient(135deg,#d4920a,#c07e06);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-text p{font-size:16px;color:#5a5a4a;margin:20px 0}
+    .stats-mini{display:flex;gap:24px;margin-top:24px}
+    .stats-mini div strong{display:block;font-size:20px;color:#d4920a}
+    .stats-mini div span{font-size:12px;color:#8a7a60}
+    .hero-image{flex:1;background:#fff;border-radius:28px;padding:20px;text-align:center;border:1px solid #e8e0d4}
+    .section-title{font-size:28px;font-weight:800;text-align:center;margin:50px 0 30px}
+    .section-title span{color:#d4920a}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:30px 0}
+    .card{background:#fff;border-radius:24px;padding:24px;box-shadow:0 4px 16px rgba(0,0,0,0.03);border:1px solid #e8e0d4;transition:transform 0.2s}
+    .card:hover{transform:translateY(-2px)}
+    .card h3{font-size:18px;margin:12px 0 8px}
+    .card p{font-size:13px;color:#5a5a4a}
+    .emoji-big{font-size:36px}
+    .card-minimal{border-top:3px solid #d4920a;padding:20px 0 0;background:transparent;box-shadow:none}
+    .specs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;background:#fff;border-radius:24px;padding:32px;margin:30px 0;border:1px solid #e8e0d4}
+    .spec-item{text-align:center}
+    .spec-number{font-size:32px;font-weight:800;color:#d4920a}
+    .problem-block{background:#fff;border-radius:24px;padding:32px;margin:30px 0;border-left:4px solid #d4920a}
+    .screenshots{display:flex;gap:20px;justify-content:center;margin:30px 0;flex-wrap:wrap}
+    .screenshot-img{width:180px;border-radius:24px;border:1px solid #d0c8b8;box-shadow:0 8px 20px rgba(0,0,0,0.05)}
+    .pricing-block{background:#1a1a1a;border-radius:32px;padding:48px;margin:50px 0;text-align:center;color:#fff}
+    .pricing-block .price{font-size:48px;font-weight:800;color:#d4920a;margin:16px 0}
+    .footer{text-align:center;padding:40px 0;border-top:1px solid #e8e0d4;color:#8a7a60;font-size:12px}
+    @media(max-width:700px){.hero-text h1{font-size:32px}.screenshot-img{width:140px}}
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <div class="logo">СТРОИТЕЛЬ.ПРО</div>
+    <div class="nav">
+      <a href="#features">Возможности</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#download">Скачать</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ========== БЛОК 2 — ПРОДУКТОВЫЙ (экономия, цифры) ========== -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <div class="badge">⭐ Уже 150+ бригад используют</div>
+        <h1>Вы теряете до 20% материалов<br>и <span>не замечаете</span></h1>
+        <p>Журнал работ, склад, контроль выработки — без интернета. Начните экономить сегодня.</p>
+        <div class="stats-mini">
+          <div><strong>420+</strong><span>часов сохранено</span></div>
+          <div><strong>34%</strong><span>меньше перерасхода</span></div>
+        </div>
+        <div style="margin-top:24px">
+          <a class="btn btn-gold" href="#download">Начать экономить</a>
+          <a class="btn btn-white" href="#pricing" style="margin-left:12px">Что даёт PRO</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        📋 Журнал · 📦 Склад · ✅ Задачи<br>
+        <span style="font-size:12px;color:#8a7a60">7 вкладок · 12 материалов · 104 КБ</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== БЛОК 3 — МИНИМАЛИСТИЧНЫЙ (коротко) ========== -->
+  <section id="features" style="background:#fff; padding:50px 0">
+    <div class="container">
+      <div class="section-title">Всё, что нужно <span>прорабу</span></div>
+      <div class="grid">
+        <div class="card card-minimal"><span style="font-size:32px">📋</span><h3>Журнал работ</h3><p>Дата, вид работ, объём, цена. Сортировка, скрытие, редактирование.</p></div>
+        <div class="card card-minimal"><span style="font-size:32px">📦</span><h3>Склад материалов</h3><p>12+ позиций. Приход, расход, остаток, пачки, метры. Дефицит — красным.</p></div>
+        <div class="card card-minimal"><span style="font-size:32px">✅</span><h3>Задачи на день</h3><p>Просроченные → красным, сегодня → золотом, выполненные скрываются.</p></div>
+        <div class="card card-minimal"><span style="font-size:32px">💰</span><h3>Заработок</h3><p>День / неделя / месяц. По корпусам, по видам работ.</p></div>
+        <div class="card card-minimal"><span style="font-size:32px">📐</span><h3>Калькулятор Clip-in <span class="beta-badge">Beta</span></h3><p>Траверс, шпильки, уши, периметр. Сравнение со складом. <span style="font-size:11px;color:#d4920a">⚡ В разработке</span></p></div>
+        <div class="card card-minimal"><span style="font-size:32px">✏️</span><h3>Планировщик <span class="beta-badge">Скоро</span></h3><p>6 форм, SVG-схема. Расчёт материалов по комнатам. <span style="font-size:11px;color:#d4920a">✨ Готовится</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== СКРИНШОТЫ (реальные изображения) ========== -->
+  <div class="container">
+    <div class="section-title">Как это <span>выглядит</span></div>
+    <div class="screenshots">
+      <img class="screenshot-img" src="screenshot-journal.jpg" alt="Журнал работ">
+      <img class="screenshot-img" src="screenshot-notes.jpg" alt="Заметки и задачи">
+      <img class="screenshot-img" src="screenshot-earn.jpg" alt="Заработок">
+    </div>
+    <p style="text-align:center; font-size:13px; color:#8a7a60; margin-top:-10px">*Реальные скриншоты из приложения. Данные обезличены.</p>
+  </div>
+
+  <!-- ========== БЛОК 4 — ТЕХНИЧЕСКИЙ (характеристики) ========== -->
+  <section style="background:#fff; padding:50px 0">
+    <div class="container">
+      <div class="section-title">Технические <span>характеристики</span></div>
+      <div class="specs-grid">
+        <div class="spec-item"><div class="spec-number">104 КБ</div><span>размер приложения</span></div>
+        <div class="spec-item"><div class="spec-number">0</div><span>внешних зависимостей</span></div>
+        <div class="spec-item"><div class="spec-number">7</div><span>функциональных вкладок</span></div>
+        <div class="spec-item"><div class="spec-number">12+</div><span>материалов на складе</span></div>
+        <div class="spec-item"><div class="spec-number">6</div><span>тем оформления</span></div>
+        <div class="spec-item"><div class="spec-number">∞</div><span>офлайн</span></div>
+      </div>
+      <p style="text-align:center; color:#8a7a60; font-size:13px">Данные хранятся только на вашем телефоне (localStorage). Экспорт JSON для бэкапов.</p>
+    </div>
+  </section>
+
+  <!-- ========== БЛОК 5 — ЭМОЦИОНАЛЬНЫЙ (человеческий отзыв) ========== -->
+  <div class="container">
+    <div class="problem-block">
+      <div class="badge" style="margin-bottom:12px">📢 РЕАЛЬНАЯ ИСТОРИЯ</div>
+      <p style="font-size:15px; line-height:1.5; margin-bottom:16px; color:#5a5a4a">
+        <strong style="color:#1a1a14">«Раньше я записывал всё в блокнот и в телефоне заметками.</strong>  
+        В конце месяца сидел часами — складывал, сверял, ругался с заказчиком.  
+        А однажды не досчитался 20% материала — просто потерял учёт. Денег тех уже не вернуть».
+      </p>
+      <div class="badge" style="margin-bottom:12px; margin-top:16px">⚡ КАК СТАЛО</div>
+      <p style="font-size:15px; line-height:1.5; margin-bottom:16px; color:#5a5a4a">
+        «Теперь открываю <strong>СТРОИТЕЛЬ.ПРО</strong> на телефоне:  
+        ➕ добавил работу → указал объём → списались материалы.  
+        📊 Всё на одной вкладке: сколько сделал, сколько заработал, что осталось на складе.  
+        Заказчику скидываю скриншот — споров нет.  
+        И больше не теряю ни часы, ни материалы».
+      </p>
+      <div class="badge" style="margin-bottom:8px; background:#d4920a10; border-color:#d4920a30">💡 КСТАТИ</div>
+      <p style="color:#5a5a4a; font-size:13px">
+        Первые 50 записей — бесплатно. Просто вводи учёт — приложение само считает остатки и деньги.  
+        <strong>Всё всегда перед глазами.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== ПОДПИСКА PRO ========== -->
+  <div id="pricing" class="container">
+    <div class="pricing-block">
+      <h2 style="font-size:28px; margin-bottom:12px">Начните бесплатно</h2>
+      <p style="color:#a09880; margin-bottom:16px">Базовая версия — 0 ₽ навсегда. PRO открывает безлимитные записи, PDF-отчёты и будущие калькуляторы.</p>
+      <div class="price">0 ₽ <span style="font-size:16px; font-weight:400">базовая</span></div>
+      <div class="price" style="font-size:28px; margin:8px 0">499 ₽ <span style="font-size:14px; font-weight:400">/ месяц — PRO</span></div>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:24px">
+        <a class="btn btn-gold" href="#download">Скачать бесплатно</a>
+        <a class="btn btn-outline-dark" href="#" onclick="alert('PRO: напишите @Mark8Numb в Telegram');return false;">💎 Оформить PRO</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== СКАЧИВАНИЕ ========== -->
+  <section id="download" class="container" style="text-align:center; padding:40px 0 60px">
+    <h2 style="font-size:26px; margin-bottom:12px">Установка за 1 минуту</h2>
+    <p style="color:#5a5a4a; margin-bottom:24px">Скачайте HTML → откройте в Chrome → «Поделиться» → «На экран Домой»</p>
+    <a class="btn btn-dark" href="https://mark8numb.github.io/stroipro/" target="_blank">📱 Скачать .html</a>
+    <p style="margin-top:24px; font-size:12px; color:#8a7a60">v2.2 · 104 КБ · Android / iOS · Работает без интернета</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>СТРОИТЕЛЬ.ПРО — Учёт работ для монтажников и прорабов</p>
+    <p style="margin-top:8px">📬 Telegram: <a href="https://t.me/Mark8Numb" style="color:#d4920a; text-decoration:none">@Mark8Numb</a></p>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.nav a, .btn-gold, .btn-white, .btn-dark').forEach(a=>{
+    if(a.getAttribute('href')?.startsWith('#'))a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});});
+  });
+</script>
+
+</body>
+</html>
