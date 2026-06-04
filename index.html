@@ -7,484 +7,186 @@
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
   <meta name="apple-mobile-web-app-title" content="Строитель.Про"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0MCIgZmlsbD0iIzBjMGMwYSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDE0IDE3MCw1MiAxNzAsMTI4IDEwMCwxODYgMzAsMTI4IDMwLDUyIiBmaWxsPSIjMTExMTA4IiBzdHJva2U9IiNkNDkyMGEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMDAsMjQgMTYyLDU4IDE2MiwxMjYgMTAwLDE3OCAzOCwxMjYgMzgsNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q0OTIwYSIgc3Ryb2tlLXdpZHRoPSIwLjciIG9wYWNpdHk9IjAuMyIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjE0IiByPSI0IiBmaWxsPSIjZDQ5MjBhIi8+CiAgPGNpcmNsZSBjeD0iMTcwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxMjgiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxODYiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjEyOCIgcj0iNCIgZmlsbD0iI2Q0OTIwYSIvPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNNTIgMTE4IFE1MiA3NCAxMDAgNjggUTE0OCA3NCAxNDggMTE4IFoiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNMTAwIDY4IFExNDggNzQgMTQ4IDExOCBMMTI4IDExOCBRMTI4IDg2IDEwMCA4MiBaIiBmaWxsPSIjYjg3ODA4Ii8+CiAgPHJlY3QgeD0iNDQiIHk9IjExNCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMSIgcng9IjUuNSIgZmlsbD0iI2Q0OTIwYSIvPgogIDxyZWN0IHg9IjQ0IiB5PSIxMjIiIHdpZHRoPSIxMTIiIGhlaWdodD0iNCIgcng9IjIiIGZpbGw9IiM4YTVjMDQiLz4KICA8cmVjdCB4PSI4OCIgeT0iNzAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI4IiByeD0iNCIgZmlsbD0iI2I4NzgwOCIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDc4IDEyMCwxMDAgMTEwLDEwMCAxMTAsMTE4IDkwLDExOCA5MCwxMDAgODAsMTAwIiBmaWxsPSIjMGMwYzBhIi8+Cjwvc3ZnPg==">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0MCIgZmlsbD0iIzBjMGMwYSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDE0IDE3MCw1MiAxNzAsMTI4IDEwMCwxODYgMzAsMTI4IDMwLDUyIiBmaWxsPSIjMTExMTA4IiBzdHJva2U9IiNkNDkyMGEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSIxMDAsMjQgMTYyLDU4IDE2MiwxMjYgMTAwLDE3OCAzOCwxMjYgMzgsNTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q0OTIwYSIgc3Ryb2tlLXdpZHRoPSIwLjciIG9wYWNpdHk9IjAuMyIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjE0IiByPSI0IiBmaWxsPSIjZDQ5MjBhIi8+CiAgPGNpcmNsZSBjeD0iMTcwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxNzAiIGN5PSIxMjgiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxODYiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8Y2lyY2xlIGN4PSIzMCIgY3k9IjEyOCIgcj0iNCIgZmlsbD0iI2Q0OTIwYSIvPgogIDxjaXJjbGUgY3g9IjMwIiBjeT0iNTIiIHI9IjQiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNNTIgMTE4IFE1MiA3NCAxMDAgNjggUTE0OCA3NCAxNDggMTE4IFoiIGZpbGw9IiNkNDkyMGEiLz4KICA8cGF0aCBkPSJNMTAwIDY4IFExNDggNzQgMTQ4IDExOCBMMTI4IDExOCBRMTI4IDg2IDEwMCA4MiBaIiBmaWxsPSIjYjg3ODA4Ii8+CiAgPHJlY3QgeD0iNDQiIHk9IjExNCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMSIgcng9IjUuNSIgZmlsbD0iI2Q0OTIwYSIvPgogIDxyZWN0IHg9IjQ0IiB5PSIxMjIiIHdpZHRoPSIxMTIiIGhlaWdodD0iNCIgcng9IjIiIGZpbGw9IiM4YTVjMDQiLz4KICA8cmVjdCB4PSI4OCIgeT0iNzAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI4IiByeD0iNCIgZmlsbD0iI2I4NzgwOCIvPgogIDxwb2x5Z29uIHBvaW50cz0iMTAwLDc4IDEyMCwxMDAgMTEwLDEwMCAxMTAsMTE4IDkwLDExOCA5MCwxMDAgODAsMTAwIiBmaWxsPSIjMGMwYzBhIi8+Cjwvc3ZnPg==">
   <meta name="theme-color" content="#0c0c0a"/>
-  <title>СТРОИТЕЛЬ.ПРО v11.0</title>
+  <title>СТРОИТЕЛЬ.ПРО v2.3</title>
   <style>
-:root{
-  --gold:#e8a020;--gold-dim:#c8841a;--gold-light:rgba(232,160,32,0.12);--gold-border:rgba(232,160,32,0.3);
-  --bg:#0c0c0a;--bg2:#141412;--bg3:#1c1c18;--card:#181816;--border:#2a2a24;
-  --text:#e8dcc8;--muted:#706858;--green:#4caf74;--red:#e05050;--blue:#4fc3f7;
-  --radius:14px;--radius-sm:9px;--nav-h:68px;--font:'Inter',-apple-system,'Segoe UI',sans-serif;
-}
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--bg)}
-body{font-family:var(--font);color:var(--text);font-size:14px;line-height:1.5}
-#app{height:100%;display:flex;flex-direction:column}
-
-/* HEADER */
-.hdr{background:var(--bg2);border-bottom:2px solid var(--gold);padding:max(14px,env(safe-area-inset-top)) 16px 10px;flex-shrink:0}
-.hdr-top{display:flex;align-items:center;justify-content:space-between}
-.hdr-brand{flex:1;min-width:0}
-.hdr-logo{font-size:20px;font-weight:900;letter-spacing:1.5px;color:var(--text)}
-.hdr-logo span{color:var(--gold)}
-.hdr-sub{font-size:9px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-top:1px}
-.hdr-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.earn-badge{font-size:13px;font-weight:700;color:var(--gold);background:var(--gold-light);border:1px solid var(--gold-border);padding:4px 10px;border-radius:20px}
-.pro-badge{font-size:9px;font-weight:800;background:var(--gold);color:#0c0c0a;padding:4px 8px;border-radius:20px;letter-spacing:0.5px}
-.pro-badge.trial{background:var(--bg3);color:var(--gold);border:1px solid var(--gold-border)}
-.btn-icon{background:var(--bg3);border:1px solid var(--border);color:var(--text);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
-.btn-icon:active{opacity:0.7}
-
-/* UNDO BAR */
-.ubar{background:var(--bg3);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:6px 12px;gap:8px;flex-shrink:0}
-.ubtn{background:var(--gold-light);border:1px solid var(--gold-border);border-radius:20px;color:var(--gold);padding:5px 13px;font-size:11px;font-weight:700;cursor:pointer}
-.ubtn:disabled{opacity:0.25;cursor:default}
-.usave{font-size:10px;color:var(--muted);letter-spacing:1.5px;margin-left:auto;transition:color 0.3s}
-.usave.ok{color:var(--green)}
-
-/* PROJECT BAR */
-.pbar-projects{background:var(--bg2);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;flex-shrink:0}
-.pbar-projects::-webkit-scrollbar{display:none}
-.ppill{background:var(--bg3);border:1.5px solid var(--border);border-radius:20px;color:var(--muted);padding:6px 16px;font-size:12px;font-weight:600;white-space:nowrap;cursor:pointer;flex-shrink:0}
-.ppill.active{background:var(--gold);color:#0c0c0a;border-color:var(--gold);font-weight:800}
-.ppill-add{border-style:dashed}
-
-/* BUILDING TABS */
-.btabs{background:var(--bg2);border-bottom:2px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;padding:0 14px;flex-shrink:0}
-.btab{padding:10px 14px;font-size:12px;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;color:var(--muted);flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:80px}
-.btab.active{color:var(--gold);border-color:var(--gold)}
-.btab-name{font-size:12px}
-.btab-pct{font-size:9px}
-.btab-add{opacity:0.4;font-size:16px;min-width:40px}
-
-/* SCROLL */
-.scroll{flex:1;overflow-y:auto;padding:14px 14px calc(var(--nav-h) + 20px);-webkit-overflow-scrolling:touch}
-
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--bg2);border-top:1px solid var(--border);height:var(--nav-h);padding-bottom:env(safe-area-inset-bottom);display:flex;align-items:flex-start;padding-top:8px}
-.nbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 0}
-.nicon{font-size:20px}
-.nlabel{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase}
-.nbtn.active .nlabel{color:var(--gold)}
-
-/* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px}
-.card-title{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;font-weight:700}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.stat-card{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:14px}
-.stat-label{font-size:10px;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;font-weight:600}
-.stat-row{display:flex;justify-content:space-between;align-items:baseline}
-.stat-val{font-size:20px;font-weight:800;color:var(--gold)}
-.stat-unit{font-size:11px}
-.stat-pct{font-size:14px;font-weight:700}
-.stat-earn{font-size:11px;color:var(--muted);margin-top:5px}
-.stat-remain{font-size:10px;color:var(--muted);margin-top:3px}
-.pbar2{height:5px;background:var(--bg3);border-radius:10px;overflow:hidden;margin-top:6px}
-.pfill{height:100%;border-radius:10px;background:var(--gold);transition:width 0.5s}
-.pfill.done{background:var(--green)}
-
-.section-head{font-size:15px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.section-head::after{content:'';flex:1;height:1px;background:var(--border)}
-.erow{background:var(--card);border:1px solid var(--border);border-radius:9px;margin-bottom:7px}
-.ehead{display:flex;align-items:center;gap:10px;padding:12px 13px;cursor:pointer}
-.einfo{flex:1;min-width:0}
-.ename{font-size:13px;font-weight:700}
-.edate{font-size:10px;color:var(--muted);margin-top:1px}
-.enums{text-align:right}
-.evol{font-size:14px;font-weight:800;color:var(--gold)}
-.eunit{font-size:10px}
-.eearn{font-size:11px;color:var(--muted)}
-.ebody{border-top:1px solid var(--border);padding:12px 13px;background:var(--bg3)}
-.eacts{display:flex;gap:6px;margin-top:8px}
-.act-btn{background:var(--gold-light);border:1px solid var(--gold-border);color:var(--gold);padding:6px 11px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600}
-.act-del{background:rgba(224,80,80,0.1);border-color:rgba(224,80,80,0.25);color:var(--red)}
-.fab{position:fixed;bottom:calc(var(--nav-h) + 14px);right:16px;width:56px;height:56px;border-radius:50%;background:var(--gold);border:none;color:#0c0c0a;font-size:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900}
-.btn{display:block;width:100%;padding:13px;border-radius:12px;border:none;font-size:15px;font-weight:700;cursor:pointer;text-align:center}
-.btn-gold{background:var(--gold);color:#0c0c0a}
-.btn-ghost{background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-border)}
-.empty{text-align:center;padding:50px 20px;color:var(--muted)}
-.spacer{height:20px}
-.toast{position:fixed;top:max(60px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:var(--gold);color:#0c0c0a;padding:9px 20px;border-radius:20px;font-size:12px;font-weight:800;z-index:9999;opacity:0;transition:opacity 0.25s;pointer-events:none}
-.toast.show{opacity:1}
-
-/* ONBOARDING */
-.onboard-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
-.onboard-card{background:var(--bg2);border:2px solid var(--gold);border-radius:28px;padding:28px 24px;max-width:300px;text-align:center}
-.onboard-step{font-size:12px;color:var(--gold);letter-spacing:2px;margin-bottom:12px}
-.onboard-title{font-size:20px;font-weight:800;margin-bottom:12px}
-.onboard-text{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.4}
-.onboard-dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
-.onboard-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer}
-.onboard-dot.active{background:var(--gold);width:20px;border-radius:10px}
-.onboard-btn{background:var(--gold);border:none;border-radius:40px;padding:12px 28px;font-size:15px;font-weight:800;color:#0c0c0a;cursor:pointer;width:100%}
-
-/* PLANNER */
-.plan-ui{display:flex;flex-direction:column;gap:12px}
-.plan-step{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
-.plan-step-head{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;margin-bottom:12px}
-.plan-step-num{width:22px;height:22px;border-radius:50%;background:var(--gold);color:#0c0c0a;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center}
-.tpl-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.tpl-btn{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:10px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
-.tpl-btn.active{background:var(--gold-light);border-color:var(--gold)}
-.tpl-icon{font-size:20px}
-.tpl-name{font-size:10px;font-weight:700;color:var(--muted)}
-.tpl-btn.active .tpl-name{color:var(--gold)}
-.plan-preview{width:140px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;background:var(--bg3);border-radius:10px;padding:8px}
-.plan-rooms-list{display:flex;flex-direction:column;gap:6px}
-.plan-room{display:flex;align-items:center;gap:10px;background:var(--bg3);border-radius:8px;padding:9px 11px}
-.plan-room-info{flex:1;display:flex;justify-content:space-between}
-.plan-room-name{font-size:13px;font-weight:700}
-.plan-room-area{font-size:13px;color:var(--gold);font-weight:800}
-.plan-mat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
-.plan-mat-row:last-child{border-bottom:none}
-.plan-mat-right{display:flex;align-items:center;gap:10px}
-.plan-mat-qty{font-size:15px;font-weight:800;color:var(--gold)}
-.plan-ok{font-size:11px;color:var(--green);font-weight:700}
-.plan-bad{font-size:11px;color:var(--red);font-weight:700}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.frow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.fld{margin-bottom:13px}
-.flbl{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:5px;font-weight:700}
-.wrow{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:13px 14px;margin-bottom:8px}
-.wname{font-size:13px;font-weight:700}
-.wsize{font-size:10px;color:var(--muted)}
-.wnums{display:flex;gap:16px;margin-bottom:10px}
-.wnum{text-align:center}
-.wnum strong{display:block;font-size:18px;font-weight:800}
-.wnum small{font-size:9px;color:var(--muted)}
-</style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0c0c0a;color:#e8dcc8;line-height:1.4}
+    .container{max-width:600px;margin:0 auto;padding:16px}
+    .card{background:#181816;border:1px solid #2a2a24;border-radius:16px;padding:16px;margin-bottom:12px}
+    .btn{background:#e8a020;color:#0c0c0a;border:none;padding:10px 20px;border-radius:40px;font-weight:700;cursor:pointer}
+    .btn-outline{background:transparent;border:1px solid #e8a020;color:#e8a020}
+    .flex{display:flex;gap:8px;flex-wrap:wrap}
+    .text-gold{color:#e8a020}
+    .text-muted{color:#706858;font-size:12px}
+    .text-green{color:#4caf74}
+    .text-red{color:#e05050}
+    .mt-2{margin-top:8px}
+    .mb-2{margin-bottom:8px}
+    .text-center{text-align:center}
+  </style>
 </head>
 <body>
-<div id="app"></div>
-<div id="toast" class="toast"></div>
+<div id="app" class="container"></div>
 <script>
-const KEY = 'bpro_v110';
-const VER = 'v11.0';
-const TRIAL_DAYS = 14;
+// ========== ТРЕКИНГ ==========
+function track(event, value = null) {
+  try {
+    let log = JSON.parse(localStorage.getItem('track') || '[]');
+    log.push({ e: event, v: value, t: Date.now() });
+    if (log.length > 500) log.shift();
+    localStorage.setItem('track', JSON.stringify(log));
+  } catch(e) {}
+}
 
-const MATS = [
-  {key:'travers', label:'Траверс', pack:10, iLen:3000},
-  {key:'yubka', label:'Молдинг RA4F', pack:10, iLen:4000},
-  {key:'shpilka', label:'Шпилька М6', pack:50, iLen:2000},
-  {key:'ushi', label:'Уши', pack:100, iLen:0},
-  {key:'perim', label:'Угол периметр.', pack:10, iLen:4000},
-  {key:'kronshteyn', label:'Кронш. подвеса', pack:50, iLen:0},
-  {key:'tsanga', label:'Цанга М6', pack:100, iLen:0},
-  {key:'bolt', label:'Болт М6', pack:100, iLen:0},
-  {key:'gayka', label:'Гайка М6', pack:100, iLen:0},
-  {key:'shayba_usl', label:'Шайба усил. М6', pack:100, iLen:0},
-  {key:'shayba_ob', label:'Шайба обыч. М6', pack:100, iLen:0},
-];
-
-const DEF_WTS = [
-  {id:'carcass120', name:'Каркас Clip-in 120', price:350, unit:'м²', color:'#e8a020', targetArea: 257.2},
-  {id:'panels', name:'Панели Clip-in', price:150, unit:'м²', color:'#4fc3f7', targetArea: 180.0},
-  {id:'carcass60', name:'Каркас Clip-in 60', price:380, unit:'м²', color:'#4caf74', targetArea: 0},
-  {id:'carcassArm', name:'Каркас Армстронг', price:280, unit:'м²', color:'#e05050', targetArea: 0},
-  {id:'fillers', name:'Наполнители', price:90, unit:'м²', color:'#b06cf0', targetArea: 0},
-];
-
-const DEF_STATE = {
-  isPro: false,
-  proExpiry: null,
-  trialStart: new Date().toISOString(),
-  hasSeenOnboarding: false,
-  projects: [{id:'p1', name:'Госпиталь'}],
-  buildings: [
-    {id:'b1', projectId:'p1', name:'ПК 1 этаж', totalArea: 257.2, workTypes: JSON.parse(JSON.stringify(DEF_WTS))},
-    {id:'b2', projectId:'p1', name:'ПК 2 этаж (коридоры)', totalArea: 0, workTypes: JSON.parse(JSON.stringify(DEF_WTS))},
-  ],
-  entries: [
-    {id:1780393059134, buildingId:'b1', dateFrom:'2026-05-29', dateTo:'2026-06-01', workTypeId:'carcass120', volume:57, notes:'+50 шпиль по 12см', noStock:false},
-    {id:1780393168748, buildingId:'b1', dateFrom:'2026-06-01', dateTo:'2026-06-02', workTypeId:'carcass120', volume:32.98, notes:'50% коридора', noStock:true},
-    {id:1780404924435, buildingId:'b1', dateFrom:'2026-06-02', dateTo:'2026-06-02', workTypeId:'carcass120', volume:64, notes:'+63 шпильки', noStock:false},
-  ],
-  wlog: [
-    {id:1780376552640, key:'ushi', qty:100, date:'2026-06-02', time:'09:00'},
-    {id:1780376555019, key:'kronshteyn', qty:100, date:'2026-06-02', time:'09:01'},
-    {id:1780376561046, key:'perim', qty:10, date:'2026-06-02', time:'09:02'},
-    {id:1780379967734, key:'ushi', qty:26, date:'2026-06-02', time:'10:30'},
-    {id:1780379981567, key:'kronshteyn', qty:25, date:'2026-06-02', time:'10:31'},
-    {id:1780380073857, key:'kronshteyn', qty:61, date:'2026-06-02', time:'10:35'},
-    {id:1780380156356, key:'shpilka', qty:32, date:'2026-06-02', time:'10:40'},
-    {id:1780380160262, key:'shpilka', qty:50, date:'2026-06-02', time:'10:41'},
-    {id:1780380163492, key:'yubka', qty:2, date:'2026-06-02', time:'10:42'},
-    {id:1780380177539, key:'travers', qty:1, date:'2026-06-02', time:'10:43'},
-    {id:1780380259659, key:'tsanga', qty:22, date:'2026-06-02', time:'10:50'},
-    {id:1780380413688, key:'ushi', qty:2, date:'2026-06-02', time:'11:00'},
-    {id:1780380451463, key:'bolt', qty:100, date:'2026-06-02', time:'11:05'},
-    {id:1780380448194, key:'shayba_ob', qty:200, date:'2026-06-02', time:'11:06'},
-    {id:1780383816451, key:'perim', qty:20, date:'2026-06-02', time:'12:00'},
-    {id:1780383827054, key:'travers', qty:8, date:'2026-06-02', time:'12:01'},
-    {id:1780384456494, key:'perim', qty:2, date:'2026-06-02', time:'12:10'},
-    {id:1780385413622, key:'ushi', qty:4, date:'2026-06-02', time:'12:30'},
-    {id:1780400896163, key:'travers', qty:5, date:'2026-06-02', time:'16:00'},
-    {id:1780400970817, key:'yubka', qty:6, date:'2026-06-02', time:'16:10'},
-    {id:1780401308211, key:'travers', qty:2, date:'2026-06-02', time:'16:20'},
-  ],
+// ========== STATE ==========
+let S = {
+  entries: [],
+  wlog: [],
   goals: [],
-  matCfg: Object.fromEntries(MATS.map(m=>[m.key, {pack:m.pack, iLen:m.iLen, label:m.label}])),
+  notes: [],
+  buildings: [{ id: 'b1', name: 'ПК 1 этаж', totalArea: 0, workTypes: [{ id: 'wt1', name: 'Каркас Clip-in', price: 350, unit: 'м²', color: '#e8a020', targetArea: 0 }] }],
+  projects: [{ id: 'p1', name: 'Госпиталь' }],
+  matCfg: {},
   dimUnit: 'cm',
   theme: 'dark',
+  lastNoStock: true,
+  openCount: 0
 };
 
-let S, ui, undoStack=[], redoStack=[];
-function uid() { return String(Date.now())+String(Math.floor(Math.random()*9999)); }
-function today() { return new Date().toISOString().slice(0,10); }
-function fmtD(d) { if(!d)return''; const [y,m,day]=d.split('-'); return `${day}.${m}.${y.slice(2)}`; }
-function esc(s) { let r=String(s||''); return r.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
-function fmtRub(n) { return (Number(n||0)).toLocaleString('ru')+' ₽'; }
-function getBldgs(pid) { return (S.buildings||[]).filter(b=>b.projectId===pid); }
-function getEnts(bid) { return (S.entries||[]).filter(e=>e.buildingId===bid); }
-function volByWT(bid, wtId) { return getEnts(bid).filter(e=>e.workTypeId===wtId).reduce((s,e)=>s+Number(e.volume),0); }
-function getWT(bid, wtId) { const b=S.buildings.find(x=>x.id===bid); return (b?.workTypes||DEF_WTS).find(w=>w.id===wtId); }
-function getWTProgress(bid, wtId) {
-  const wt = getWT(bid, wtId);
-  if (!wt) return { done:0, target:0, pct:0, earn:0, remainVol:0, remainEarn:0 };
-  const done = volByWT(bid, wtId);
-  const target = wt.targetArea || 0;
-  const pct = target>0 ? Math.min(100, (done/target)*100) : 0;
-  const earn = done * wt.price;
-  const remainVol = Math.max(0, target - done);
-  const remainEarn = remainVol * wt.price;
-  return { done, target, pct, earn, remainVol, remainEarn };
-}
-function totalIn(k) { return (S.wlog||[]).filter(r=>r.key===k).reduce((s,r)=>s+r.qty,0); }
-function totalOut(k) { return (S.entries||[]).filter(e=>!e.noStock).reduce((s,e)=>s+(Number(e.materials?.[k])||0),0); }
-function rem(k) { return totalIn(k)-totalOut(k); }
-function getMatLabel(k) { return S.matCfg?.[k]?.label||MATS.find(m=>m.key===k)?.label||k; }
-function getPack(k) { return S.matCfg?.[k]?.pack||MATS.find(m=>m.key===k)?.pack||100; }
-function isProActive() {
-  if (S.isPro) return true;
-  if (S.proExpiry && new Date(S.proExpiry) > new Date()) return true;
-  if (S.trialStart) {
-    const daysSince = Math.floor((new Date() - new Date(S.trialStart)) / (1000*60*60*24));
-    if (daysSince < TRIAL_DAYS) return true;
-  }
-  return false;
-}
-function getTrialDaysLeft() {
-  if (!S.trialStart) return TRIAL_DAYS;
-  const daysSince = Math.floor((new Date() - new Date(S.trialStart)) / (1000*60*60*24));
-  return Math.max(0, TRIAL_DAYS - daysSince);
-}
-function applyTheme() {
-  const light=S.theme==='light';
-  const r=document.documentElement;
-  r.style.setProperty('--bg', light?'#f4f3ee':'#0c0c0a');
-  r.style.setProperty('--bg2', light?'#ffffff':'#141412');
-  r.style.setProperty('--bg3', light?'#ece9e0':'#1c1c18');
-  r.style.setProperty('--card', light?'#ffffff':'#181816');
-  r.style.setProperty('--border', light?'#ddd9cc':'#2a2a24');
-  r.style.setProperty('--text', light?'#1a1a0f':'#e8dcc8');
-  r.style.setProperty('--muted', light?'#7a7060':'#706858');
-}
+let ui = { tab: 'journal', pid: 'p1', bid: 'b1', exp: null, sort: 'date_desc', showHidden: false };
+
+// ========== HELPERS ==========
+const today = () => new Date().toISOString().slice(0,10);
+const uid = () => String(Date.now()) + String(Math.floor(Math.random()*9999));
+const fmtRub = n => Number(n||0).toLocaleString('ru') + ' ₽';
+const esc = s => String(s||'').replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
+const getBldgs = () => S.buildings;
+const getEnts = () => S.entries.filter(e => e.buildingId === ui.bid);
+const entEarn = e => (S.buildings.find(b=>b.id===e.buildingId)?.workTypes.find(w=>w.id===e.workTypeId)?.price||0) * e.volume;
+const totalIn = k => S.wlog.filter(r=>r.key===k).reduce((s,r)=>s+r.qty,0);
+const totalOut = k => S.entries.filter(e=>!e.noStock).reduce((s,e)=>s+(Number(e.materials?.[k]?.qty)||0),0);
+const rem = k => totalIn(k) - totalOut(k);
+const getMatLabel = k => S.matCfg[k]?.label || k;
+const isProActive = () => false; // пока все функции бесплатны, заглушка
+
 function persist() {
-  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {}
-  const el = document.querySelector('.usave');
-  if (el) { el.textContent='✓ СОХРАНЕНО'; el.classList.add('ok'); setTimeout(()=>{if(el){el.textContent='ОФЛАЙН';el.classList.remove('ok');}},1600); }
-}
-function act(fn, noHist) {
-  if(!noHist){
-    undoStack.push(JSON.stringify({S:JSON.parse(JSON.stringify(S)),ui:JSON.parse(JSON.stringify(ui))}));
-    if(undoStack.length>30) undoStack.shift();
-    redoStack=[];
-  }
-  fn(); persist(); render();
-}
-function toast(msg) {
-  const t=document.getElementById('toast');
-  t.textContent=msg; t.classList.add('show');
-  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),2200);
-}
-function exportData() {
-  const blob=new Blob([JSON.stringify({...S,exportDate:new Date().toISOString()},null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download=`stroitel-pro-backup-${today()}.json`;
-  a.click(); URL.revokeObjectURL(url);
-  toast('📤 Бэкап сохранён');
-}
-function importData() {
-  const inp=document.createElement('input'); inp.type='file'; inp.accept='.json';
-  inp.onchange=e=>{
-    const f=e.target.files[0]; if(!f) return;
-    const r=new FileReader();
-    r.onload=ev=>{
-      try{
-        const d=JSON.parse(ev.target.result);
-        if(!d.projects && !d.entries) { toast('⚠ Неверный формат'); return; }
-        if(!confirm('Заменить все данные?')) return;
-        act(()=>{ Object.assign(S, d); if(!S.matCfg) S.matCfg={}; if(!S.goals) S.goals=[]; if(!S.wlog) S.wlog=[]; });
-        toast('📥 Данные восстановлены');
-      } catch(ex){ toast('⚠ Ошибка файла'); }
-    };
-    r.readAsText(f);
-  };
-  inp.click();
+  try { localStorage.setItem('stroipro', JSON.stringify(S)); track('persist'); } catch(e) {}
 }
 
-function initState() {
-  try{
-    const raw=localStorage.getItem(KEY);
-    if(raw){
-      const s=JSON.parse(raw);
-      if(s.projects) S=s;
-      else S=JSON.parse(JSON.stringify(DEF_STATE));
-    } else S=JSON.parse(JSON.stringify(DEF_STATE));
-  } catch(e){ S=JSON.parse(JSON.stringify(DEF_STATE)); }
-  ui = { tab:'journal', pid:'p1', bid:'b1', exp:null, sort:'date_desc', showHidden:false, showHiddenGoals:false, onboardStep:0, showOnboard:false };
-  const bs=getBldgs(ui.pid);
-  if(bs.length) ui.bid=bs[0].id;
-  if(!S.trialStart) S.trialStart=new Date().toISOString();
-  if(S.hasSeenOnboarding===undefined) S.hasSeenOnboarding=false;
-  if(!S.hasSeenOnboarding) ui.showOnboard=true;
-  applyTheme();
+function load() {
+  try {
+    const raw = localStorage.getItem('stroipro');
+    if (raw) S = JSON.parse(raw);
+  } catch(e) {}
+  if (!S.entries) S.entries = [];
+  if (!S.wlog) S.wlog = [];
+  if (!S.goals) S.goals = [];
+  if (!S.notes) S.notes = [];
+  if (!S.buildings) S.buildings = [];
+  if (!S.projects) S.projects = [{ id: 'p1', name: 'Госпиталь' }];
+  if (!S.matCfg) S.matCfg = {};
+  if (!S.dimUnit) S.dimUnit = 'cm';
+  if (S.openCount === undefined) S.openCount = 0;
+  S.openCount++;
+  track('app_open', S.openCount);
 }
 
 function render() {
-  const app=document.getElementById('app');
-  if(!app) return;
-  const proActive=isProActive();
-  const trialLeft=getTrialDaysLeft();
-  const isTrial=!S.isPro && trialLeft>0;
-  const proBadge = proActive ? (S.isPro ? '<div class="pro-badge">💎 PRO</div>' : `<div class="pro-badge trial">⏱ ${trialLeft} дн.</div>`) : '<div class="pro-badge trial" style="cursor:pointer" data-a="buy-pro">🔒 PRO</div>';
-  const totalEarn = S.entries.reduce((s,e)=>{ const wt=getWT(e.buildingId,e.workTypeId); return s+(wt?e.volume*wt.price:0); },0);
-  const header = `<div class="hdr"><div class="hdr-top"><div class="hdr-brand"><div class="hdr-logo">СТРОИТЕЛЬ<span>.</span>ПРО</div><div class="hdr-sub">УЧЁТ РАБОТ · ${VER}</div></div><div class="hdr-right">${proBadge}<button class="btn-icon" data-a="toggle-theme">${S.theme==='light'?'🌙':'☀️'}</button><div class="earn-badge">${fmtRub(totalEarn)}</div></div></div></div>
-  <div class="ubar"><div class="ubtn" data-a="undo" ${undoStack.length?'':'disabled'}>↩ Отмена</div><div class="ubtn" data-a="redo" ${redoStack.length?'':'disabled'}>↪ Повтор</div><div class="usave">ОФЛАЙН</div></div>
-  <div class="pbar-projects">${S.projects.map(p=>`<div class="ppill${p.id===ui.pid?' active':''}" data-a="sel-proj" data-id="${p.id}">${esc(p.name)}</div>`).join('')}<div class="ppill ppill-add" data-a="new-proj">＋ Объект</div></div>
-  ${renderBtabs()}
-  <div class="scroll" id="scroll">${renderTab()}</div>
-  ${renderFAB()}
-  <div class="bnav">${['journal','📋','Журнал'],['goals','✅','Цели'],['planning','📐','Планирование'],['warehouse','🏗','Склад'],['settings','⚙️','Настр.'].map(([id,ic,lb])=>`<button class="nbtn${ui.tab===id?' active':''}" data-a="nav" data-tab="${id}"><span class="nicon">${ic}</span><span class="nlabel">${lb}</span></button>`).join('')}</div>`;
-  app.innerHTML=header;
-  if(ui.showOnboard && !S.hasSeenOnboarding) renderOnboarding();
+  const app = document.getElementById('app');
+  if (!app) return;
+  
+  const entries = getEnts();
+  const hiddenCount = entries.filter(e=>e.hidden).length;
+  const visibleEntries = entries.filter(e=>!e.hidden || ui.showHidden);
+  
+  app.innerHTML = `
+    <div class="flex" style="justify-content:space-between; align-items:center; margin-bottom:16px">
+      <h2 style="color:#e8a020">СТРОИТЕЛЬ.ПРО</h2>
+      <div class="flex">
+        <button class="btn-outline" style="padding:6px 12px" onclick="track('tab_click', 'settings'); ui.tab='settings'; render()">⚙️</button>
+        <button class="btn-outline" style="padding:6px 12px" onclick="track('toggle_theme'); S.theme=S.theme==='dark'?'light':'dark'; render()">${S.theme==='dark'?'☀️':'🌙'}</button>
+      </div>
+    </div>
+    
+    <div class="flex" style="margin-bottom:16px; gap:4px; flex-wrap:wrap">
+      <button class="btn-outline ${ui.tab==='journal'?'btn':''}" style="padding:8px 12px" onclick="track('tab_click', 'journal'); ui.tab='journal'; render()">📋 Журнал</button>
+      <button class="btn-outline ${ui.tab==='warehouse'?'btn':''}" style="padding:8px 12px" onclick="track('tab_click', 'warehouse'); ui.tab='warehouse'; render()">🏗 Склад</button>
+      <button class="btn-outline ${ui.tab==='goals'?'btn':''}" style="padding:8px 12px" onclick="track('tab_click', 'goals'); ui.tab='goals'; render()">✅ Задачи</button>
+      <button class="btn-outline ${ui.tab==='earn'?'btn':''}" style="padding:8px 12px" onclick="track('tab_click', 'earn'); ui.tab='earn'; render()">💰 Заработок</button>
+      <button class="btn-outline ${ui.tab==='stats'?'btn':''}" style="padding:8px 12px" onclick="track('tab_click', 'stats'); ui.tab='stats'; render()">📊 Статы</button>
+    </div>
+    
+    ${ui.tab === 'journal' ? `
+      <div class="flex" style="justify-content:space-between; margin-bottom:12px">
+        <span>${visibleEntries.length} записей</span>
+        <button class="btn-outline" style="padding:4px 12px" onclick="track('sort'); const s=['date_desc','date_asc','vol_desc','vol_asc','earn_desc']; const i=s.indexOf(ui.sort||'date_desc'); ui.sort=s[(i+1)%s.length]; render()">↕️ ${ui.sort||'date_desc'}</button>
+      </div>
+      ${hiddenCount > 0 ? `<button class="btn-outline" style="margin-bottom:12px; padding:4px 12px" onclick="track('toggle_hidden'); ui.showHidden=!ui.showHidden; render()">${ui.showHidden ? '▲ Скрыть' : '👁 Скрытые ('+hiddenCount+')'}</button>` : ''}
+      ${visibleEntries.map(e => `
+        <div class="card" style="border-left:4px solid ${S.buildings.find(b=>b.id===e.buildingId)?.workTypes.find(w=>w.id===e.workTypeId)?.color || '#e8a020'}">
+          <div onclick="track('entry_expand', '${e.id}'); ui.exp = ui.exp === '${e.id}' ? null : '${e.id}'; render()">
+            <div class="flex" style="justify-content:space-between">
+              <div><strong>${esc(e.workTypeId)}</strong><br><span class="text-muted">${e.dateFrom} → ${e.dateTo}</span></div>
+              <div><span class="text-gold">${e.volume} м²</span><br>${fmtRub(entEarn(e))}</div>
+            </div>
+          </div>
+          ${ui.exp === String(e.id) ? `
+            <div class="mt-2">
+              <div class="text-muted">📝 ${esc(e.notes || '—')}</div>
+              ${e.materials ? `<div class="text-muted mt-2">📦 ${Object.entries(e.materials).map(([k,v])=>`${getMatLabel(k)}: ${v?.qty || v}${v?.size ? ` (${v.size}мм)` : ''}`).join(' · ')}</div>` : ''}
+              <div class="flex mt-2">
+                <button class="btn-outline" style="padding:4px 10px; font-size:12px" onclick="track('edit_entry', '${e.id}'); alert('Редактирование в разработке')">✏ Ред.</button>
+                <button class="btn-outline" style="padding:4px 10px; font-size:12px" onclick="track('hide_entry', '${e.id}'); e.hidden=true; persist(); render()">🙈 Скрыть</button>
+                <button class="btn-outline" style="padding:4px 10px; font-size:12px; border-color:#e05050; color:#e05050" onclick="track('delete_entry', '${e.id}'); if(confirm('Удалить?')){ S.entries = S.entries.filter(x=>x.id!==e.id); persist(); render() }">🗑 Уд.</button>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `).join('')}
+      <button class="btn" style="width:100%; margin-top:8px" onclick="track('add_entry'); const v=prompt('Объём м²:'); if(v){ S.entries.push({ id:uid(), buildingId:ui.bid, workTypeId:'wt1', volume:parseFloat(v), dateFrom:today(), dateTo:today(), notes:'', materials:{}, noStock:false, hidden:false }); persist(); render(); track('entry_added', v); }">+ Добавить работу</button>
+    ` : ''}
+    
+    ${ui.tab === 'warehouse' ? `
+      <div class="card"><div class="text-muted">📦 Приходы: ${S.wlog.length}</div></div>
+      <button class="btn" style="width:100%" onclick="track('add_stock'); const m=prompt('Материал:'); const q=prompt('Кол-во шт:'); if(m&&q){ S.wlog.push({ id:uid(), key:m, qty:parseInt(q), date:today() }); persist(); render(); track('stock_added', m); }">+ Добавить приход</button>
+    ` : ''}
+    
+    ${ui.tab === 'goals' ? `
+      ${S.goals.filter(g=>!g.done).map(g => `
+        <div class="card flex" style="justify-content:space-between; align-items:center">
+          <span>${esc(g.text)} <span class="text-muted">${g.date}</span></span>
+          <button class="btn-outline" style="padding:4px 12px" onclick="track('goal_done', '${g.id}'); g.done=true; persist(); render()">✓</button>
+        </div>
+      `).join('')}
+      <button class="btn" style="width:100%" onclick="track('add_goal'); const t=prompt('Задача:'); if(t){ S.goals.push({ id:uid(), text:t, date:today(), done:false }); persist(); render(); }">+ Добавить задачу</button>
+    ` : ''}
+    
+    ${ui.tab === 'earn' ? `
+      <div class="card text-center">
+        <div class="text-gold" style="font-size:32px; font-weight:800">${fmtRub(S.entries.reduce((s,e)=>s+entEarn(e),0))}</div>
+        <div class="text-muted">Общий заработок</div>
+      </div>
+    ` : ''}
+    
+    ${ui.tab === 'stats' ? `
+      <div class="card">
+        <div class="text-gold" style="font-weight:700">📊 Аналитика (сбор с ${new Date(S.openCount ? S.openCount*1000 : Date.now() - 7*86400000).toISOString().slice(0,10)})</div>
+        <div class="mt-2">📱 Открытий приложения: ${S.openCount || 1}</div>
+        <div>📋 Записей в журнале: ${S.entries.length}</div>
+        <div>🏗 Приходов на склад: ${S.wlog.length}</div>
+        <div>✅ Задач: ${S.goals.length}</div>
+        <div class="text-muted mt-2">Трекер активен. Данные в localStorage → track</div>
+      </div>
+    ` : ''}
+  `;
 }
 
-function renderBtabs() {
-  const bldgs=getBldgs(ui.pid);
-  if(!bldgs.length) return '<div class="btabs-empty">Нет корпусов — добавьте в Настройках</div>';
-  return `<div class="btabs">${bldgs.map(b=>{
-    const wts=b.workTypes||DEF_WTS;
-    let totalPct=0, count=0;
-    wts.forEach(wt=>{ if(wt.targetArea>0){ const p=getWTProgress(b.id,wt.id); totalPct+=p.pct; count++; } });
-    const avgPct=count>0?Math.round(totalPct/count):0;
-    return `<div class="btab${b.id===ui.bid?' active':''}" data-a="sel-bld" data-id="${b.id}"><span class="btab-name">${esc(b.name)}</span><span class="btab-pct" style="color:${avgPct>=100?'var(--green)':'var(--gold)'}">${avgPct}%</span></div>`;
-  }).join('')}<div class="btab btab-add" data-a="new-bld">＋</div></div>`;
-}
-
-function renderFAB() {
-  if(ui.tab==='journal') return '<button class="fab" data-a="add-entry">+</button>';
-  if(ui.tab==='goals') return '<button class="fab" data-a="add-goal">+</button>';
-  return '';
-}
-
-function renderTab() {
-  if(ui.tab==='journal') return renderJournal();
-  if(ui.tab==='goals') return renderGoals();
-  if(ui.tab==='planning') return renderPlanning();
-  if(ui.tab==='warehouse') return renderWarehouse();
-  if(ui.tab==='settings') return renderSettings();
-  return '';
-}
-
-function renderJournal() {
-  const b=S.buildings.find(x=>x.id===ui.bid);
-  if(!b) return '<div class="empty">🏗 Выберите корпус</div>';
-  const wts=b.workTypes||DEF_WTS;
-  const progressCards = wts.map(wt=>{
-    const p=getWTProgress(ui.bid,wt.id);
-    return `<div class="stat-card" style="border-left:4px solid ${wt.color}">
-      <div class="stat-label">${esc(wt.name)}</div>
-      <div class="stat-row"><span class="stat-val" style="color:${wt.color}">${p.done.toFixed(1)}<span class="stat-unit"> / ${p.target||'?'} ${wt.unit}</span></span><span class="stat-pct" style="color:${p.pct>=100?'var(--green)':'var(--gold)'}">${p.pct.toFixed(0)}%</span></div>
-      <div class="pbar2"><div class="pfill ${p.pct>=100?'done':''}" style="width:${p.pct}%;background:${wt.color}"></div></div>
-      <div class="stat-earn">💰 ${fmtRub(p.earn)}</div>
-      ${p.remainVol>0?`<div class="stat-remain">Осталось: ${p.remainVol.toFixed(1)} ${wt.unit} / ${fmtRub(p.remainEarn)}</div>`:''}
-    </div>`;
-  }).join('');
-  const entries=getEnts(ui.bid);
-  const entriesHtml=entries.length?entries.map(e=>{
-    const wt=getWT(ui.bid,e.workTypeId);
-    const earn=wt?e.volume*wt.price:0;
-    const exp=String(ui.exp)===String(e.id);
-    return `<div class="erow"><div class="ehead" data-a="toggle-ent" data-id="${e.id}"><div class="einfo"><div class="ename">${esc(wt?.name||'—')}</div><div class="edate">${fmtD(e.dateFrom)}</div></div><div class="enums"><div class="evol">${e.volume} <span class="eunit">${wt?.unit||''}</span></div><div class="eearn">${fmtRub(earn)}</div></div></div>${exp?`<div class="ebody"><div class="eacts"><button class="act-btn" data-a="edit-ent" data-id="${e.id}">✏ Редакт.</button><button class="act-btn act-del" data-a="del-ent" data-id="${e.id}">🗑 Удалить</button></div></div>`:''}</div>`;
-  }).join(''):'<div class="empty">Нет записей. Нажмите +</div>';
-  return `<div class="section-head">📊 Прогресс по видам</div><div class="stat-grid">${progressCards}</div><div class="section-head">📋 Журнал работ <span class="cnt">${entries.length}</span></div>${entriesHtml}<div class="spacer"></div>`;
-}
-
-function renderGoals() {
-  const active=S.goals.filter(g=>!g.hidden);
-  const goalsHtml=active.length?active.map(g=>`<div class="erow"><div class="ehead" style="justify-content:space-between"><div><div class="ename">${esc(g.text)}</div><div class="edate">${fmtD(g.date)}</div></div><button class="act-btn" data-a="toggle-goal" data-id="${g.id}">${g.done?'✅':'○'}</button></div></div>`).join(''):'<div class="empty">Нет задач. Нажмите +</div>';
-  return `<div class="section-head">✅ Задачи на день</div>${goalsHtml}<div class="spacer"></div>`;
-}
-
-function renderPlanning() {
-  if(!isProActive()) return `<div class="card" style="text-align:center;padding:32px"><div style="font-size:48px;margin-bottom:16px">🔒</div><div class="section-head" style="justify-content:center">Доступно в PRO</div><div style="margin-bottom:20px;color:var(--muted)">Калькулятор материалов и планировщик помещений доступны в PRO-версии</div><button class="btn btn-gold" data-a="buy-pro">💎 Активировать PRO (49$/мес)</button></div>`;
-  return `<div class="card"><div class="card-title">📐 Калькулятор Clip-in</div><div>Планировщик помещений — в разработке</div></div>`;
-}
-
-function renderWarehouse() {
-  const matsHtml=MATS.map(m=>{ const r=rem(m.key); return `<div class="wrow"><div class="wname">${esc(getMatLabel(m.key))}</div><div class="wnums"><div class="wnum"><strong>${r}</strong><small>остаток</small></div></div></div>`; }).join('');
-  return `<div class="section-head">🏗 Склад материалов</div>${matsHtml}<div class="spacer"></div>`;
-}
-
-function renderSettings() {
-  return `<div class="card"><div class="card-title">⚙️ Настройки</div><button class="btn btn-gold" style="margin-bottom:10px" data-a="export-data">📤 Экспорт бэкапа</button><button class="btn btn-ghost" style="margin-bottom:10px" data-a="import-data">📥 Импорт бэкапа</button><button class="btn btn-gold" data-a="buy-pro">💎 Купить PRO (49$/мес)</button></div>
-  <div class="card"><div class="card-title">🎨 Тема</div><div style="display:flex;gap:10px"><button class="btn ${S.theme==='dark'?'btn-gold':'btn-ghost'}" data-a="set-dark">🌙 Тёмная</button><button class="btn ${S.theme==='light'?'btn-gold':'btn-ghost'}" data-a="set-light">☀️ Светлая</button></div></div><div class="spacer"></div>`;
-}
-
-function renderOnboarding() {
-  const steps = [
-    { title:'Добро пожаловать!', text:'СТРОИТЕЛЬ.ПРО — учёт работ, склада и материалов. Всё без интернета.' },
-    { title:'Добавьте первую работу', text:'Нажмите + в журнале и укажите объём выполненных работ.' },
-    { title:'Следите за складом', text:'Во вкладке Склад вы можете добавлять приход материалов.' },
-    { title:'PRO-возможности', text:`Планировщик, неограниченное количество бригад и экспорт отчётов — в PRO. Первые ${TRIAL_DAYS} дней бесплатно!` },
-  ];
-  const step=steps[ui.onboardStep];
-  const overlay=document.createElement('div');
-  overlay.className='onboard-overlay';
-  overlay.innerHTML=`<div class="onboard-card"><div class="onboard-step">${ui.onboardStep+1} / ${steps.length}</div><div class="onboard-title">${step.title}</div><div class="onboard-text">${step.text}</div><div class="onboard-dots">${steps.map((_,i)=>`<div class="onboard-dot ${i===ui.onboardStep?'active':''}" data-onboard-step="${i}"></div>`).join('')}</div><button class="onboard-btn" data-a="onboard-next">${ui.onboardStep===steps.length-1?'🚀 Начать работу':'Далее'}</button></div>`;
-  document.body.appendChild(overlay);
-}
-
-document.addEventListener('click', e => {
-  const btn=e.target.closest('[data-a]');
-  if(!btn) return;
-  const a=btn.dataset.a;
-  if(a==='nav') { ui.tab=btn.dataset.tab; render(); }
-  else if(a==='undo' && undoStack.length) undo();
-  else if(a==='redo' && redoStack.length) redo();
-  else if(a==='toggle-theme') { S.theme=S.theme==='light'?'dark':'light'; applyTheme(); persist(); render(); }
-  else if(a==='set-dark') { S.theme='dark'; applyTheme(); persist(); render(); }
-  else if(a==='set-light') { S.theme='light'; applyTheme(); persist(); render(); }
-  else if(a==='sel-proj') { ui.pid=btn.dataset.id; const bs=getBldgs(ui.pid); ui.bid=bs[0]?.id||''; render(); }
-  else if(a==='sel-bld') { ui.bid=btn.dataset.id; render(); }
-  else if(a==='new-proj') { const name=prompt('Название объекта:'); if(name) act(()=>S.projects.push({id:String(Date.now()), name})); }
-  else if(a==='new-bld') { const name=prompt('Название корпуса:'); if(name) act(()=>S.buildings.push({id:String(Date.now()), projectId:ui.pid, name, totalArea:0, workTypes:JSON.parse(JSON.stringify(DEF_WTS))})); }
-  else if(a==='add-entry') { toast('Добавление записи — в разработке'); }
-  else if(a==='add-goal') { const text=prompt('Задача на сегодня:'); if(text) act(()=>S.goals.push({id:uid(), text, date:today(), done:false, hidden:false})); }
-  else if(a==='toggle-ent') { ui.exp=(String(ui.exp)===btn.dataset.id)?null:btn.dataset.id; render(); }
-  else if(a==='edit-ent') { toast('Редактирование записи — в разработке'); }
-  else if(a==='del-ent') { if(confirm('Удалить запись?')) act(()=>{ S.entries=S.entries.filter(e=>String(e.id)!==btn.dataset.id); }); }
-  else if(a==='toggle-goal') { const g=S.goals.find(x=>String(x.id)===btn.dataset.id); if(g) act(()=>{ g.done=!g.done; if(g.done) g.hidden=true; }); }
-  else if(a==='export-data') exportData();
-  else if(a==='import-data') importData();
-  else if(a==='buy-pro') toast('💎 Свяжитесь @stroipro_bot для получения PRO-доступа');
-  else if(a==='onboard-next') {
-    if(ui.onboardStep+1<4) { ui.onboardStep++; const ov=document.querySelector('.onboard-overlay'); if(ov) ov.remove(); renderOnboarding(); }
-    else { act(()=>{ S.hasSeenOnboarding=true; }); ui.showOnboard=false; const ov=document.querySelector('.onboard-overlay'); if(ov) ov.remove(); render(); }
-  }
-  const dot=e.target.closest('[data-onboard-step]');
-  if(dot) { ui.onboardStep=parseInt(dot.dataset.onboardStep); const ov=document.querySelector('.onboard-overlay'); if(ov) ov.remove(); renderOnboarding(); }
-});
-
-let lpt;
-document.addEventListener('pointerdown',e=>{ const t=e.target.closest('[data-long]'); if(!t)return; t.classList.add('pressing'); lpt=setTimeout(()=>{ t.classList.remove('pressing'); const a=t.dataset.long; if(a==='edit-bld'){const bid=t.dataset.bid; const b=S.buildings.find(x=>x.id===bid); if(b){const newName=prompt('Название корпуса:',b.name); if(newName) act(()=>{b.name=newName;});}} if(a==='edit-proj'){const pid=t.dataset.id; const p=S.projects.find(x=>x.id===pid); if(p){const newName=prompt('Название объекта:',p.name); if(newName) act(()=>{p.name=newName;});}} try{navigator.vibrate&&navigator.vibrate(40);}catch(x){} },600); });
-['pointerup','pointermove','pointercancel'].forEach(ev=>document.addEventListener(ev,()=>{ clearTimeout(lpt); document.querySelectorAll('.pressing').forEach(el=>el.classList.remove('pressing')); }));
-
-initState();
+load();
 render();
+track('app_loaded');
 </script>
 </body>
 </html>
