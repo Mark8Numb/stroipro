@@ -1,107 +1,94 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>СТРОИТЕЛЬ.ПРО — Статистика трекера</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#0c0c0a;color:#e8dcc8;font-family:monospace;padding:20px}
-    .stat-card{background:#1a1a17;border:1px solid #d4920a;border-radius:12px;padding:16px;margin-bottom:16px}
-    .stat-title{color:#d4920a;font-weight:700;margin-bottom:12px;font-size:18px}
-    table{width:100%;border-collapse:collapse}
-    td,th{padding:6px;border-bottom:1px solid #2a2a24;text-align:left}
-    .gold{color:#d4920a;font-weight:700}
-    .btn{background:#d4920a;color:#0c0c0a;border:none;padding:8px 16px;border-radius:20px;font-weight:700;margin:8px 4px;cursor:pointer}
-    .btn-danger{background:#2a1a1a;border:1px solid #d95f4f;color:#d95f4f}
-    .value{font-size:24px;font-weight:800;color:#d4920a}
-    hr{margin:16px 0;border-color:#2a2a24}
-  </style>
-</head>
-<body>
-  <h1 style="margin-bottom:16px">📊 СТРОИТЕЛЬ.ПРО — Аналитика</h1>
-  <div id="stats"></div>
-  <div style="margin-top:20px; text-align:center; font-size:12px; color:#6a6050">
-    ⚡ Данные из вашего телефона (localStorage)<br>
-    <a href="index.html" style="color:#d4920a">← Вернуться в приложение</a>
-  </div>
+// ─────────────────────────────────────────────
+// STATS / TRACKER MODULE — СТРОИТЕЛЬ.ПРО
+// Standalone analytics functions. Pure, no DOM.
+// Pass in the app state S (see DEF_STATE structure).
+// ─────────────────────────────────────────────
 
-  <script>
-    function getTrackLog() {
-      try {
-        return JSON.parse(localStorage.getItem('stroitel_track') || '[]');
-      } catch(e) { return []; }
-    }
+function statEntEarn(S, e){
+  const b=(S.buildings||[]).find(x=>x.id===e.buildingId);
+  const wt=(b?.workTypes||[]).find(w=>w.id===e.workTypeId);
+  return Number(e.volume||0)*(wt?.price||0);
+}
 
-    function renderStats() {
-      const log = getTrackLog();
-      const totalEvents = log.length;
-      const uniqueDays = [...new Set(log.map(l => l.d || new Date(l.t).toISOString().slice(0,10)))].length;
-      const eventsCount = {};
-      log.forEach(l => { eventsCount[l.e] = (eventsCount[l.e] || 0) + 1; });
-      
-      const entriesAdded = log.filter(l => l.e === 'entry_added').length;
-      const proClicks = log.filter(l => l.e === 'pro_click').length;
-      const exports = log.filter(l => l.e === 'export_json').length;
-      const imports = log.filter(l => l.e === 'import_json').length;
-      const goalsAdded = log.filter(l => l.e === 'add_goal').length;
-      const stockAdded = log.filter(l => l.e === 'stock_added').length;
-      const firstOpen = log.length ? new Date(log[0].t).toLocaleString() : '—';
-      const lastOpen = log.length ? new Date(log[log.length-1].t).toLocaleString() : '—';
-      
-      const sortedEvents = Object.entries(eventsCount).sort((a,b) => b[1] - a[1]);
-      
-      document.getElementById('stats').innerHTML = `
-        <div class="stat-card">
-          <div class="stat-title">📈 ОБЩАЯ СТАТИСТИКА</div>
-          <table>
-            <tr><td>Всего событий:</td><td class="gold">${totalEvents}</td></tr>
-            <tr><td>Уникальных дней активности:</td><td>${uniqueDays}</td></tr>
-            <tr><td>Первый запуск:</td><td>${firstOpen}</td></tr>
-            <tr><td>Последний запуск:</td><td>${lastOpen}</td></tr>
-            <tr><td>➕ Добавлено работ:</td><td class="gold">${entriesAdded}</td></tr>
-            <tr><td>➕ Добавлено задач:</td><td>${goalsAdded}</td></tr>
-            <tr><td>📦 Приходов на склад:</td><td>${stockAdded}</td></tr>
-            <tr><td>💎 Нажатий «Купить PRO»:</td><td class="gold">${proClicks}</td></tr>
-            <tr><td>📤 Экспортов JSON:</td><td>${exports}</td></tr>
-            <tr><td>📥 Импортов JSON:</td><td>${imports}</td></tr>
-          </table>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-title">🔍 ДЕТАЛИЗАЦИЯ СОБЫТИЙ</div>
-          <table>
-            ${sortedEvents.map(([name,count]) => `<tr><td>${name}</td><td class="gold">${count}</td></tr>`).join('')}
-          </table>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-title">⚙️ ДЕЙСТВИЯ</div>
-          <button class="btn" onclick="clearLog()">🗑 Очистить лог трекера</button>
-          <button class="btn" onclick="exportLog()">📤 Экспорт лога (JSON)</button>
-          <button class="btn" onclick="location.reload()">🔄 Обновить</button>
-        </div>
-      `;
-    }
-    
-    function clearLog() {
-      if(confirm('Очистить всю статистику? Данные приложения останутся.')) {
-        localStorage.removeItem('stroitel_track');
-        renderStats();
-      }
-    }
-    
-    function exportLog() {
-      const log = localStorage.getItem('stroitel_track') || '[]';
-      const blob = new Blob([log], {type: 'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `stroitel_stats_${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(blob);
-    }
-    
-    renderStats();
-  </script>
-</body>
-</html>
+// Daily series for last N days: [{date, vol, earn, cum}]
+function statDailySeries(S, days=14){
+  const out=[];const now=new Date();
+  let cum=0;
+  for(let i=days-1;i>=0;i--){
+    const d=new Date(now);d.setDate(d.getDate()-i);
+    const dt=d.toISOString().slice(0,10);
+    const ents=(S.entries||[]).filter(e=>e.dateFrom===dt);
+    const vol=ents.reduce((s,e)=>s+Number(e.volume||0),0);
+    const earn=ents.reduce((s,e)=>s+statEntEarn(S,e),0);
+    cum+=earn;
+    out.push({date:dt, vol:+vol.toFixed(2), earn:Math.round(earn), cum:Math.round(cum)});
+  }
+  return out;
+}
+
+// Totals + averages (skips Sundays for day-average)
+function statSummary(S){
+  const ents=S.entries||[];
+  const totalVol=ents.reduce((s,e)=>s+Number(e.volume||0),0);
+  const totalEarn=ents.reduce((s,e)=>s+statEntEarn(S,e),0);
+  const workDays={};
+  ents.forEach(e=>{const d=new Date(e.dateFrom+'T12:00');if(d.getDay()!==0)workDays[e.dateFrom]=1;});
+  const dCnt=Object.keys(workDays).length||1;
+  return {
+    totalVol:+totalVol.toFixed(1),
+    totalEarn:Math.round(totalEarn),
+    netEarn:Math.round(totalEarn*0.87),       // minus 13% tax
+    workDays:dCnt,
+    avgVolPerDay:+(totalVol/dCnt).toFixed(1),
+    avgEarnPerDay:Math.round(totalEarn/dCnt),
+    entryCount:ents.length,
+  };
+}
+
+// Per-worker productivity (requires e.worker + S.users)
+function statByWorker(S){
+  return (S.users||[]).map(u=>{
+    const ents=(S.entries||[]).filter(e=>e.worker===u.id);
+    const days={};ents.forEach(e=>{const d=new Date(e.dateFrom+'T12:00');if(d.getDay()!==0)days[e.dateFrom]=1;});
+    const dCnt=Object.keys(days).length||1;
+    const vol=ents.reduce((s,e)=>s+Number(e.volume||0),0);
+    const earn=ents.reduce((s,e)=>s+statEntEarn(S,e),0);
+    return {id:u.id, name:u.name, vol:+vol.toFixed(1), earn:Math.round(earn),
+            dayVol:+(vol/dCnt).toFixed(1), entries:ents.length};
+  }).filter(w=>w.entries>0).sort((a,b)=>b.dayVol-a.dayVol);
+}
+
+// Per-workType progress for a building
+function statWtProgress(S, buildingId){
+  const b=(S.buildings||[]).find(x=>x.id===buildingId);if(!b)return [];
+  return (b.workTypes||[]).map(wt=>{
+    const done=(S.entries||[]).filter(e=>e.buildingId===buildingId&&e.workTypeId===wt.id)
+      .reduce((s,e)=>s+Number(e.volume||0),0);
+    const target=Number(wt.targetArea)||0;
+    return {name:wt.name, done:+done.toFixed(1), target,
+            pct:target?Math.min(100,Math.round(done/target*100)):null,
+            left:Math.max(0,+(target-done).toFixed(1)),
+            earnLeft:Math.round(Math.max(0,target-done)*wt.price)};
+  });
+}
+
+// Period stats (day/week/month) — REAL data, calendar-based
+function statPeriod(S, period='month'){
+  const now=new Date();const td=now.toISOString().slice(0,10);
+  const inP=(dt)=>{
+    if(period==='day')return dt===td;
+    const d=new Date(dt+'T12:00');
+    if(period==='week'){const diff=(now-d)/864e5;return diff>=0&&diff<7;}
+    if(period==='month')return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();
+    return true;
+  };
+  const ents=(S.entries||[]).filter(e=>inP(e.dateFrom));
+  const earn=ents.reduce((s,e)=>s+statEntEarn(S,e),0);
+  return {period, vol:+ents.reduce((s,e)=>s+Number(e.volume||0),0).toFixed(1),
+          earn:Math.round(earn), net:Math.round(earn*0.87), entries:ents.length};
+}
+
+// Export for module usage
+if(typeof module!=='undefined'&&module.exports){
+  module.exports={statEntEarn,statDailySeries,statSummary,statByWorker,statWtProgress,statPeriod};
+}
