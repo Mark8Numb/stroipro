@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>СТРОИТЕЛЬ.ПРО — учёт работ для монтажников</title>
+<title>Metric — учёт стройки для монтажников</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--gold:#e8a020;--green:#42b06a;--blue:#4a9fd4;--bg:#0a0a0c;--card:#17171c;--border:#2c2c36;--text:#f2f2f5;--text2:#9a9aa8}
@@ -38,7 +38,7 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 .screen-txt p{color:var(--text2);font-size:16px;margin-bottom:10px}
 .screen-txt li{color:var(--text2);font-size:15px;margin:6px 0 6px 20px}
 
-/* mini app UI mockup */
+/* моки */
 .m-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid var(--border)}
 .m-logo{font-weight:900;font-size:13px}
 .m-logo .dot{color:var(--gold)}
@@ -88,6 +88,14 @@ body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--
 .plan .pbtn.gold{background:linear-gradient(135deg,#e8a020,#d4801a);color:#000}
 .plan .pbtn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
 
+/* INSTALL */
+.install-steps{background:var(--card);border-radius:32px;padding:32px;margin:40px auto;border:1px solid var(--border);max-width:800px}
+.install-steps h3{font-size:22px;margin-bottom:20px;text-align:center}
+.steps-list{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.step-item{flex:1;min-width:160px;text-align:center;padding:16px}
+.step-num{width:40px;height:40px;background:var(--gold);color:#000;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:12px}
+.install-note{text-align:center;margin-top:20px;font-size:13px;color:var(--text2);background:var(--bg);border-radius:20px;padding:12px;width:100%}
+
 footer{text-align:center;padding:40px 20px;color:var(--text2);font-size:13px;border-top:1px solid var(--border)}
 footer a{color:var(--gold);text-decoration:none}
 </style>
@@ -98,95 +106,58 @@ footer a{color:var(--gold);text-decoration:none}
   <div class="wrap">
     <h1>Вы теряете до 20% материалов<br>и не замечаете</h1>
     <p>Журнал работ, склад, контроль выработки — без интернета. Начните экономить сегодня.</p>
-    <a href="#price" class="cta">Попробовать бесплатно</a>
+    <a href="https://Mark8Numb.github.io/stroipro/" class="cta" target="_blank">Попробовать бесплатно</a>
     <div class="cta-sub">Работает офлайн · Без регистрации · Установка за 10 секунд</div>
   </div>
   <div class="stats wrap">
     <div class="stat"><div class="stat-n">420+</div><div class="stat-l">часов сохранено</div></div>
     <div class="stat"><div class="stat-n">34%</div><div class="stat-l">меньше перерасхода</div></div>
-    <div class="stat"><div class="stat-n">6.3млн</div><div class="stat-l">₽ под контролем в демо</div></div>
+    <div class="stat"><div class="stat-n">6.3млн</div><div class="stat-l">₽ под контролем</div></div>
   </div>
 </section>
+
+<!-- ИНСТРУКЦИЯ ПО УСТАНОВКЕ -->
+<div class="wrap">
+  <div class="install-steps">
+    <h3>📲 Как установить <span style="color:var(--gold)">Metric</span> на рабочий стол телефона</h3>
+    <div class="steps-list">
+      <div class="step-item"><div class="step-num">1</div><strong>Откройте приложение</strong><p style="font-size:13px; margin-top:8px">Нажмите кнопку «Попробовать бесплатно» выше или перейдите по ссылке:<br><a href="https://Mark8Numb.github.io/stroipro/" style="color:var(--gold); word-break:break-all">https://Mark8Numb.github.io/stroipro/</a></p></div>
+      <div class="step-item"><div class="step-num">2</div><strong>Нажмите «Поделиться»</strong><p style="font-size:13px; margin-top:8px">В Chrome: три точки ⋮ → «Поделиться».</p></div>
+      <div class="step-item"><div class="step-num">3</div><strong>Добавьте на главный экран</strong><p style="font-size:13px; margin-top:8px">Выберите «На экран «Домой»».</p></div>
+      <div class="step-item"><div class="step-num">4</div><strong>Готово!</strong><p style="font-size:13px; margin-top:8px">Иконка появится на рабочем столе — открывайте как приложение.</p></div>
+    </div>
+    <div class="install-note">📱 На iPhone: Safari → кнопка «Поделиться» → «На экран «Домой»».</div>
+  </div>
+</div>
 
 <section class="screens">
   <div class="wrap">
     <h2>Как это выглядит</h2>
-    <p class="sub">Реальные экраны приложения с демо-данными монтажника Clip-in потолков</p>
+    <p class="sub">Реальные экраны с демо-данными монтажника Clip-in потолков</p>
 
     <!-- SCREEN 1: Warehouse -->
     <div class="screen-row">
-      <div class="screen-img">
-        <div class="phone"><div class="phone-screen">
-          <div class="m-hdr"><div class="m-logo">СТРОИТЕЛЬ<span class="dot">.</span>ПРО<span class="m-badge">PRO</span></div><div class="m-earn">6 300 000 ₽</div></div>
-          <div class="m-tabs"><div class="m-tab on">📦 Склад</div><div class="m-tab">📅 История</div><div class="m-tab">⚠ Заканчивается</div></div>
-          <div class="m-card"><div class="m-row"><div><div class="m-name">Траверс 3м</div><div class="m-meta">300см/шт</div></div><div class="m-val o">88 шт</div></div></div>
-          <div class="m-card green"><div class="m-row"><div><div class="m-name">Молдинг RA4F</div><div class="m-meta">400см/шт</div></div><div class="m-val g">152 шт</div></div></div>
-          <div class="m-card blue"><div class="m-row"><div><div class="m-name">Шпилька М6</div><div class="m-meta">120см/шт</div></div><div class="m-val b">340 шт</div></div></div>
-          <div class="m-card"><div class="m-row"><div><div class="m-name">Уши 120 (RA4F)</div><div class="m-meta">пачка 100шт</div></div><div class="m-val o">600 шт</div></div></div>
-          <div class="m-nav"><span><b>🔨</b>Журнал</span><span class="on"><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span><b>💰</b>Заработок</span><span><b>🧠</b>Анализ</span></div>
-        </div></div>
-      </div>
-      <div class="screen-txt">
-        <h3>📦 Склад под контролем</h3>
-        <p>Каждый приход и расход материала фиксируется. Видно остаток в штуках, пачках, метрах и килограммах.</p>
-        <ul>
-          <li>Основные материалы и расходники раздельно</li>
-          <li>Сортировка по последним изменениям</li>
-          <li>Предупреждение когда заканчивается</li>
-          <li>Списание привязано к видам работ</li>
-        </ul>
-      </div>
+      <div class="screen-img"><div class="phone"><div class="phone-screen">
+        <div class="m-hdr"><div class="m-logo">Metric<span class="dot">.</span>PRO<span class="m-badge">PRO</span></div><div class="m-earn">6 300 000 ₽</div></div>
+        <div class="m-tabs"><div class="m-tab on">📦 Склад</div><div class="m-tab">📅 История</div><div class="m-tab">⚠ Заканчивается</div></div>
+        <div class="m-card"><div class="m-row"><div><div class="m-name">Траверс 3м</div><div class="m-meta">300см/шт</div></div><div class="m-val o">88 шт</div></div></div>
+        <div class="m-card green"><div class="m-row"><div><div class="m-name">Молдинг RA4F</div><div class="m-meta">400см/шт</div></div><div class="m-val g">152 шт</div></div></div>
+        <div class="m-card"><div class="m-row"><div><div class="m-name">Уши 120 (RA4F)</div><div class="m-meta">пачка 100шт</div></div><div class="m-val o">600 шт</div></div></div>
+        <div class="m-nav"><span><b>🔨</b>Журнал</span><span class="on"><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span><b>💰</b>Заработок</span><span><b>🧠</b>Анализ</span></div>
+      </div></div></div>
+      <div class="screen-txt"><h3>📦 Склад под контролем</h3><p>Каждый приход и расход материала фиксируется. Видно остаток в штуках, пачках, метрах и килограммах.</p><ul><li>Основные материалы и расходники раздельно</li><li>Сортировка по последним изменениям</li><li>Предупреждение когда заканчивается</li><li>Списание привязано к видам работ</li></ul></div>
     </div>
 
-    <!-- SCREEN 2: Earnings + chart -->
+    <!-- SCREEN 2: Earnings -->
     <div class="screen-row">
-      <div class="screen-img">
-        <div class="phone"><div class="phone-screen">
-          <div class="m-hdr"><div class="m-logo">СТРОИТЕЛЬ<span class="dot">.</span>ПРО<span class="m-badge">PRO</span></div><div class="m-earn">💰 Заработок</div></div>
-          <div class="m-tabs"><div class="m-tab">День</div><div class="m-tab">Неделя</div><div class="m-tab on">Месяц</div></div>
-          <div class="m-card" style="border-left-color:var(--gold)"><div class="m-meta">ЗАРАБОТАНО ЗА МЕСЯЦ</div><div class="m-val o" style="font-size:22px">1 380 000 ₽</div><div class="m-meta">На руки (−13%): 1 200 600 ₽ · 3284 м²</div></div>
-          <div class="m-card blue"><div class="m-meta" style="margin-bottom:6px">📊 ДИНАМИКА · Месяц / Всё</div>
-            <div class="m-chart"><i style="height:40%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:65%"></i><i style="height:85%"></i></div>
-          </div>
-          <div class="m-nav"><span><b>🔨</b>Журнал</span><span><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span class="on"><b>💰</b>Заработок</span><span><b>🧠</b>Анализ</span></div>
-        </div></div>
-      </div>
-      <div class="screen-txt">
-        <h3>💰 Заработок и динамика</h3>
-        <p>Считает доход автоматически по объёму × расценке. Удержание 13% сразу видно — знаете сколько на руки.</p>
-        <ul>
-          <li>За день, неделю, месяц и всё время</li>
-          <li>График динамики переключается: месяц / всё</li>
-          <li>Разбивка по корпусам и видам работ</li>
-          <li>Отчёт заказчику в один тап</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- SCREEN 3: Analysis / brigades -->
-    <div class="screen-row">
-      <div class="screen-img">
-        <div class="phone"><div class="phone-screen">
-          <div class="m-hdr"><div class="m-logo">СТРОИТЕЛЬ<span class="dot">.</span>ПРО<span class="m-badge">PRO</span></div><div class="m-earn">🧠 Анализ</div></div>
-          <div class="m-card" style="border-left-color:var(--gold)"><div class="m-meta">ПРОДУКТИВНОСТЬ</div><div class="m-val o" style="font-size:20px">148 м²/день</div><div class="m-meta">104 рабочих дня · прогноз сдачи: 12 дней</div></div>
-          <div style="font-size:9px;font-weight:800;color:var(--gold);margin:10px 12px 4px">🏗 БРИГАДА А</div>
-          <div class="m-card"><div class="m-row"><div class="m-name">🥇 Дмитрий Орлов</div><div class="m-val g" style="font-size:11px">54.8 м²/д</div></div><div class="m-bar"><i style="width:100%;background:var(--green)"></i></div></div>
-          <div class="m-card"><div class="m-row"><div class="m-name">🥉 Андрей Волков</div><div class="m-val o" style="font-size:11px">50.8 м²/д</div></div><div class="m-bar"><i style="width:88%;background:var(--gold)"></i></div></div>
-          <div style="font-size:9px;font-weight:800;color:var(--gold);margin:10px 12px 4px">🏗 БРИГАДА Б</div>
-          <div class="m-card"><div class="m-row"><div class="m-name">🥈 Алексей Соколов</div><div class="m-val g" style="font-size:11px">51.0 м²/д</div></div><div class="m-bar"><i style="width:92%;background:var(--green)"></i></div></div>
-          <div class="m-nav"><span><b>🔨</b>Журнал</span><span><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span><b>💰</b>Заработок</span><span class="on"><b>🧠</b>Анализ</span></div>
-        </div></div>
-      </div>
-      <div class="screen-txt">
-        <h3>🧠 Анализ и бригады</h3>
-        <p>Видно кто сколько делает. Работники группируются по бригадам, в записи можно делить объём на нескольких с процентами.</p>
-        <ul>
-          <li>Рейтинг по выработке м²/день</li>
-          <li>Группировка по бригадам</li>
-          <li>Прогноз срока сдачи объекта</li>
-          <li>Распределение дохода на 2-4 человек</li>
-        </ul>
-      </div>
+      <div class="screen-img"><div class="phone"><div class="phone-screen">
+        <div class="m-hdr"><div class="m-logo">Metric<span class="dot">.</span>PRO<span class="m-badge">PRO</span></div><div class="m-earn">💰 Заработок</div></div>
+        <div class="m-tabs"><div class="m-tab">День</div><div class="m-tab">Неделя</div><div class="m-tab on">Месяц</div></div>
+        <div class="m-card" style="border-left-color:var(--gold)"><div class="m-meta">ЗАРАБОТАНО ЗА МЕСЯЦ</div><div class="m-val o" style="font-size:22px">1 380 000 ₽</div><div class="m-meta">На руки (−13%): 1 200 600 ₽ · 3284 м²</div></div>
+        <div class="m-card blue"><div class="m-meta" style="margin-bottom:6px">📊 ДИНАМИКА · Месяц / Всё</div><div class="m-chart"><i style="height:40%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:65%"></i><i style="height:85%"></i></div></div>
+        <div class="m-nav"><span><b>🔨</b>Журнал</span><span><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span class="on"><b>💰</b>Заработок</span><span><b>🧠</b>Анализ</span></div>
+      </div></div></div>
+      <div class="screen-txt"><h3>💰 Заработок и динамика</h3><p>Считает доход автоматически по объёму × расценку. Удержание 13% сразу видно — знаете сколько на руки.</p><ul><li>За день, неделю, месяц и всё время</li><li>График динамики переключается: месяц / всё</li><li>Разбивка по корпусам и видам работ</li><li>Отчёт заказчику в один тап</li></ul></div>
     </div>
   </div>
 </section>
@@ -219,7 +190,7 @@ footer a{color:var(--gold);text-decoration:none}
           <li>Журнал, склад, задачи</li>
           <li>2 темы оформления</li>
         </ul>
-        <a href="#" class="pbtn ghost">Скачать FREE</a>
+        <a href="https://Mark8Numb.github.io/stroipro/" class="pbtn ghost" target="_blank">Попробовать FREE</a>
       </div>
       <div class="plan pro">
         <h3>PRO</h3>
@@ -239,7 +210,7 @@ footer a{color:var(--gold);text-decoration:none}
 </section>
 
 <footer>
-  СТРОИТЕЛЬ.ПРО — учёт работ для монтажников подвесных потолков<br>
+  Metric — учёт работ для монтажников<br>
   Вопросы и подписка: <a href="https://t.me/Mark8Numb" target="_blank">@Mark8Numb</a>
 </footer>
 
