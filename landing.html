@@ -1,218 +1,460 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>СТРОИТЕЛЬ.ПРО — учёт стройки для монтажников</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--gold:#e8a020;--green:#42b06a;--blue:#4a9fd4;--bg:#0a0a0c;--card:#17171c;--border:#2c2c36;--text:#f2f2f5;--text2:#9a9aa8}
-body{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
-.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>СТРОИТЕЛЬ.ПРО — учёт стройки без потерь</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* HERO */
-.hero{text-align:center;padding:70px 20px 50px;background:radial-gradient(ellipse at top,rgba(232,160,32,.08),transparent 60%)}
-.hero h1{font-size:clamp(28px,5.5vw,52px);font-weight:900;line-height:1.1;margin-bottom:18px;background:linear-gradient(135deg,#fff,#e8a020);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:clamp(15px,2.5vw,20px);color:var(--text2);max-width:600px;margin:0 auto 30px}
-.cta{display:inline-block;background:linear-gradient(135deg,#e8a020,#d4801a);color:#0a0a0c;font-size:17px;font-weight:800;padding:16px 38px;border-radius:14px;text-decoration:none;box-shadow:0 6px 24px rgba(232,160,32,.35);transition:.2s}
-.cta:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(232,160,32,.45)}
-.cta-sub{margin-top:12px;font-size:13px;color:var(--text2)}
+        body {
+            background-color: #0a0c10;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            color: #eef2ff;
+            line-height: 1.5;
+        }
 
-/* STATS */
-.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;padding:30px 20px 10px}
-.stat{text-align:center}
-.stat-n{font-size:clamp(32px,6vw,52px);font-weight:900;color:var(--gold);line-height:1}
-.stat-l{font-size:14px;color:var(--text2);margin-top:6px;max-width:160px}
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
 
-/* SCREENS */
-.screens{padding:50px 20px}
-.screens h2{text-align:center;font-size:clamp(22px,4vw,34px);font-weight:800;margin-bottom:8px}
-.screens .sub{text-align:center;color:var(--text2);margin-bottom:40px}
-.screen-row{display:flex;flex-wrap:wrap;gap:30px;align-items:center;margin-bottom:70px}
-.screen-row:nth-child(even){flex-direction:row-reverse}
-.screen-img{flex:1;min-width:280px;display:flex;justify-content:center}
-.phone{width:300px;max-width:100%;background:#000;border-radius:32px;padding:10px;box-shadow:0 20px 60px rgba(0,0,0,.6);border:1px solid #2c2c36}
-.phone-screen{background:var(--bg);border-radius:24px;overflow:hidden;font-size:11px}
-.screen-txt{flex:1;min-width:260px}
-.screen-txt h3{font-size:24px;font-weight:800;margin-bottom:12px;color:var(--gold)}
-.screen-txt p{color:var(--text2);font-size:16px;margin-bottom:10px}
-.screen-txt li{color:var(--text2);font-size:15px;margin:6px 0 6px 20px}
+        .header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .logo span {
+            background: #10b981;
+            color: #0a0c10;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 40px;
+            font-weight: 600;
+        }
+        .badge {
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            color: #10b981;
+        }
+        .test-mode {
+            background: rgba(245,158,11,0.2);
+            border: 1px solid #f59e0b;
+            color: #fbbf24;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
 
-/* моки */
-.m-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px;border-bottom:1px solid var(--border)}
-.m-logo{font-weight:900;font-size:13px}
-.m-logo .dot{color:var(--gold)}
-.m-badge{background:var(--gold);color:#000;font-size:7px;font-weight:800;padding:1px 5px;border-radius:4px;margin-left:3px}
-.m-earn{background:var(--gold);color:#000;font-weight:800;padding:4px 10px;border-radius:10px;font-size:12px}
-.m-tabs{display:flex;gap:6px;padding:10px 12px;overflow-x:auto}
-.m-tab{background:#1b1b21;border:1px solid var(--border);padding:5px 10px;border-radius:14px;font-size:9px;color:var(--text2);white-space:nowrap}
-.m-tab.on{background:rgba(232,160,32,.13);border-color:rgba(232,160,32,.32);color:var(--gold)}
-.m-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:10px;padding:10px;margin:8px 12px}
-.m-card.green{border-left-color:var(--green)}
-.m-card.blue{border-left-color:var(--blue)}
-.m-row{display:flex;justify-content:space-between;align-items:center}
-.m-name{font-weight:700;font-size:11px}
-.m-meta{color:var(--text2);font-size:8px;margin-top:2px}
-.m-val{font-weight:800;font-size:14px}
-.m-val.g{color:var(--green)}.m-val.o{color:var(--gold)}.m-val.b{color:var(--blue)}
-.m-bar{height:5px;background:#1b1b21;border-radius:3px;margin-top:6px;overflow:hidden}
-.m-bar i{display:block;height:100%;border-radius:3px}
-.m-nav{display:flex;justify-content:space-around;padding:8px;border-top:1px solid var(--border);margin-top:8px}
-.m-nav span{font-size:7px;color:var(--text2);text-align:center}
-.m-nav span.on{color:var(--gold)}
-.m-nav b{display:block;font-size:13px}
-.m-chart{height:90px;display:flex;align-items:flex-end;gap:3px;padding:10px 12px}
-.m-chart i{flex:1;background:linear-gradient(180deg,var(--blue),rgba(74,159,212,.3));border-radius:2px 2px 0 0}
+        .btn {
+            display: inline-block;
+            background: #10b981;
+            color: #0a0c10;
+            font-weight: 700;
+            padding: 12px 28px;
+            border-radius: 48px;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #10b981;
+            color: #10b981;
+        }
+        .btn-outline:hover {
+            background: #10b98120;
+        }
+        .btn:hover {
+            background: #0e9f6e;
+            transform: translateY(-2px);
+        }
 
-/* FEATURES */
-.feat{padding:50px 20px;background:var(--card)}
-.feat h2{text-align:center;font-size:clamp(22px,4vw,32px);font-weight:800;margin-bottom:40px}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.feat-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:22px}
-.feat-card .ic{font-size:30px;margin-bottom:10px}
-.feat-card h4{font-size:17px;margin-bottom:8px}
-.feat-card p{color:var(--text2);font-size:14px}
+        .hero {
+            padding: 70px 0 40px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #fff 60%, #10b981);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 24px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            max-width: 680px;
+            margin: 0 auto 32px;
+        }
+        .highlight {
+            color: #10b981;
+            font-weight: 600;
+        }
 
-/* PRICING */
-.price{padding:60px 20px;text-align:center}
-.price h2{font-size:clamp(22px,4vw,32px);font-weight:800;margin-bottom:40px}
-.plans{display:flex;flex-wrap:wrap;gap:24px;justify-content:center}
-.plan{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:32px;width:300px;max-width:100%;text-align:left}
-.plan.pro{border:2px solid var(--gold);position:relative}
-.plan.pro::before{content:'РЕКОМЕНДУЕМ';position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:10px;font-weight:800;padding:3px 12px;border-radius:6px}
-.plan h3{font-size:22px;font-weight:900;margin-bottom:4px}
-.plan .p-price{font-size:15px;color:var(--text2);margin-bottom:20px}
-.plan li{list-style:none;padding:7px 0;font-size:14px;color:var(--text2);border-bottom:1px solid var(--border)}
-.plan li b{color:var(--text)}
-.plan .pbtn{display:block;text-align:center;margin-top:20px;padding:13px;border-radius:11px;font-weight:700;text-decoration:none}
-.plan .pbtn.gold{background:linear-gradient(135deg,#e8a020,#d4801a);color:#000}
-.plan .pbtn.ghost{background:transparent;border:1px solid var(--border);color:var(--text)}
+        .section {
+            padding: 70px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        .card {
+            background: #111317;
+            border-radius: 28px;
+            padding: 28px;
+            border: 1px solid #1f2229;
+            transition: 0.2s;
+        }
+        .card:hover {
+            border-color: #10b98140;
+            transform: translateY(-4px);
+        }
+        .review-card {
+            background: #111317;
+        }
+        .stars {
+            color: #fbbf24;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+        .review-text {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+        .review-author {
+            font-weight: 600;
+            color: white;
+        }
+        .review-role {
+            font-size: 0.8rem;
+            color: #10b981;
+        }
 
-/* INSTALL */
-.install-steps{background:var(--card);border-radius:32px;padding:32px;margin:40px auto;border:1px solid var(--border);max-width:800px}
-.install-steps h3{font-size:22px;margin-bottom:20px;text-align:center}
-.steps-list{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
-.step-item{flex:1;min-width:160px;text-align:center;padding:16px}
-.step-num{width:40px;height:40px;background:var(--gold);color:#000;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:12px}
-.install-note{text-align:center;margin-top:20px;font-size:13px;color:var(--text2);background:var(--bg);border-radius:20px;padding:12px;width:100%}
+        .tariff-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+        }
+        .tariff-card {
+            background: #111317;
+            border-radius: 32px;
+            padding: 32px;
+            width: 280px;
+            border: 1px solid #2a2e3a;
+            text-align: center;
+        }
+        .tariff-name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 20px 0;
+            color: #10b981;
+        }
+        .features-list {
+            list-style: none;
+            margin: 24px 0;
+            text-align: left;
+        }
+        .features-list li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .check {
+            color: #10b981;
+            font-weight: bold;
+        }
 
-footer{text-align:center;padding:40px 20px;color:var(--text2);font-size:13px;border-top:1px solid var(--border)}
-footer a{color:var(--gold);text-decoration:none}
-</style>
+        .howto-compact {
+            background: #0e1015;
+            border-radius: 28px;
+            padding: 24px 28px;
+            margin: 20px 0 30px;
+        }
+        .howto-compact h3 {
+            font-size: 1.3rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .steps-compact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-between;
+        }
+        .step-compact {
+            flex: 1;
+            background: #0a0c10;
+            padding: 12px 16px;
+            border-radius: 20px;
+            border-left: 2px solid #10b981;
+            font-size: 0.85rem;
+        }
+        .step-number-compact {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 6px;
+        }
+
+        .instruction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .instruction-item {
+            background: #0e1015;
+            border-radius: 24px;
+            padding: 20px;
+            border-left: 3px solid #10b981;
+        }
+        .instruction-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #10b981;
+        }
+        .instruction-item p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #6b7280;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 2.2rem; }
+            .container { padding: 0 20px; }
+            .section { padding: 50px 0; }
+            .steps-compact { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
-
-<section class="hero">
-  <div class="wrap">
-    <h1>Вы теряете до 20% материалов<br>и не замечаете</h1>
-    <p>Журнал работ, склад, контроль выработки — без интернета. Начните экономить сегодня.</p>
-    <a href="https://Mark8Numb.github.io/stroipro/" class="cta" target="_blank">Попробовать бесплатно</a>
-    <div class="cta-sub">Работает офлайн · Без регистрации · Установка за 10 секунд</div>
-  </div>
-  <div class="stats wrap">
-    <div class="stat"><div class="stat-n">420+</div><div class="stat-l">часов сохранено</div></div>
-    <div class="stat"><div class="stat-n">34%</div><div class="stat-l">меньше перерасхода</div></div>
-    <div class="stat"><div class="stat-n">6.3млн</div><div class="stat-l">₽ под контролем</div></div>
-  </div>
-</section>
-
-<!-- ИНСТРУКЦИЯ ПО УСТАНОВКЕ -->
-<div class="wrap">
-  <div class="install-steps">
-    <h3>📲 Как установить <span style="color:var(--gold)">СТРОИТЕЛЬ.ПРО</span> на рабочий стол телефона</h3>
-    <div class="steps-list">
-      <div class="step-item"><div class="step-num">1</div><strong>Откройте приложение</strong><p style="font-size:13px; margin-top:8px">Нажмите кнопку «Попробовать бесплатно» выше или перейдите по ссылке:<br><a href="https://Mark8Numb.github.io/stroipro/" style="color:var(--gold); word-break:break-all">https://Mark8Numb.github.io/stroipro/</a></p></div>
-      <div class="step-item"><div class="step-num">2</div><strong>Нажмите «Поделиться»</strong><p style="font-size:13px; margin-top:8px">В Chrome: три точки ⋮ → «Поделиться».</p></div>
-      <div class="step-item"><div class="step-num">3</div><strong>Добавьте на главный экран</strong><p style="font-size:13px; margin-top:8px">Выберите «На экран «Домой»».</p></div>
-      <div class="step-item"><div class="step-num">4</div><strong>Готово!</strong><p style="font-size:13px; margin-top:8px">Иконка появится на рабочем столе — открывайте как приложение.</p></div>
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            СТРОИТЕЛЬ.ПРО
+            <span>PRO v1.1</span>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="test-mode">🧪 ТЕСТОВЫЙ РЕЖИМ</div>
+            <div class="badge">Работает офлайн · Без регистрации</div>
+        </div>
     </div>
-    <div class="install-note">📱 На iPhone: Safari → кнопка «Поделиться» → «На экран «Домой»».</div>
-  </div>
+
+    <div class="hero">
+        <h1>Ещё считаете на калькуляторе?<br>
+        Записываете в блокнот?<br>
+        Теряете заметки?</h1>
+        <p>СТРОИТЕЛЬ.ПРО — <span class="highlight">журнал работ, склад, контроль выработки</span> без интернета. Никаких потерь времени и материалов. Начните экономить сегодня.</p>
+        <a href="https://mark8numb.github.io/stroipro/index.html" target="_blank" class="btn">Попробовать бесплатно</a>
+        <p style="margin-top: 20px; font-size: 0.85rem;">420+ часов сохранено · 34% меньше перерасхода · 6.3 млн ₽ под контролем</p>
+    </div>
+
+    <div class="howto-compact">
+        <h3>📲 Как установить СТРОИТЕЛЬ.ПРО на телефон</h3>
+        <div class="steps-compact">
+            <div class="step-compact">
+                <div class="step-number-compact">1</div>
+                <strong>Откройте</strong><br>
+                <a href="https://mark8numb.github.io/stroipro/index.html" target="_blank" style="color:#10b981;">mark8numb.github.io/stroipro/index.html</a>
+            </div>
+            <div class="step-compact">
+                <div class="step-number-compact">2</div>
+                <strong>Поделиться</strong><br>
+                Chrome: три точки → «Поделиться»
+            </div>
+            <div class="step-compact">
+                <div class="step-number-compact">3</div>
+                <strong>На экран "Домой"</strong><br>
+                Выберите «На экран "Домой"»
+            </div>
+            <div class="step-compact">
+                <div class="step-number-compact">4</div>
+                <strong>Готово</strong><br>
+                Иконка на рабочем столе
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Чем помогает монтажникам и прорабам</div>
+        <div class="grid-2">
+            <div class="card review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">«Раньше постоянно теряли материал — то траверсы, то молдинги. В конце месяца расхождение до 20%. С СТРОИТЕЛЬ.ПРО вижу всё: приход, расход, остатки. Склад под контролем, заказчик доволен. Супер!»</div>
+                <div class="review-author">Антон, прораб</div>
+                <div class="review-role">ЖК Северный парк</div>
+            </div>
+            <div class="card review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">«Устал пересчитывать по 3 раза объёмы и расценки. Приложение считает само: за день, неделю, месяц, сразу с вычетом 13% — знаю сколько на руки. Огромная экономия времени, уже 3 корпуса сдал с ним.»</div>
+                <div class="review-author">Сергей, монтажник Clip‑in</div>
+                <div class="review-role">ТРЦ Галактика</div>
+            </div>
+            <div class="card review-card">
+                <div class="stars">★★★★★</div>
+                <div class="review-text">«Блокноты, заметки в WhatsApp — это хаос. Ставлю задачи по этажам в приложении, бригада видит, что делать. Прогноз сдачи прямо на экране. Ничего не теряется, даже без интернета на объекте.»</div>
+                <div class="review-author">Дмитрий, прораб</div>
+                <div class="review-role">Госпиталь №3</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Как это работает</div>
+        <div class="grid-2">
+            <div class="card">
+                <div style="font-size: 2rem;">📋</div>
+                <h3 style="margin: 16px 0 8px;">Журнал работ</h3>
+                <p>Дата, объём, материалы, исполнитель. Доход рассчитывается автоматически по расценке.</p>
+            </div>
+            <div class="card">
+                <div style="font-size: 2rem;">🏚️</div>
+                <h3 style="margin: 16px 0 8px;">Склад + остатки</h3>
+                <p>Приход, расход, предупреждение о заканчивающихся материалах. В штуках, пачках, метрах.</p>
+            </div>
+            <div class="card">
+                <div style="font-size: 2rem;">📊</div>
+                <h3 style="margin: 16px 0 8px;">Заработок и динамика</h3>
+                <p>День / неделя / месяц, на руки −13%, графики по корпусам. Отчёт заказчику в 1 тап.</p>
+            </div>
+            <div class="card">
+                <div style="font-size: 2rem;">🤖</div>
+                <h3 style="margin: 16px 0 8px;">Прогноз сдачи</h3>
+                <p>По каждому корпусу: сколько метров осталось, сколько дней нужно, сколько заработаешь.</p>
+            </div>
+            <div class="card">
+                <div style="font-size: 2rem;">👥</div>
+                <h3 style="margin: 16px 0 8px;">Работники и задачи</h3>
+                <p>Отдельные списки на каждый корпус. Примечания превращаются в задачи для бригады.</p>
+            </div>
+            <div class="card">
+                <div style="font-size: 2rem;">📡</div>
+                <h3 style="margin: 16px 0 8px;">Без интернета</h3>
+                <p>Работает офлайн на любом объекте. Данные всегда на телефоне.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">📖 Инструкция: как работать с приложением</div>
+        <div class="instruction-grid">
+            <div class="instruction-item">
+                <h4>🚀 Как начать пользоваться?</h4>
+                <p>1. Откройте приложение → нажмите <strong>«+ Добавить объект»</strong>.<br>
+                2. Введите название объекта (например, «ЖК Северный парк»).<br>
+                3. Внутри объекта нажмите <strong>«+ Корпус»</strong> и укажите название.<br>
+                4. Теперь можно добавлять виды работ и материалы.</p>
+            </div>
+            <div class="instruction-item">
+                <h4>🏗️ Как добавить вид работ и материалы?</h4>
+                <p><strong>Вид работ:</strong> в карточке корпуса → «Виды работ» → «+» → укажите название и расценку (₽ за м²/шт).<br>
+                <strong>Материалы:</strong> раздел «СКЛАД» → «+ Материал» → название, единица измерения, количество, цена.</p>
+            </div>
+            <div class="instruction-item">
+                <h4>🗑️ Как удалить всё (сбросить данные)?</h4>
+                <p>В приложении предусмотрена кнопка <strong>«Сбросить все данные»</strong> в разделе «ПРОЧЕЕ» → «Настройки». Нажмите её, чтобы полностью очистить объекты, корпуса и материалы. <br>⚠️ <strong>Действие необратимо</strong> (данные хранятся только локально).</p>
+            </div>
+            <div class="instruction-item">
+                <h4>➕ Объект → Корпус → Работы</h4>
+                <p>Структура простая: <strong>Объект</strong> (например, ТРЦ) → <strong>Корпус</strong> (секция А) → <strong>Виды работ</strong> (монтаж каркаса). Для каждого вида работ можно задать объём и отслеживать прогресс.</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 32px; background: #0e1015; padding: 12px; border-radius: 30px; font-size: 0.85rem;">
+            💡 Все данные сохраняются автоматически в вашем браузере. Приложение работает без интернета после первого открытия.
+        </p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Тарифы</div>
+        <div class="tariff-grid">
+            <div class="tariff-card">
+                <div class="tariff-name">FREE</div>
+                <div class="price">0 ₽</div>
+                <div class="features-list">
+                    <li><span class="check">✓</span> 1 объект</li>
+                    <li><span class="check">✓</span> До 2 корпусов</li>
+                    <li><span class="check">✓</span> До 3 видов работ</li>
+                    <li><span class="check">✓</span> Журнал, склад, задачи</li>
+                    <li><span class="check">✓</span> 2 темы оформления</li>
+                </div>
+            </div>
+            <div class="tariff-card">
+                <div class="tariff-name">PRO</div>
+                <div class="price">Подписка</div>
+                <div class="features-list">
+                    <li><span class="check">✓</span> ∞ объектов и корпусов</li>
+                    <li><span class="check">✓</span> ∞ видов работ</li>
+                    <li><span class="check">✓</span> ИИ‑анализ и прогноз сдачи</li>
+                    <li><span class="check">✓</span> Работники и бригады</li>
+                    <li><span class="check">✓</span> Отчёты + импорт</li>
+                    <li><span class="check">✓</span> 4 темы оформления</li>
+                </div>
+                <a href="https://t.me/Mark8Numb" target="_blank" class="btn-outline btn" style="text-align: center; display: block;">Написать @Mark8Numb</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0 30px;">
+        <a href="https://mark8numb.github.io/stroipro/index.html" target="_blank" class="btn">Попробовать бесплатно →</a>
+        <p style="margin-top: 20px; color: #6c737f;">Работает без интернета · Все данные на телефоне · Никакой регистрации</p>
+    </div>
+
+    <footer>
+        © СТРОИТЕЛЬ.ПРО · Журнал работ, склад, контроль выработки для монтажников и прорабов<br>
+        <span style="font-size: 0.75rem;">mark8numb.github.io · Версия PRO v1.1</span><br>
+        <span style="font-size: 0.7rem; color: #f59e0b;">⚠️ Тестовый режим. Все данные хранятся локально на вашем устройстве.</span>
+    </footer>
 </div>
-
-<section class="screens">
-  <div class="wrap">
-    <h2>Как это выглядит</h2>
-    <p class="sub">Реальные экраны с демо-данными монтажника Clip-in потолков</p>
-
-    <!-- SCREEN 1: Warehouse -->
-    <div class="screen-row">
-      <div class="screen-img"><div class="phone"><div class="phone-screen">
-        <div class="m-hdr"><div class="m-logo">СТРОИТЕЛЬ<span class="dot">.</span>ПРО<span class="m-badge">PRO</span></div><div class="m-earn">6 300 000 ₽</div></div>
-        <div class="m-tabs"><div class="m-tab on">📦 Склад</div><div class="m-tab">📅 История</div><div class="m-tab">⚠ Заканчивается</div></div>
-        <div class="m-card"><div class="m-row"><div><div class="m-name">Траверс 3м</div><div class="m-meta">300см/шт</div></div><div class="m-val o">88 шт</div></div></div>
-        <div class="m-card green"><div class="m-row"><div><div class="m-name">Молдинг RA4F</div><div class="m-meta">400см/шт</div></div><div class="m-val g">152 шт</div></div></div>
-        <div class="m-card"><div class="m-row"><div><div class="m-name">Уши 120 (RA4F)</div><div class="m-meta">пачка 100шт</div></div><div class="m-val o">600 шт</div></div></div>
-        <div class="m-nav"><span><b>🔨</b>Журнал</span><span class="on"><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span><b>💰</b>Заработок</span><span><b>🧠</b>Анализ</span></div>
-      </div></div></div>
-      <div class="screen-txt"><h3>📦 Склад под контролем</h3><p>Каждый приход и расход материала фиксируется. Видно остаток в штуках, пачках, метрах и килограммах.</p><ul><li>Основные материалы и расходники раздельно</li><li>Сортировка по последним изменениям</li><li>Предупреждение когда заканчивается</li><li>Списание привязано к видам работ</li></ul></div>
-    </div>
-
-    <!-- SCREEN 2: Earnings -->
-    <div class="screen-row">
-      <div class="screen-img"><div class="phone"><div class="phone-screen">
-        <div class="m-hdr"><div class="m-logo">СТРОИТЕЛЬ<span class="dot">.</span>ПРО<span class="m-badge">PRO</span></div><div class="m-earn">💰 Заработок</div></div>
-        <div class="m-tabs"><div class="m-tab">День</div><div class="m-tab">Неделя</div><div class="m-tab on">Месяц</div></div>
-        <div class="m-card" style="border-left-color:var(--gold)"><div class="m-meta">ЗАРАБОТАНО ЗА МЕСЯЦ</div><div class="m-val o" style="font-size:22px">1 380 000 ₽</div><div class="m-meta">На руки (−13%): 1 200 600 ₽ · 3284 м²</div></div>
-        <div class="m-card blue"><div class="m-meta" style="margin-bottom:6px">📊 ДИНАМИКА · Месяц / Всё</div><div class="m-chart"><i style="height:40%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:90%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:65%"></i><i style="height:85%"></i></div></div>
-        <div class="m-nav"><span><b>🔨</b>Журнал</span><span><b>📦</b>Склад</span><span><b>✅</b>Задачи</span><span class="on"><b>💰</b>Заработок</span><span><b>🧠</b>Анализ</span></div>
-      </div></div></div>
-      <div class="screen-txt"><h3>💰 Заработок и динамика</h3><p>Считает доход автоматически по объёму × расценку. Удержание 13% сразу видно — знаете сколько на руки.</p><ul><li>За день, неделю, месяц и всё время</li><li>График динамики переключается: месяц / всё</li><li>Разбивка по корпусам и видам работ</li><li>Отчёт заказчику в один тап</li></ul></div>
-    </div>
-  </div>
-</section>
-
-<section class="feat">
-  <div class="wrap">
-    <h2>Всё для монтажника в одном приложении</h2>
-    <div class="feat-grid">
-      <div class="feat-card"><div class="ic">📋</div><h4>Журнал работ</h4><p>Дата, объём, материалы, исполнитель. Доход считается сам.</p></div>
-      <div class="feat-card"><div class="ic">📦</div><h4>Склад</h4><p>Приход, расход, остатки. Не теряете материал.</p></div>
-      <div class="feat-card"><div class="ic">✅</div><h4>Задачи по этажам</h4><p>Отдельные списки на каждый корпус. Примечания становятся задачами.</p></div>
-      <div class="feat-card"><div class="ic">💰</div><h4>Заработок</h4><p>День/неделя/месяц, на руки −13%, графики.</p></div>
-      <div class="feat-card"><div class="ic">📵</div><h4>Без интернета</h4><p>Работает офлайн на объекте. Данные на телефоне.</p></div>
-      <div class="feat-card"><div class="ic">📤</div><h4>Отчёты</h4><p>Красивый отчёт заказчику в WhatsApp или Telegram.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="price" id="price">
-  <div class="wrap">
-    <h2>Тарифы</h2>
-    <div class="plans">
-      <div class="plan">
-        <h3>FREE</h3>
-        <div class="p-price">Бесплатно навсегда</div>
-        <ul>
-          <li><b>1</b> объект</li>
-          <li>До <b>2</b> корпусов</li>
-          <li>До <b>3</b> видов работ</li>
-          <li>Журнал, склад, задачи</li>
-          <li>2 темы оформления</li>
-        </ul>
-        <a href="https://Mark8Numb.github.io/stroipro/" class="pbtn ghost" target="_blank">Попробовать FREE</a>
-      </div>
-      <div class="plan pro">
-        <h3>PRO</h3>
-        <div class="p-price">Подписка · напишите @Mark8Numb</div>
-        <ul>
-          <li><b>∞</b> объектов и корпусов</li>
-          <li><b>∞</b> видов работ</li>
-          <li>🧠 ИИ-анализ и прогноз сдачи</li>
-          <li>👥 Работники и бригады</li>
-          <li>📤 Отчёты + 📥 импорт</li>
-          <li>4 темы оформления</li>
-        </ul>
-        <a href="https://t.me/Mark8Numb" class="pbtn gold" target="_blank">Оформить PRO</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  СТРОИТЕЛЬ.ПРО — учёт работ для монтажников<br>
-  Вопросы и подписка: <a href="https://t.me/Mark8Numb" target="_blank">@Mark8Numb</a>
-</footer>
-
 </body>
 </html>
