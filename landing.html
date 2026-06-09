@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>СТРОИТЕЛЬ.ПРО — учёт стройки без потерь</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Презентация | СТРОИТЕЛЬ.ПРО — Умный учёт на стройке</title>
     <style>
         * {
             margin: 0;
@@ -12,449 +13,491 @@
         }
 
         body {
-            background-color: #0a0c10;
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-            color: #eef2ff;
-            line-height: 1.5;
+            background: #0a0a0c;
+            font-family: 'Inter', -apple-system, 'Segoe UI', system-ui, sans-serif;
+            color: #ede8dc;
+            line-height: 1.4;
+            overflow-x: hidden;
         }
 
-        .container {
+        /* тёмная тема, как в приложении */
+        :root {
+            --bg: #0f0f0d;
+            --bg2: #161614;
+            --card: #1a1a17;
+            --border: #2c2c28;
+            --gold: #d4920a;
+            --gold-l: rgba(212, 146, 10, 0.12);
+            --green: #3d9e5c;
+            --red: #d95f4f;
+            --blue: #4a9fd4;
+            --text2: #a09880;
+        }
+
+        .presentation {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 24px 20px 60px;
         }
 
-        .header {
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+        /* шапка презентации */
+        .pres-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 16px;
+            margin-bottom: 32px;
             flex-wrap: wrap;
             gap: 16px;
         }
-        .logo {
+        .logo-area {
             display: flex;
-            align-items: baseline;
-            gap: 8px;
-            font-weight: 700;
-            font-size: 1.5rem;
+            align-items: center;
+            gap: 12px;
         }
-        .logo span {
-            background: #10b981;
-            color: #0a0c10;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 40px;
-            font-weight: 600;
+        .logo-icon svg {
+            width: 48px;
+            height: 48px;
         }
-        .badge {
-            background: rgba(16,185,129,0.15);
-            border: 1px solid rgba(16,185,129,0.3);
-            border-radius: 40px;
-            padding: 6px 14px;
-            font-size: 0.85rem;
-            color: #10b981;
-        }
-        .test-mode {
-            background: rgba(245,158,11,0.2);
-            border: 1px solid #f59e0b;
-            color: #fbbf24;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 30px;
-            letter-spacing: 0.5px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #10b981;
-            color: #0a0c10;
-            font-weight: 700;
-            padding: 12px 28px;
-            border-radius: 48px;
-            text-decoration: none;
-            transition: 0.2s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #10b981;
-            color: #10b981;
-        }
-        .btn-outline:hover {
-            background: #10b98120;
-        }
-        .btn:hover {
-            background: #0e9f6e;
-            transform: translateY(-2px);
-        }
-
-        .hero {
-            padding: 70px 0 40px;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 3.2rem;
+        .logo-text {
+            font-size: 28px;
             font-weight: 800;
-            line-height: 1.2;
-            background: linear-gradient(135deg, #fff 60%, #10b981);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 24px;
+            letter-spacing: 1px;
         }
-        .hero p {
-            font-size: 1.2rem;
-            color: #9ca3af;
-            max-width: 680px;
-            margin: 0 auto 32px;
+        .logo-text span {
+            color: var(--gold);
         }
-        .highlight {
-            color: #10b981;
-            font-weight: 600;
+        .badge-pro {
+            background: linear-gradient(145deg, #e0a010, #c47c08);
+            color: #0a0800;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 13px;
+            margin-left: 12px;
+        }
+        .tagline {
+            color: var(--text2);
+            font-size: 14px;
+            text-align: right;
         }
 
-        .section {
-            padding: 70px 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        /* сетка слайдов */
+        .grid-slides {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
-        .section-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 48px;
-            text-align: center;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-        .card {
-            background: #111317;
+
+        .slide {
+            background: var(--card);
+            border: 1px solid var(--border);
             border-radius: 28px;
-            padding: 28px;
-            border: 1px solid #1f2229;
-            transition: 0.2s;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
         }
-        .card:hover {
-            border-color: #10b98140;
-            transform: translateY(-4px);
-        }
-        .review-card {
-            background: #111317;
-        }
-        .stars {
-            color: #fbbf24;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
-        .review-text {
-            font-size: 1rem;
-            margin-bottom: 20px;
-            color: #d1d5db;
-            line-height: 1.5;
-        }
-        .review-author {
-            font-weight: 600;
-            color: white;
-        }
-        .review-role {
-            font-size: 0.8rem;
-            color: #10b981;
+        .slide:hover {
+            transform: translateY(-3px);
+            border-color: rgba(212,146,10,0.5);
         }
 
-        .tariff-grid {
+        .slide-header {
+            background: var(--bg2);
+            padding: 16px 28px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .slide-icon {
+            font-size: 34px;
+        }
+        .slide-title {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+        .slide-sub {
+            font-size: 14px;
+            color: var(--gold);
+            margin-top: 4px;
+        }
+
+        .slide-content {
+            padding: 28px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 32px;
-            margin-top: 32px;
+            gap: 28px;
+            justify-content: space-between;
         }
-        .tariff-card {
-            background: #111317;
-            border-radius: 32px;
-            padding: 32px;
-            width: 280px;
-            border: 1px solid #2a2e3a;
-            text-align: center;
+        .desc {
+            flex: 1.2;
+            min-width: 220px;
         }
-        .tariff-name {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 12px;
+        .desc p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #e0daca;
+            margin-bottom: 18px;
         }
-        .price {
-            font-size: 2rem;
-            font-weight: 800;
-            margin: 20px 0;
-            color: #10b981;
-        }
-        .features-list {
+        .feature-list {
             list-style: none;
-            margin: 24px 0;
-            text-align: left;
+            margin-top: 12px;
         }
-        .features-list li {
-            margin: 10px 0;
+        .feature-list li {
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 15px;
         }
-        .check {
-            color: #10b981;
+        .feature-list li::before {
+            content: "▹";
+            color: var(--gold);
             font-weight: bold;
         }
-
-        .howto-compact {
-            background: #0e1015;
-            border-radius: 28px;
-            padding: 24px 28px;
-            margin: 20px 0 30px;
-        }
-        .howto-compact h3 {
-            font-size: 1.3rem;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .steps-compact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: space-between;
-        }
-        .step-compact {
+        .demo-card {
             flex: 1;
-            background: #0a0c10;
-            padding: 12px 16px;
-            border-radius: 20px;
-            border-left: 2px solid #10b981;
-            font-size: 0.85rem;
-        }
-        .step-number-compact {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #10b981;
-            margin-bottom: 6px;
-        }
-
-        .instruction-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            margin-top: 20px;
-        }
-        .instruction-item {
-            background: #0e1015;
+            background: #11110f;
             border-radius: 24px;
-            padding: 20px;
-            border-left: 3px solid #10b981;
+            border: 1px solid var(--border);
+            padding: 18px;
+            min-width: 260px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
-        .instruction-item h4 {
-            font-size: 1.3rem;
+        .mock-row {
+            background: #1e1e1a;
+            border-radius: 14px;
+            padding: 12px 16px;
             margin-bottom: 12px;
-            color: #10b981;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .instruction-item p {
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            line-height: 1.4;
+        .mock-title {
+            font-weight: 600;
         }
-        footer {
+        .mock-value {
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .mock-bar {
+            height: 6px;
+            background: #2c2c28;
+            border-radius: 4px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+        .mock-fill {
+            width: 72%;
+            height: 100%;
+            background: var(--gold);
+            border-radius: 4px;
+        }
+        .badge {
+            background: var(--gold-l);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gold);
+            display: inline-block;
+        }
+        .grid-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .stat-card {
+            background: #0f0f0d;
+            border-radius: 16px;
+            padding: 12px;
             text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            color: #6b7280;
-            font-size: 0.85rem;
         }
-        @media (max-width: 700px) {
-            .hero h1 { font-size: 2.2rem; }
-            .container { padding: 0 20px; }
-            .section { padding: 50px 0; }
-            .steps-compact { flex-direction: column; }
+        .stat-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        hr {
+            border-color: var(--border);
+            margin: 12px 0;
+        }
+        .earn-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .footnote {
+            text-align: center;
+            color: var(--text2);
+            font-size: 12px;
+            margin-top: 48px;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+        }
+        @media (max-width: 720px) {
+            .slide-content {
+                flex-direction: column;
+            }
+            .slide-title {
+                font-size: 22px;
+            }
+        }
+        .gold-text {
+            color: var(--gold);
+        }
+        .btn-fake {
+            background: var(--gold);
+            border: none;
+            border-radius: 40px;
+            padding: 8px 18px;
+            font-weight: 700;
+            font-size: 13px;
+            color: #0a0800;
+            cursor: default;
+            display: inline-block;
+        }
+        .ai-badge {
+            background: #1f1b2a;
+            border-left: 3px solid var(--gold);
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <div class="logo">
-            СТРОИТЕЛЬ.ПРО
-            <span>PRO v1.1</span>
+<div class="presentation">
+    <div class="pres-header">
+        <div class="logo-area">
+            <div class="logo-icon">
+                <svg viewBox="0 0 96 96" width="48" height="48">
+                    <rect x="20" y="14" width="56" height="68" rx="8" fill="none" stroke="#d4920a" stroke-width="4"/>
+                    <path d="M32 32 H64 M32 44 H64 M32 56 H56" stroke="#4a9fd4" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M52 64 l6 6 l12 -15" stroke="#3d9e5c" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="logo-text">СТРОИТЕЛЬ.<span>ПРО</span><span class="badge-pro">v2.1 PRO</span></div>
         </div>
-        <div style="display: flex; gap: 12px; align-items: center;">
-            <div class="test-mode">🧪 ТЕСТОВЫЙ РЕЖИМ</div>
-            <div class="badge">Работает офлайн · Без регистрации</div>
-        </div>
+        <div class="tagline">Умный учёт строительных работ<br>Офлайн · Реальная аналитика</div>
     </div>
 
-    <div class="hero">
-        <h1>Ещё считаете на калькуляторе?<br>
-        Записываете в блокнот?<br>
-        Теряете заметки?</h1>
-        <p>СТРОИТЕЛЬ.ПРО — <span class="highlight">журнал работ, склад, контроль выработки</span> без интернета. Никаких потерь времени и материалов. Начните экономить сегодня.</p>
-        <a href="https://mark8numb.github.io/stroipro/index.html" target="_blank" class="btn">Попробовать бесплатно</a>
-        <p style="margin-top: 20px; font-size: 0.85rem;">420+ часов сохранено · 34% меньше перерасхода · 6.3 млн ₽ под контролем</p>
-    </div>
+    <div class="grid-slides">
 
-    <div class="howto-compact">
-        <h3>📲 Как установить СТРОИТЕЛЬ.ПРО на телефон</h3>
-        <div class="steps-compact">
-            <div class="step-compact">
-                <div class="step-number-compact">1</div>
-                <strong>Откройте</strong><br>
-                <a href="https://mark8numb.github.io/stroipro/index.html" target="_blank" style="color:#10b981;">mark8numb.github.io/stroipro/index.html</a>
-            </div>
-            <div class="step-compact">
-                <div class="step-number-compact">2</div>
-                <strong>Поделиться</strong><br>
-                Chrome: три точки → «Поделиться»
-            </div>
-            <div class="step-compact">
-                <div class="step-number-compact">3</div>
-                <strong>На экран "Домой"</strong><br>
-                Выберите «На экран "Домой"»
-            </div>
-            <div class="step-compact">
-                <div class="step-number-compact">4</div>
-                <strong>Готово</strong><br>
-                Иконка на рабочем столе
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Чем помогает монтажникам и прорабам</div>
-        <div class="grid-2">
-            <div class="card review-card">
-                <div class="stars">★★★★★</div>
-                <div class="review-text">«Раньше постоянно теряли материал — то траверсы, то молдинги. В конце месяца расхождение до 20%. С СТРОИТЕЛЬ.ПРО вижу всё: приход, расход, остатки. Склад под контролем, заказчик доволен. Супер!»</div>
-                <div class="review-author">Антон, прораб</div>
-                <div class="review-role">ЖК Северный парк</div>
-            </div>
-            <div class="card review-card">
-                <div class="stars">★★★★★</div>
-                <div class="review-text">«Устал пересчитывать по 3 раза объёмы и расценки. Приложение считает само: за день, неделю, месяц, сразу с вычетом 13% — знаю сколько на руки. Огромная экономия времени, уже 3 корпуса сдал с ним.»</div>
-                <div class="review-author">Сергей, монтажник Clip‑in</div>
-                <div class="review-role">ТРЦ Галактика</div>
-            </div>
-            <div class="card review-card">
-                <div class="stars">★★★★★</div>
-                <div class="review-text">«Блокноты, заметки в WhatsApp — это хаос. Ставлю задачи по этажам в приложении, бригада видит, что делать. Прогноз сдачи прямо на экране. Ничего не теряется, даже без интернета на объекте.»</div>
-                <div class="review-author">Дмитрий, прораб</div>
-                <div class="review-role">Госпиталь №3</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Как это работает</div>
-        <div class="grid-2">
-            <div class="card">
-                <div style="font-size: 2rem;">📋</div>
-                <h3 style="margin: 16px 0 8px;">Журнал работ</h3>
-                <p>Дата, объём, материалы, исполнитель. Доход рассчитывается автоматически по расценке.</p>
-            </div>
-            <div class="card">
-                <div style="font-size: 2rem;">🏚️</div>
-                <h3 style="margin: 16px 0 8px;">Склад + остатки</h3>
-                <p>Приход, расход, предупреждение о заканчивающихся материалах. В штуках, пачках, метрах.</p>
-            </div>
-            <div class="card">
-                <div style="font-size: 2rem;">📊</div>
-                <h3 style="margin: 16px 0 8px;">Заработок и динамика</h3>
-                <p>День / неделя / месяц, на руки −13%, графики по корпусам. Отчёт заказчику в 1 тап.</p>
-            </div>
-            <div class="card">
-                <div style="font-size: 2rem;">🤖</div>
-                <h3 style="margin: 16px 0 8px;">Прогноз сдачи</h3>
-                <p>По каждому корпусу: сколько метров осталось, сколько дней нужно, сколько заработаешь.</p>
-            </div>
-            <div class="card">
-                <div style="font-size: 2rem;">👥</div>
-                <h3 style="margin: 16px 0 8px;">Работники и задачи</h3>
-                <p>Отдельные списки на каждый корпус. Примечания превращаются в задачи для бригады.</p>
-            </div>
-            <div class="card">
-                <div style="font-size: 2rem;">📡</div>
-                <h3 style="margin: 16px 0 8px;">Без интернета</h3>
-                <p>Работает офлайн на любом объекте. Данные всегда на телефоне.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">📖 Инструкция: как работать с приложением</div>
-        <div class="instruction-grid">
-            <div class="instruction-item">
-                <h4>🚀 Как начать пользоваться?</h4>
-                <p>1. Откройте приложение → нажмите <strong>«+ Добавить объект»</strong>.<br>
-                2. Введите название объекта (например, «ЖК Северный парк»).<br>
-                3. Внутри объекта нажмите <strong>«+ Корпус»</strong> и укажите название.<br>
-                4. Теперь можно добавлять виды работ и материалы.</p>
-            </div>
-            <div class="instruction-item">
-                <h4>🏗️ Как добавить вид работ и материалы?</h4>
-                <p><strong>Вид работ:</strong> в карточке корпуса → «Виды работ» → «+» → укажите название и расценку (₽ за м²/шт).<br>
-                <strong>Материалы:</strong> раздел «СКЛАД» → «+ Материал» → название, единица измерения, количество, цена.</p>
-            </div>
-            <div class="instruction-item">
-                <h4>🗑️ Как удалить всё (сбросить данные)?</h4>
-                <p>В приложении предусмотрена кнопка <strong>«Сбросить все данные»</strong> в разделе «ПРОЧЕЕ» → «Настройки». Нажмите её, чтобы полностью очистить объекты, корпуса и материалы. <br>⚠️ <strong>Действие необратимо</strong> (данные хранятся только локально).</p>
-            </div>
-            <div class="instruction-item">
-                <h4>➕ Объект → Корпус → Работы</h4>
-                <p>Структура простая: <strong>Объект</strong> (например, ТРЦ) → <strong>Корпус</strong> (секция А) → <strong>Виды работ</strong> (монтаж каркаса). Для каждого вида работ можно задать объём и отслеживать прогресс.</p>
-            </div>
-        </div>
-        <p style="text-align: center; margin-top: 32px; background: #0e1015; padding: 12px; border-radius: 30px; font-size: 0.85rem;">
-            💡 Все данные сохраняются автоматически в вашем браузере. Приложение работает без интернета после первого открытия.
-        </p>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Тарифы</div>
-        <div class="tariff-grid">
-            <div class="tariff-card">
-                <div class="tariff-name">FREE</div>
-                <div class="price">0 ₽</div>
-                <div class="features-list">
-                    <li><span class="check">✓</span> 1 объект</li>
-                    <li><span class="check">✓</span> До 2 корпусов</li>
-                    <li><span class="check">✓</span> До 3 видов работ</li>
-                    <li><span class="check">✓</span> Журнал, склад, задачи</li>
-                    <li><span class="check">✓</span> 2 темы оформления</li>
+        <!-- СЛАЙД 1: Журнал работ -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-icon">📋</div>
+                <div>
+                    <div class="slide-title">Журнал работ</div>
+                    <div class="slide-sub">Детализация по корпусам / видам работ</div>
                 </div>
             </div>
-            <div class="tariff-card">
-                <div class="tariff-name">PRO</div>
-                <div class="price">Подписка</div>
-                <div class="features-list">
-                    <li><span class="check">✓</span> ∞ объектов и корпусов</li>
-                    <li><span class="check">✓</span> ∞ видов работ</li>
-                    <li><span class="check">✓</span> ИИ‑анализ и прогноз сдачи</li>
-                    <li><span class="check">✓</span> Работники и бригады</li>
-                    <li><span class="check">✓</span> Отчёты + импорт</li>
-                    <li><span class="check">✓</span> 4 темы оформления</li>
+            <div class="slide-content">
+                <div class="desc">
+                    <p>Каждая запись — объём, период, ответственные и точный расход материалов. Автоматический расчёт заработка, остатка по плану, прогресс в %.</p>
+                    <ul class="feature-list">
+                        <li>➕ Добавление за секунды — дата, тип работы, площадь</li>
+                        <li>📊 Динамические графики прогресса по каждому корпусу</li>
+                        <li>🧮 Автоподсчёт: «осталось м²» и «заработано» с вычетом материалов</li>
+                        <li>🎨 Цветовая маркировка видов работ (штукатурка, плитка, электрика и пр.)</li>
+                    </ul>
+                    <div style="margin-top: 16px;"><span class="badge">⭐ Фишка: голосовой ввод заметок</span></div>
                 </div>
-                <a href="https://t.me/Mark8Numb" target="_blank" class="btn-outline btn" style="text-align: center; display: block;">Написать @Mark8Numb</a>
+                <div class="demo-card">
+                    <div class="mock-row">
+                        <span class="mock-title">🏠 Кухня-гостиная</span>
+                        <span class="mock-value">87%</span>
+                    </div>
+                    <div class="mock-bar"><div class="mock-fill" style="width: 87%;"></div></div>
+                    <div class="mock-row">
+                        <span>Штукатурка стен</span>
+                        <span>328 м² / 378 м²</span>
+                    </div>
+                    <div class="mock-row">
+                        <span>Заработано</span>
+                        <span class="mock-value">114 800 ₽</span>
+                    </div>
+                    <hr>
+                    <div><span class="badge">⏱️ Последняя запись: 12.04 – укладка ламината 45 м²</span></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div style="text-align: center; margin: 30px 0 30px;">
-        <a href="https://mark8numb.github.io/stroipro/index.html" target="_blank" class="btn">Попробовать бесплатно →</a>
-        <p style="margin-top: 20px; color: #6c737f;">Работает без интернета · Все данные на телефоне · Никакой регистрации</p>
-    </div>
+        <!-- СЛАЙД 2: Склад и материалы -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-icon">📦</div>
+                <div>
+                    <div class="slide-title">Склад материалов + история</div>
+                    <div class="slide-sub">Приход, расход, перемещение между корпусами</div>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="desc">
+                    <p>Полноценный складской учёт с делением на основные материалы и расходники. Контроль остатков, автоматическое предупреждение о дефиците.</p>
+                    <ul class="feature-list">
+                        <li>✅ Приход / расход / перемещение за 1 клик</li>
+                        <li>⚠️ Авто-подсветка: заканчивается / закончилось (красный/золотой)</li>
+                        <li>📅 Полная история движения по каждому материалу</li>
+                        <li>🔧 Настройка единиц, фасовки, веса и длины для точных закупок</li>
+                    </ul>
+                    <div style="margin-top: 12px;"><span class="badge">🧮 Расчёт пачек / погонных метров автоматически</span></div>
+                </div>
+                <div class="demo-card">
+                    <div class="mock-row">
+                        <span>🧱 Траверс 3м</span>
+                        <span class="mock-value">ост. 48 шт</span>
+                    </div>
+                    <div class="mock-row">
+                        <span>🪚 Саморез 3.5×35</span>
+                        <span class="mock-value">ост. 2300 / 2800 шт</span>
+                    </div>
+                    <div class="mock-row">
+                        <span>🎨 Краска интерьерная</span>
+                        <span class="mock-value" style="color: var(--red);">критично: 7 л</span>
+                    </div>
+                    <div class="badge" style="margin-top: 12px; display: inline-block;">📌 История: +200 саморезов 02.04 · – 45 шт (расход)</div>
+                </div>
+            </div>
+        </div>
 
-    <footer>
-        © СТРОИТЕЛЬ.ПРО · Журнал работ, склад, контроль выработки для монтажников и прорабов<br>
-        <span style="font-size: 0.75rem;">mark8numb.github.io · Версия PRO v1.1</span><br>
-        <span style="font-size: 0.7rem; color: #f59e0b;">⚠️ Тестовый режим. Все данные хранятся локально на вашем устройстве.</span>
-    </footer>
-</div>
-</body>
-</html>
+        <!-- СЛАЙД 3: Задачи и уведомления -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-icon">✅</div>
+                <div>
+                    <div class="slide-title">Задачи + напоминания</div>
+                    <div class="slide-sub">Планирование дня, фильтр по корпусам, сроки</div>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="desc">
+                    <p>Ставьте задачи на объект, отмечайте выполненные, автоматический перенос просроченных на сегодня. Визуальное разделение: критичные / сегодня / позже.</p>
+                    <ul class="feature-list">
+                        <li>⏰ Контроль сроков, подсветка просрочки</li>
+                        <li>🏷️ Привязка задач к корпусу / этажу</li>
+                        <li>🗂️ Выполненные задачи автоматически скрываются через 3 секунды</li>
+                        <li>📝 Заметки из журнала автоматически превращаются в задачи</li>
+                    </ul>
+                </div>
+                <div class="demo-card">
+                    <div class="mock-row" style="border-left: 3px solid var(--red);">
+                        <span>⚠ Закончить плитку санузел</span>
+                        <span>до 15.04</span>
+                    </div>
+                    <div class="mock-row" style="border-left: 3px solid var(--gold);">
+                        <span>📌 Завезти грунтовку</span>
+                        <span>сегодня</span>
+                    </div>
+                    <div class="mock-row" style="opacity:0.7;">
+                        <span><s>✅ Сдать прорабу 1 этаж</s></span>
+                        <span>выполнено</span>
+                    </div>
+                    <div class="badge" style="margin-top: 12px;">📅 + 4 задачи на ближайшие дни</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 4: Финансы и заработок -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-icon">💰</div>
+                <div>
+                    <div class="slide-title">Заработок и KPI бригад</div>
+                    <div class="slide-sub">Реальная выработка по корпусам, работникам и бригадам</div>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="desc">
+                    <p>Автоматический расчёт ФОТ с учётом сдельной оплаты и долей работников. Витрина: зарплата по бригадам, график накопленной прибыли, средняя выработка в день.</p>
+                    <ul class="feature-list">
+                        <li>👥 Распределение процентов между работниками (поровну / вручную)</li>
+                        <li>📊 Динамика за день/неделю/месяц + график накоплений</li>
+                        <li>🏆 Сравнение производительности: лучший работник, оценка продуктивности</li>
+                        <li>📈 Прогноз сдачи объекта на основе средней выработки</li>
+                    </ul>
+                </div>
+                <div class="demo-card">
+                    <div class="earn-row"><span>Всего заработано</span><strong class="gold-text">1 845 200 ₽</strong></div>
+                    <div class="earn-row"><span>На руки (‑13%)</span><strong>1 605 324 ₽</strong></div>
+                    <hr>
+                    <div class="earn-row"><span>👷 Бригада А</span><strong>912 300 ₽</strong></div>
+                    <div class="earn-row"><span>👷 Бригада Б</span><strong>657 200 ₽</strong></div>
+                    <hr>
+                    <div class="grid-mini">
+                        <div class="stat-card"><div class="stat-number">42 м²</div><div>сред. в день</div></div>
+                        <div class="stat-card"><div class="stat-number">8.7</div><div>оценка продукт.</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 5: Умная аналитика (AI) PRO -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-icon">🧠</div>
+                <div>
+                    <div class="slide-title">Аналитика PRO — AI-прогнозы</div>
+                    <div class="slide-sub">Сравнение работников, дашборд эффективности, прогноз сдачи</div>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="desc">
+                    <p>В PRO-версии доступен расширенный модуль анализа: рейтинг рабочих на основе табеля и выработки, прогноз завершения каждого вида работ, автоматический отчёт для заказчика.</p>
+                    <ul class="feature-list">
+                        <li>⭐ Оценка продуктивности от 1 до 10 (учёт явки + м²/день)</li>
+                        <li>📆 Прогноз «сколько дней осталось до сдачи» по каждому этапу</li>
+                        <li>📤 Поделиться отчётом в WhatsApp / Telegram / скопировать текст</li>
+                        <li>🏅 Сравнение сотрудников внутри бригады с визуальными шкалами</li>
+                    </ul>
+                    <div><span class="badge">🎯 Только PRO: неограниченные объекты, расширенная история</span></div>
+                </div>
+                <div class="demo-card ai-badge">
+                    <div class="mock-row">
+                        <span>🧑‍💻 Андрей Волков</span>
+                        <span class="mock-value">⭐ 9.2/10</span>
+                    </div>
+                    <div class="mock-bar"><div class="mock-fill" style="width: 92%; background: var(--green);"></div></div>
+                    <div class="earn-row"><span>Выработка / день</span><span>48.6 м²</span></div>
+                    <div class="earn-row"><span>Прогноз: финиш объекта</span><span>≈ 12 дней</span></div>
+                    <div class="badge" style="margin-top: 12px;">📊 Лучший сотрудник мая + 31% к плану</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 6: Настройки, темы, безопасность -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-icon">⚙️</div>
+                <div>
+                    <div class="slide-title">Гибкие настройки + PRO лицензия</div>
+                    <div class="slide-sub">Темы оформления, единицы измерения, экспорт данных</div>
+                </div>
+            </div>
+            <div class="slide-content">
+                <div class="desc">
+                    <p>Адаптируйте приложение под свои задачи. Мгновенный экспорт/импорт, 4 цветовые темы (графит, дневной свет, кислотные темы). Лицензия PRO активируется по ключу.</p>
+                    <ul class="feature-list">
+                        <li>🎨 Тема: графит / daylight / acid-night / acid-day</li>
+                        <li>📏 Единицы: мм/см/м для отображения размеров материалов</li>
+                        <li>💾 Полный экспорт JSON, CSV (Excel) и печать отчёта PDF</li>
+                        <li>🔐 Защита данных: всё хранится локально, никаких серверов</li>
+                    </ul>
+                </div>
+                <div class="demo-card">
+                    <div class="mock-row"><span>🌗 Тема оформления</span><span class="badge">Графит (тёмная)</span></div>
+                    <div class="mock-row"><span>📐 Единицы длины</span><span class="badge">см (сантиметры)</span></div>
+                    <div class="mock-row"><span>🗃️ Экспорт данных</span><span class="badge">JSON / CSV</span></div>
+                    <hr>
+                    <div class="earn-row"><span>🔓 Лицензия PRO</span><strong class="gold-text">активна до 01.12.2026</strong></div>
+                    <div class="earn-row"><span>👥 Макс. объектов</span><span>безлимит (PRO)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СЛАЙД 7: Табель и управление персоналом -->
+        <div class="slide">
+            <div class="slide-header"
