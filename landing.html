@@ -1,351 +1,1044 @@
 <!DOCTYPE html>
-<html lang="ru"><head>
+<html lang="ru">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>СТРОИТЕЛЬ.ПРО — карманный прораб</title>
+<title>СТРОИТЕЛЬ.ПРО — цифровой журнал мастера-отделочника</title>
+<meta name="description" content="Приложение для мастеров-отделочников: журнал работ, склад, бригада, аналитика. Работает без интернета. Бесплатно.">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#e8a428;--green:#3ea85f;--blue:#4da3d8;--red:#d95f4f;
-  --bg:#0a0a0c;--card:#17171c;--border:#2c2c36;
-  --text:#f2f2f5;--muted:#9a9aa8;--font:system-ui,-apple-system,'Segoe UI',sans-serif
+  --gold:#e8a428;--gold2:#f0c060;--green:#3ea85f;--blue:#4da3d8;--red:#d95f4f;
+  --bg:#08080b;--bg2:#10101a;--card:#15151f;--card2:#1c1c28;--border:#252533;
+  --text:#f0f0f6;--muted:#7a7a96;--font:'Segoe UI',system-ui,-apple-system,sans-serif;
+  --r:16px;
 }
+html{scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden}
 a{color:var(--gold);text-decoration:none}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(232,164,40,.12),transparent 70%)}
-.hero-icon{width:96px;height:96px;border-radius:24px;margin-bottom:20px;box-shadow:0 8px 32px rgba(232,164,40,.3);display:flex;align-items:center;justify-content:center}
-.hero-icon img{width:96px;height:96px;border-radius:24px}
-.hero h1{font-size:clamp(28px,6vw,52px);font-weight:900;margin-bottom:8px}
-.hero h1 .g{color:var(--gold)}
-.hero-sub{font-size:clamp(15px,3vw,20px);color:var(--muted);max-width:520px;margin:0 auto 32px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:20px}
-.btn-main{background:linear-gradient(135deg,#f0a828,#d4801a);color:#0a0a0c;padding:16px 32px;border-radius:14px;font-weight:800;font-size:16px;box-shadow:0 4px 20px rgba(212,128,26,.4);display:inline-block;transition:.2s}
-.btn-main:hover{transform:translateY(-2px)}
-.btn-sec{background:transparent;border:1.5px solid var(--border);color:var(--text);padding:16px 32px;border-radius:14px;font-weight:700;font-size:16px;display:inline-block;transition:.2s}
+img{max-width:100%}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:60px 20px 80px;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% -10%,rgba(232,164,40,.18),transparent 65%),
+    radial-gradient(ellipse 60% 40% at 20% 80%,rgba(77,163,216,.08),transparent 60%);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.015) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.015) 40px);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(232,164,40,.12);border:1px solid rgba(232,164,40,.3);
+  color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 16px;border-radius:30px;margin-bottom:28px;
+}
+.hero-badge::before{content:'●';font-size:8px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-size:clamp(32px,7vw,68px);font-weight:900;line-height:1.08;
+  margin-bottom:20px;letter-spacing:-.02em;
+}
+.hero h1 .gold{
+  background:linear-gradient(135deg,#f0c060,#e8a428,#c47d10);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(16px,2.5vw,21px);color:var(--muted);
+  max-width:580px;margin:0 auto 16px;line-height:1.5;
+}
+.hero-proof{
+  display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+  margin-bottom:40px;font-size:13px;color:var(--muted);
+}
+.hero-proof span{display:flex;align-items:center;gap:5px}
+.hero-proof span::before{content:'✓';color:var(--green);font-weight:700}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:48px}
+.btn-main{
+  background:linear-gradient(135deg,#f0a828,#c47c08);color:#050503;
+  padding:16px 36px;border-radius:14px;font-weight:800;font-size:17px;
+  box-shadow:0 4px 28px rgba(232,164,40,.45);display:inline-block;transition:.2s;
+  letter-spacing:.01em;
+}
+.btn-main:hover{transform:translateY(-3px);box-shadow:0 8px 36px rgba(232,164,40,.55)}
+.btn-sec{
+  background:rgba(255,255,255,.06);backdrop-filter:blur(8px);
+  border:1.5px solid rgba(255,255,255,.15);color:var(--text);
+  padding:16px 32px;border-radius:14px;font-weight:700;font-size:16px;
+  display:inline-block;transition:.2s;
+}
 .btn-sec:hover{border-color:var(--gold);color:var(--gold)}
-.hero-note{font-size:12px;color:var(--muted);margin-bottom:48px}
-.mockup-wrap{width:min(260px,65vw);margin:0 auto;filter:drop-shadow(0 20px 60px rgba(0,0,0,.8))}
-.mockup-frame{border:2px solid #2c2c36;border-radius:36px;overflow:hidden;background:#0a0a0c}
-.ms-hdr{background:#17171c;padding:10px 14px 8px;border-bottom:1px solid #2c2c36}
-.ms-hdr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.ms-logo{font-size:11px;font-weight:900;color:var(--text)}
-.ms-badge{background:var(--gold);color:#0a0a0c;font-size:7px;font-weight:800;padding:1px 5px;border-radius:4px;margin-left:4px}
-.ms-earn{font-size:11px;font-weight:800;color:var(--gold)}
-.ms-body{padding:8px;display:flex;flex-direction:column;gap:5px}
-.ms-card{background:#0a0a0c;border:1px solid #2c2c36;border-radius:8px;padding:7px}
-.ms-card-t{font-weight:700;margin-bottom:4px;font-size:7px;color:var(--muted)}
-.ms-row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #1e1e24;font-size:8px}
-.ms-row:last-child{border:none}
-.ms-row-v{color:var(--gold);font-weight:700}
-.ms-nav{display:flex;justify-content:space-around;padding:6px 4px;background:#0a0a0c;border-top:1px solid #2c2c36}
-.ms-ni{text-align:center;font-size:6px;color:var(--muted);flex:1}
-.ms-ni.on{color:var(--gold)}
-.ms-ni-ic{font-size:11px;display:block;margin-bottom:1px}
-.ms-prog{height:3px;background:#2c2c36;border-radius:2px;margin-top:4px}
-.ms-prog-f{height:100%;border-radius:2px;background:var(--gold)}
-.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 20px}
-.section{padding:72px 20px;max-width:1000px;margin:0 auto}
-.section-sm{padding:40px 20px;max-width:1000px;margin:0 auto}
-.sec-tag{display:inline-block;background:rgba(232,164,40,.12);color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:16px}
-.sec-title{font-size:clamp(22px,4vw,36px);font-weight:900;margin-bottom:12px}
-.sec-sub{color:var(--muted);font-size:16px;max-width:560px;margin-bottom:40px}
-.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.feat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;border-left:3px solid var(--gold);transition:.2s}
-.feat:nth-child(3n+2){border-left-color:var(--blue)}
-.feat:nth-child(3n+3){border-left-color:var(--green)}
-.feat:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4)}
-.feat-ic{font-size:28px;margin-bottom:10px}
-.feat h4{font-size:15px;font-weight:800;margin-bottom:6px}
-.feat p{font-size:13px;color:var(--muted)}
-.install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.install-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px;position:relative;overflow:hidden}
-.install-card::before{content:attr(data-n);position:absolute;right:16px;top:10px;font-size:52px;font-weight:900;color:rgba(232,164,40,.07);line-height:1}
-.install-n{width:32px;height:32px;background:linear-gradient(135deg,#f0a828,#d4801a);color:#0a0a0c;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;margin-bottom:14px}
-.install-card h3{font-size:17px;margin-bottom:8px}
-.install-card p{color:var(--muted);font-size:14px;line-height:1.6}
-.install-tip{margin-top:12px;background:rgba(232,164,40,.08);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--gold);font-weight:600}
-.os-tabs{display:flex;gap:8px;margin-bottom:20px}
-.os-tab{padding:8px 18px;border-radius:10px;border:1.5px solid var(--border);color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;background:none;font-family:var(--font);transition:.2s}
-.os-tab.on{background:var(--gold);border-color:var(--gold);color:#0a0a0c}
-.flow{display:flex;flex-direction:column;gap:0;position:relative}
-.flow::before{content:'';position:absolute;left:24px;top:32px;bottom:32px;width:2px;background:linear-gradient(180deg,var(--gold),transparent)}
-.flow-step{display:flex;gap:20px;padding:20px 0;position:relative;z-index:1}
-.flow-dot{width:48px;height:48px;background:var(--card);border:2px solid var(--gold);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.flow-body h4{font-size:16px;font-weight:800;margin-bottom:4px}
-.flow-body p{font-size:14px;color:var(--muted)}
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px}
-.cmp-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:24px}
-.cmp-card.pro{border-color:var(--gold);background:rgba(232,164,40,.06)}
-.cmp-head{font-size:18px;font-weight:900;margin-bottom:4px}
-.cmp-price{font-size:28px;font-weight:900;color:var(--gold);margin-bottom:16px}
-.cmp-price span{font-size:14px;color:var(--muted);font-weight:400}
-.cmp-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
-.cmp-row:last-child{border:none}
-.ok{color:var(--green)}.no{color:var(--muted)}
-.faq{display:flex;flex-direction:column;gap:8px;max-width:680px}
+
+/* ── STATS STRIP ── */
+.stats{
+  display:flex;gap:40px;justify-content:center;flex-wrap:wrap;
+  padding:40px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:var(--bg2);
+}
+.stat{text-align:center}
+.stat-n{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
+.stat-l{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* ── SECTION ── */
+.section{padding:80px 20px;max-width:1080px;margin:0 auto}
+.section-wide{padding:80px 0;background:var(--bg2)}
+.section-wide .inner{max-width:1080px;margin:0 auto;padding:0 20px}
+.sec-tag{
+  display:inline-block;background:rgba(232,164,40,.12);color:var(--gold);
+  font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 14px;border-radius:30px;margin-bottom:16px;
+}
+.sec-title{font-size:clamp(24px,4vw,40px);font-weight:900;margin-bottom:12px;line-height:1.15}
+.sec-sub{color:var(--muted);font-size:16px;max-width:560px;line-height:1.6;margin-bottom:48px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+/* ── PROBLEM BLOCK ── */
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:40px}
+.problem-card{
+  background:rgba(217,95,79,.06);border:1px solid rgba(217,95,79,.18);
+  border-radius:14px;padding:20px;
+}
+.problem-ic{font-size:24px;margin-bottom:10px}
+.problem-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:#f0a0a0}
+.problem-card p{font-size:13px;color:var(--muted)}
+.arrow-down{text-align:center;font-size:28px;color:var(--gold);margin:24px 0}
+.solution-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.solution-card{
+  background:rgba(62,168,95,.06);border:1px solid rgba(62,168,95,.2);
+  border-radius:14px;padding:20px;
+}
+.solution-card h4{font-size:15px;font-weight:700;margin-bottom:6px;color:#80e0a0}
+.solution-card p{font-size:13px;color:var(--muted)}
+
+/* ── FEATURES ── */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.feat{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:22px;position:relative;overflow:hidden;transition:.25s;
+}
+.feat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--acc,var(--gold)),transparent);
+}
+.feat:nth-child(3n+1){--acc:#e8a428}
+.feat:nth-child(3n+2){--acc:#4da3d8}
+.feat:nth-child(3n+3){--acc:#3ea85f}
+.feat:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.4);border-color:rgba(255,255,255,.12)}
+.feat-ic{font-size:32px;margin-bottom:12px;display:block}
+.feat h4{font-size:16px;font-weight:800;margin-bottom:7px}
+.feat p{font-size:13px;color:var(--muted);line-height:1.55}
+.feat-tag{
+  display:inline-block;background:rgba(232,164,40,.12);color:var(--gold);
+  font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:2px 8px;border-radius:6px;margin-bottom:8px;
+}
+
+/* ── SCREENSHOTS ── */
+.screens-wrap{overflow-x:auto;padding:0 20px 20px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.screens-row{display:flex;gap:20px;width:max-content;padding:4px 0}
+.screen-card{
+  width:220px;background:var(--card);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;flex-shrink:0;transition:.2s;
+}
+.screen-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.5)}
+.screen-img{
+  height:380px;background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:48px;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.screen-mock{width:100%;height:100%;padding:10px}
+.screen-info{padding:14px 16px}
+.screen-num{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.screen-title{font-size:14px;font-weight:800;margin-bottom:4px}
+.screen-desc{font-size:12px;color:var(--muted);line-height:1.45}
+
+/* ── MINI MOCKUP ── */
+.mm{font-family:'Courier New',monospace;background:var(--bg);border-radius:10px;overflow:hidden;font-size:9px}
+.mm-hdr{background:#1c1c28;padding:7px 10px;border-bottom:1px solid #252533;display:flex;justify-content:space-between}
+.mm-logo{font-weight:900;color:#f0f0f6;font-size:8px}
+.mm-badge{background:#e8a428;color:#050503;padding:1px 5px;border-radius:3px;font-size:7px;font-weight:800;margin-left:4px}
+.mm-earn{color:#e8a428;font-weight:900;font-size:9px}
+.mm-body{padding:7px;display:flex;flex-direction:column;gap:4px}
+.mm-card{background:#1c1c28;border:1px solid #252533;border-radius:7px;padding:6px}
+.mm-ct{font-size:6px;font-weight:700;color:#7a7a96;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.mm-row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #1a1a24;font-size:7px;color:#d0d0e0}
+.mm-row:last-child{border:none}
+.mm-val{color:#e8a428;font-weight:700}
+.mm-bar{height:3px;background:#252533;border-radius:2px;margin-top:3px}
+.mm-bar-f{height:100%;border-radius:2px;background:#e8a428}
+.mm-nav{display:flex;justify-content:space-around;padding:5px 4px;border-top:1px solid #252533}
+.mm-ni{text-align:center;font-size:5.5px;color:#7a7a96;flex:1}
+.mm-ni.on{color:#e8a428}
+.mm-ni-ic{font-size:10px;display:block;margin-bottom:1px}
+.mm-prog{height:3px;background:#252533;border-radius:2px;margin-top:3px}
+.mm-chip{display:inline-block;background:rgba(62,168,95,.15);color:#80e0a0;border-radius:4px;font-size:6px;padding:1px 5px;margin-top:2px}
+
+/* ── REVIEWS ── */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.review{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:24px;position:relative;
+}
+.review::before{
+  content:'"';position:absolute;top:12px;right:20px;font-size:80px;
+  color:rgba(232,164,40,.08);line-height:1;font-family:Georgia,serif;
+}
+.review-stars{color:var(--gold);font-size:14px;margin-bottom:12px}
+.review-text{font-size:14px;line-height:1.6;margin-bottom:16px}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),#c47c08);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#050503;flex-shrink:0;
+}
+.review-name{font-size:14px;font-weight:700}
+.review-role{font-size:12px;color:var(--muted)}
+.review-verified{font-size:10px;color:var(--green);font-weight:700;margin-top:2px}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:860px;margin:0 auto}
+.price-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:22px;padding:28px;position:relative;overflow:hidden;transition:.2s;
+}
+.price-card.popular{
+  border-color:var(--gold);
+  background:linear-gradient(145deg,rgba(232,164,40,.07),var(--card));
+  transform:scale(1.03);
+}
+.price-card.popular::before{
+  content:'ЛУЧШИЙ ВЫБОР';position:absolute;top:14px;right:-22px;
+  background:var(--gold);color:#050503;font-size:9px;font-weight:900;
+  letter-spacing:.08em;padding:4px 30px;transform:rotate(35deg);
+}
+.price-period{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.price-amount{font-size:44px;font-weight:900;color:var(--text);line-height:1;margin-bottom:4px}
+.price-amount span{font-size:20px;color:var(--muted);font-weight:400}
+.price-per{font-size:13px;color:var(--muted);margin-bottom:20px}
+.price-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.price-row:last-of-type{border:none}
+.price-row .ok{color:var(--green);font-size:14px}
+.price-cta{
+  display:block;text-align:center;margin-top:20px;padding:13px;border-radius:12px;
+  font-weight:800;font-size:14px;transition:.2s;
+}
+.price-cta-gold{background:linear-gradient(135deg,#f0a828,#c47c08);color:#050503}
+.price-cta-gold:hover{filter:brightness(1.1)}
+.price-cta-border{background:transparent;border:1.5px solid var(--border);color:var(--text)}
+.price-cta-border:hover{border-color:var(--gold);color:var(--gold)}
+.price-save{
+  display:inline-block;background:rgba(62,168,95,.15);color:#80e0a0;
+  font-size:11px;font-weight:700;padding:2px 10px;border-radius:8px;margin-top:6px;
+}
+
+/* ── HOW TO BUY ── */
+.buy-steps{display:flex;flex-direction:column;gap:0;position:relative;max-width:600px}
+.buy-steps::before{content:'';position:absolute;left:21px;top:32px;bottom:32px;width:2px;background:linear-gradient(180deg,var(--gold),rgba(232,164,40,.1))}
+.buy-step{display:flex;gap:20px;padding:20px 0;position:relative;z-index:1}
+.buy-dot{
+  width:44px;height:44px;background:var(--card);border:2px solid var(--gold);
+  border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;font-weight:900;
+}
+.buy-body h4{font-size:15px;font-weight:800;margin-bottom:3px}
+.buy-body p{font-size:13px;color:var(--muted)}
+
+/* ── INSTALL ── */
+.os-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.os-tab{
+  padding:9px 20px;border-radius:12px;border:1.5px solid var(--border);
+  color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;
+  background:none;font-family:var(--font);transition:.2s;
+}
+.os-tab.on{background:var(--gold);border-color:var(--gold);color:#050503}
+.install-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.install-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:22px;position:relative;overflow:hidden;
+}
+.install-card::after{
+  content:attr(data-n);position:absolute;right:14px;top:8px;
+  font-size:60px;font-weight:900;color:rgba(232,164,40,.06);line-height:1;
+}
+.install-n{
+  width:34px;height:34px;background:linear-gradient(135deg,#f0a828,#c47c08);
+  color:#050503;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;margin-bottom:14px;
+}
+.install-card h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.install-card p{color:var(--muted);font-size:14px;line-height:1.55}
+.install-tip{
+  margin-top:12px;background:rgba(232,164,40,.08);border-radius:8px;
+  padding:9px 12px;font-size:12px;color:var(--gold);font-weight:600;
+}
+
+/* ── FAQ ── */
+.faq{display:flex;flex-direction:column;gap:8px;max-width:700px}
 .faq-item{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.faq-q{padding:18px 20px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
-.faq-q::after{content:'+';font-size:20px;color:var(--gold);font-weight:300}
-.faq-q.open::after{content:'\2212'}
-.faq-a{padding:0 20px 16px;color:var(--muted);font-size:14px;display:none}
+.faq-q{
+  padding:18px 20px;font-weight:700;cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  user-select:none;font-size:15px;
+}
+.faq-q::after{content:'+';font-size:22px;color:var(--gold);font-weight:300;flex-shrink:0;margin-left:12px}
+.faq-q.open::after{content:'−'}
+.faq-a{padding:0 20px 16px;color:var(--muted);font-size:14px;display:none;line-height:1.6}
 .faq-a.show{display:block}
-.cta{background:linear-gradient(135deg,rgba(232,164,40,.15),rgba(77,163,216,.08));border:1px solid rgba(232,164,40,.25);border-radius:24px;padding:60px 32px;text-align:center;margin:0 20px}
-.cta h2{font-size:clamp(22px,4vw,36px);font-weight:900;margin-bottom:12px}
-.cta p{color:var(--muted);font-size:16px;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+
+/* ── CTA ── */
+.cta{
+  background:linear-gradient(135deg,rgba(232,164,40,.12),rgba(77,163,216,.06));
+  border:1px solid rgba(232,164,40,.22);border-radius:26px;
+  padding:70px 32px;text-align:center;margin:0 20px;
+  position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(232,164,40,.1),transparent 70%);
+}
+.cta>*{position:relative}
+.cta h2{font-size:clamp(24px,4vw,42px);font-weight:900;margin-bottom:14px}
+.cta p{color:var(--muted);font-size:17px;margin:0 auto 32px;max-width:520px}
 .cta-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.pro-note{margin-top:24px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;max-width:680px;font-size:14px;color:var(--muted)}
-.fade-up{opacity:0;transform:translateY(30px);transition:.6s cubic-bezier(.16,1,.3,1)}
-.fade-up.vis{opacity:1;transform:none}
-footer{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:40px}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;
+  border-top:1px solid var(--border);margin-top:40px;
+}
 footer a{color:var(--muted)}
 footer a:hover{color:var(--gold)}
-@media(max-width:600px){
-  .section{padding:50px 16px}
+
+/* ── ANIMATIONS ── */
+.fade-up{opacity:0;transform:translateY(32px);transition:.65s cubic-bezier(.16,1,.3,1)}
+.fade-up.vis{opacity:1;transform:none}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .section{padding:56px 16px}
   .hero-btns{flex-direction:column;align-items:stretch}
   .btn-main,.btn-sec{text-align:center}
-  .compare{grid-template-columns:1fr}
-  .flow::before{left:20px}
-  .cta{padding:40px 20px;margin:0 12px}
+  .stats{gap:24px}
+  .cta{padding:44px 20px;margin:0 12px}
+  .price-card.popular{transform:none}
+  .pricing-grid{grid-template-columns:1fr}
+  .screens-row{padding:4px 4px}
 }
-</style></head><body>
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
 <div class="hero">
-  <div class="hero-icon"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAGNUlEQVR4nO3cPXLUSBjG8XdchMQEDqg9AzcgcLIBB3D5FCQkG5JswimmOMAGJAR7A85AOZhgY0Kq2MAjo/mQ1F9Sd7/P/5dAsa5xS3qe7pZmZnfWmNvb179qjwHrORwed7XHMFZ1MIQdZnVLsfkvJvSYs3UZNvtlBB8xtirC6r+E4CPH2kVY7cUJPkpaqwjFX5TgY02li3BT8sUIP9ZWOmNF2kTwUUOJ1SB7BSD8qKVE9rIKQPhRW24GkwtA+NGKnCwmFYDwozWpmYwuAOFHq1KyGVUAwo/WxWY0uACEH72IyWpQAQg/ehOa2cUCEH70KiS7RT8KAfRmtgDM/ujdUoYnC0D44cVcltkCQdrVAjD7w5upTLMCQNpFAZj94dW1bLMCQNpJAZj94d15xlkBIO25AMz+UDHOOisApFEASLsxY/sDPUPmWQEgjQJAGgWANAoAaTtugKGMFQDSXtQeQE3fPr2sPYRmvHn/o/YQqpDcAhH8aWpFkCoAwQ+nUgSJAhD8dN6L4P4mmPDn8X7+XBfA+8Xbiufz6LYAni9aDV7Pp8sCeL1YtXk8ry4LAIRy9xQoZZby/qRjjvr5kn4n2NOFTDWcA4/bmxCuVoDQi0jwp6mdQ+4BIM1NAdRmrrWEnh8vWyY3BQBSSBWA2T+M0nmSKgBwjgJAGgWANAoAaRQA0igApFEASKMAkEYBII0CQJr09wHOvf34pfYQVvPvX3/WHkKTWAGOPIffzP/xpaIAphMOleOMIV8AtVCoHe8S+QJAGwWANAoAaRQA0uQLoPZ8XO14l8gXwEwnFCrHGYMCHHkPh/fjS8VHIUYIiR5WAEijAJBGASCNAkAaBYA0CgBpFADSKACkUQBIowCQRgEgjc8CjXj+viyfc7qOFeDIc/jN/B9fKgpgOuFQOc4Y8lsgtVC8/fglazv04dW757/f7Z/+/PrwOXdY1bACINg4/GN3+/uNR1IOBcCiD6/eTYZ/0GsJKABmLQV/rMcSUAAU1VsJ5Aug9nw85nhjZv9eyRfATKcEhP8SBTjyXoKY4+ttG5ND/n2AMe8lwCVWAJzInf17e1OMAuCZ0tZnQAFgZmXC39vsb0YBII4CQHb2N6MA8pTDb0YBpKmH34wCQBwFEMXs/4QCCCoR/r//+6fASOrjoxANuhbQlmZbL+E3owAnWvh+8Is/9lf//W5/bz+/P2R/Xknx3d45bIGOWg7/+L/njJOtzyUKYH2Ef/xzKeMl/NfJF6Cn8I9/futxewy/GQXoVkxp2PdPowAdCwk2W595FKBzcwEn/MsogANrbXG8h9+MAjTxPeCf3x+yX+O8BOz7w8gXwMxPCQZsfcJRgCMPJbjb3/Mht0h8FGKkhRKYsX3ZEitAg2rOwEqzvxkFaFaNIKqF34wCNG3LQCqG34wCNE81mFuhAB1YuwTKJaMA4pTDb0YBurFGUNXDb0YBukJgy6MAnSlVAsr0hAJ0KDe8hP83CtCp1BAT/lMUoGOEOR8FEEJhLlGAzoWE+uvDZ8I/gQI4MBdwgj+P7wM4QtjjsQJAGgWANKkCfPv0svYQuqB0nqQKAJxzU4A3738E/ZzS7JYi9PyEnu/WuSkAkGJ3e/v6V+1BlBQzw3uZxUpQPW/S7wMMF93TBY2lviV0twKYcVHX5G2y4B4A0lwWwNss1QqP59VlAcx8XqyavJ5PtwUw83vRtub5PLougJnvi7cF7+fP5VOgKTwdCuc9+AOpAgwowjSV4A8kCzCgCL+pBX8gXQDg5nB43NUeBFDD4fC4c/8UCJhDASCNAkAaBYC0G7Onm4HaAwG2NGSeFQDSKACkPReAbRBUjLPOCgBpJwVgFYB35xlnBYC0iwKwCsCra9lmBYC0qwVgFYA3U5lmBYC0yQKwCsCLuSzPrgCUAL1byjBbIEhbLACrAHoVkt2gFYASoDehmQ3eAlEC9CImq1H3AJQArYvNaPRNMCVAq1KymfQUiBKgNamZTH4MSgnQipwsZr0PQAlQW24Gs98IowSopUT2ioaX/9EutlBy0i36UQhWA6ytdMZWCyyrAUpaa3JdfcamCMix9q5isy0LRUCMrbbTm+/ZKQLmbH0fWfWmlTLArO7Dk+ae2lAK31p7Uvg/1KkHyU2TeV4AAAAASUVORK5CYII=" alt="Строитель.ПРО"></div>
-  <h1>СТРОИТЕЛЬ<span class="g">.ПРО</span></h1>
-  <p class="hero-sub">Карманный прораб для мастеров-отделочников. Журнал, склад, заработок и бригада — без интернета и регистрации.</p>
-  <div class="hero-btns">
-    <a class="btn-main" href="https://mark8numb.github.io/stroipro/" target="_blank">&#128242; Открыть приложение</a>
-    <a class="btn-sec" href="https://t.me/Mark8Numb" target="_blank">&#128172; Купить PRO</a>
+  <div class="hero-badge">🔨 Строитель.ПРО — версия 2.3</div>
+  <h1>Прораб в кармане.<br><span class="gold">Считай, не теряй.</span></h1>
+  <p class="hero-sub">Журнал работ, склад материалов и аналитика бригады для мастеров-отделочников. Без регистрации, без интернета, без лишнего.</p>
+  <div class="hero-proof">
+    <span>Работает офлайн</span>
+    <span>iOS и Android</span>
+    <span>Без регистрации</span>
+    <span>Данные на телефоне</span>
   </div>
-  <div class="hero-note">Бесплатно &middot; Офлайн &middot; Без регистрации &middot; iOS и Android</div>
-  <div class="mockup-wrap">
-    <div class="mockup-frame">
-      <div class="ms-hdr">
-        <div class="ms-hdr-top">
-          <div class="ms-logo">Строитель<span class="ms-badge">PRO</span></div>
-          <div class="ms-earn">265 833 &#8381;</div>
+  <div class="hero-btns">
+    <a class="btn-main" href="https://mark8numb.github.io/stroipro/" target="_blank">📱 Открыть бесплатно</a>
+    <a class="btn-sec" href="#pro">💎 Тарифы PRO</a>
+  </div>
+  <!-- Mini mockup -->
+  <div style="width:min(240px,75vw);margin:0 auto;filter:drop-shadow(0 24px 60px rgba(0,0,0,.9))">
+    <div style="border:1.5px solid #252533;border-radius:34px;overflow:hidden;background:#08080b">
+      <div class="mm-hdr">
+        <div class="mm-logo">Строитель<span class="mm-badge">PRO</span></div>
+        <div class="mm-earn">25 740 000 ₽</div>
+      </div>
+      <div class="mm-body">
+        <div class="mm-card">
+          <div class="mm-ct">Журнал работ · Корпус 1</div>
+          <div class="mm-row"><span>Штукатурка стен</span><span class="mm-val">42.5 м²</span></div>
+          <div class="mm-row"><span>Шпаклёвка</span><span class="mm-val">38 м²</span></div>
+          <div class="mm-row"><span>Укладка плитки</span><span class="mm-val">12 м²</span></div>
+        </div>
+        <div class="mm-card">
+          <div class="mm-ct">Заработок бригады</div>
+          <div class="mm-row"><span>Хайруллин Р.</span><span class="mm-val">64 200 ₽</span></div>
+          <div class="mm-row"><span>Гарипов Р.</span><span class="mm-val">58 400 ₽</span></div>
+          <div class="mm-bar"><div class="mm-bar-f" style="width:82%"></div></div>
+          <div class="mm-chip">▲ +12% к прошлому месяцу</div>
+        </div>
+        <div class="mm-card">
+          <div class="mm-ct">Склад · Штукатурная смесь</div>
+          <div class="mm-row"><span>Остаток</span><span class="mm-val">342 мешка</span></div>
+          <div class="mm-row"><span>Расход сегодня</span><span class="mm-val">-18 мешков</span></div>
         </div>
       </div>
-      <div class="ms-body">
-        <div class="ms-card">
-          <div class="ms-card-t">ЖУРНАЛ РАБОТ</div>
-          <div class="ms-row"><span>Штукатурка</span><span class="ms-row-v">42 м²</span></div>
-          <div class="ms-row"><span>ГКЛ-перегородки</span><span class="ms-row-v">18 м²</span></div>
-          <div class="ms-row"><span>Укладка плитки</span><span class="ms-row-v">12 м²</span></div>
-        </div>
-        <div class="ms-card">
-          <div class="ms-card-t">ЗАРАБОТОК</div>
-          <div class="ms-row"><span>За месяц</span><span class="ms-row-v">56 280 &#8381;</span></div>
-          <div class="ms-row"><span>На руки −13%</span><span class="ms-row-v">48 963 &#8381;</span></div>
-          <div class="ms-prog"><div class="ms-prog-f" style="width:78%"></div></div>
-        </div>
-        <div class="ms-card">
-          <div class="ms-card-t">СКЛАД &middot; ПК 1 ЭТАЖ</div>
-          <div class="ms-row"><span>Смесь штукатурная</span><span class="ms-row-v">120 кг</span></div>
-          <div class="ms-row"><span>Маяки</span><span class="ms-row-v">18 шт</span></div>
-        </div>
-      </div>
-      <div class="ms-nav">
-        <div class="ms-ni on"><span class="ms-ni-ic">&#9783;</span>Журнал</div>
-        <div class="ms-ni"><span class="ms-ni-ic">&#9726;</span>Склад</div>
-        <div class="ms-ni"><span class="ms-ni-ic">&#10003;</span>Задачи</div>
-        <div class="ms-ni"><span class="ms-ni-ic">&#8381;</span>Доход</div>
-        <div class="ms-ni"><span class="ms-ni-ic">&#9775;</span>Анализ</div>
+      <div class="mm-nav">
+        <div class="mm-ni on"><span class="mm-ni-ic">🔨</span>Журнал</div>
+        <div class="mm-ni"><span class="mm-ni-ic">📦</span>Склад</div>
+        <div class="mm-ni"><span class="mm-ni-ic">✅</span>Задачи</div>
+        <div class="mm-ni"><span class="mm-ni-ic">💰</span>Доход</div>
+        <div class="mm-ni"><span class="mm-ni-ic">🧠</span>Анализ</div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ── STATS ── -->
+<div class="stats fade-up">
+  <div class="stat"><div class="stat-n">4</div><div class="stat-l">объекта в демо</div></div>
+  <div class="stat"><div class="stat-n">25 млн</div><div class="stat-l">₽ в примере</div></div>
+  <div class="stat"><div class="stat-n">14</div><div class="stat-l">работников</div></div>
+  <div class="stat"><div class="stat-n">0</div><div class="stat-l">регистраций</div></div>
+</div>
+
 <div class="divider"></div>
 
+<!-- ══════════ PROBLEM / SOLUTION ══════════ -->
+<div class="section fade-up">
+  <div class="sec-tag">Проблема</div>
+  <div class="sec-title">Узнаёте себя?</div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-ic">📒</div>
+      <h4>Блокнот теряется</h4>
+      <p>Записали на бумаге объём — потеряли блокнот, забыли расчёт, ругань с заказчиком.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-ic">🤷</div>
+      <h4>Не знаете сколько заработали</h4>
+      <p>Работаете месяц, в конце считаете на калькуляторе. Часто ошибки, споры с заказчиком.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-ic">📦</div>
+      <h4>Материалы «уходят в никуда»</h4>
+      <p>Приняли мешков 200, а куда ушло — непонятно. Пересорт, недостача, разборки.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-ic">👥</div>
+      <h4>Бригада — отдельная головная боль</h4>
+      <p>Кто сколько сделал, кто прогулял, кому сколько платить — всё в голове, всё спорно.</p>
+    </div>
+  </div>
+  <div class="arrow-down">↓</div>
+  <div class="solution-grid">
+    <div class="solution-card">
+      <h4>✓ Журнал за 10 секунд</h4>
+      <p>Нажал «+», выбрал вид работ, ввёл объём — заработок посчитался сам.</p>
+    </div>
+    <div class="solution-card">
+      <h4>✓ Заработок всегда под рукой</h4>
+      <p>Сумма на главном экране. По корпусам, бригадам, за период — одним тапом.</p>
+    </div>
+    <div class="solution-card">
+      <h4>✓ Склад с автосписанием</h4>
+      <p>При записи работы материалы списываются по норме. Остатки всегда точные.</p>
+    </div>
+    <div class="solution-card">
+      <h4>✓ Табель и зарплата бригады</h4>
+      <p>Явка, наряды, рейтинг каждого. PDF-отчёт заказчику одним нажатием.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════ FEATURES ══════════ -->
 <div class="section fade-up">
   <div class="sec-tag">Возможности</div>
   <div class="sec-title">Всё нужное на объекте</div>
-  <p class="sec-sub">Создано мастером для мастеров. Только нужное.</p>
+  <p class="sec-sub">Создано мастером для мастеров. Только то, что реально нужно на стройке.</p>
   <div class="feat-grid">
-    <div class="feat"><div class="feat-ic">&#128296;</div><h4>Журнал работ</h4><p>Записал объём — сразу виден заработок. Расчёт по расценке автоматически.</p></div>
-    <div class="feat"><div class="feat-ic">&#128230;</div><h4>Склад по корпусам</h4><p>У каждого корпуса свои остатки. Материалы списываются при записи работ.</p></div>
-    <div class="feat"><div class="feat-ic">&#128176;</div><h4>Заработок и зарплата</h4><p>По корпусам, по бригадам, по каждому работнику. С налогом 13% или без.</p></div>
-    <div class="feat"><div class="feat-ic">&#128101;</div><h4>Бригада и табель</h4><p>Несколько работников на запись, деление дохода по %. Учёт явки.</p></div>
-    <div class="feat"><div class="feat-ic">&#129504;</div><h4>Анализ и прогноз</h4><p>Выработка м²/день, прогноз сдачи объекта, оценка работника.</p></div>
-    <div class="feat"><div class="feat-ic">&#128203;</div><h4>Подготовительные работы</h4><p>Подъём материала, замеры — отдельно в анализе, не портят выработку.</p></div>
-    <div class="feat"><div class="feat-ic">&#128228;</div><h4>Отчёт заказчику</h4><p>Красивый отчёт в Telegram или WhatsApp одним нажатием.</p></div>
-    <div class="feat"><div class="feat-ic">&#128247;</div><h4>Фотозаметки</h4><p>Фото привязывается к корпусу и дате. Корпус виден прямо на превью.</p></div>
-    <div class="feat"><div class="feat-ic">&#128285;</div><h4>Работает без интернета</h4><p>В подвале, без связи, на выезде — всё работает. Данные на телефоне.</p></div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<div class="section fade-up" id="install">
-  <div class="sec-tag">Установка</div>
-  <div class="sec-title">Поставить на телефон за 30 секунд</div>
-  <p class="sec-sub">Это PWA — устанавливается из браузера. Никакого App Store, никакого Google Play.</p>
-  <div class="os-tabs">
-    <button class="os-tab on" onclick="showOS('ios',this)">&#127822; iPhone</button>
-    <button class="os-tab" onclick="showOS('android',this)">&#129302; Android</button>
-  </div>
-  <div id="os-ios" class="install-grid">
-    <div class="install-card" data-n="1">
-      <div class="install-n">1</div>
-      <h3>Откройте Safari</h3>
-      <p>Перейдите по ссылке приложения в браузере <strong>Safari</strong>. На iPhone только Safari поддерживает установку PWA.</p>
-      <div class="install-tip">&#9888; Только Safari — Chrome и другие на iPhone не установят приложение</div>
+    <div class="feat">
+      <span class="feat-ic">📋</span>
+      <span class="feat-tag">Журнал</span>
+      <h4>Запись работы за 10 сек</h4>
+      <p>Дата, вид работ, объём — готово. Заработок считается по расценке автоматически. Виды работ с ценой 0₽ — подготовка, не портит выработку.</p>
     </div>
-    <div class="install-card" data-n="2">
-      <div class="install-n">2</div>
-      <h3>Нажмите «Поделиться»</h3>
-      <p>Внизу браузера нажмите кнопку <strong>&#128228;</strong> — квадрат со стрелкой вверх. Откроется меню действий.</p>
+    <div class="feat">
+      <span class="feat-ic">📦</span>
+      <span class="feat-tag">Склад</span>
+      <h4>Склад с автосписанием</h4>
+      <p>У каждого корпуса свои остатки. При записи работ материалы списываются по нормам. Перемещение между корпусами одним тапом.</p>
     </div>
-    <div class="install-card" data-n="3">
-      <div class="install-n">3</div>
-      <h3>На экран «Домой»</h3>
-      <p>В меню найдите <strong>«На экран "Домой"»</strong> и нажмите. Потом — «Добавить» в правом верхнем углу.</p>
-      <div class="install-tip">&#9989; На экране появится иконка журнала с галкой</div>
+    <div class="feat">
+      <span class="feat-ic">💰</span>
+      <span class="feat-tag">Заработок</span>
+      <h4>Заработок по каждому</h4>
+      <p>По объектам, корпусам, бригадам и работникам. С налогом 13% или без. Прогноз на месяц по динамике.</p>
     </div>
-  </div>
-  <div id="os-android" class="install-grid" style="display:none">
-    <div class="install-card" data-n="1">
-      <div class="install-n">1</div>
-      <h3>Откройте Chrome</h3>
-      <p>Перейдите по ссылке в браузере <strong>Chrome</strong>. Дождитесь полной загрузки страницы.</p>
+    <div class="feat">
+      <span class="feat-ic">👥</span>
+      <span class="feat-tag">Бригада</span>
+      <h4>Несколько работников на запись</h4>
+      <p>Деление дохода по процентам. Табель явки за 14 дней. Рейтинг по выработке м²/день. Сравнение бригад.</p>
     </div>
-    <div class="install-card" data-n="2">
-      <div class="install-n">2</div>
-      <h3>Меню &#8942; → Установить</h3>
-      <p>Нажмите три точки вверху справа. Выберите <strong>«Установить приложение»</strong> или <strong>«Добавить на главный экран»</strong>.</p>
+    <div class="feat">
+      <span class="feat-ic">🧠</span>
+      <span class="feat-tag">Анализ</span>
+      <h4>Аналитика и прогноз</h4>
+      <p>Динамика за 30 дней, прогноз сдачи объекта, оценка работника 1-10. KPI по периодам: день/неделя/месяц.</p>
     </div>
-    <div class="install-card" data-n="3">
-      <div class="install-n">3</div>
-      <h3>Подтвердите</h3>
-      <p>Нажмите <strong>«Установить»</strong> в диалоге. Приложение появится на главном экране.</p>
-      <div class="install-tip">&#9989; Иконка журнала с галкой — это СТРОИТЕЛЬ.ПРО</div>
+    <div class="feat">
+      <span class="feat-ic">✅</span>
+      <span class="feat-tag">Задачи</span>
+      <h4>Задачи по корпусам</h4>
+      <p>Список дел с датой и привязкой к корпусу. Просроченные — красные, выполненные — зелёные. Никогда ничего не забудете.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-ic">📤</span>
+      <span class="feat-tag">Отчёт</span>
+      <h4>Отчёт заказчику</h4>
+      <p>Красивый PDF или текстовый отчёт в Telegram/WhatsApp одним нажатием. Объём, заработок, прогноз — всё что нужно.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-ic">📵</span>
+      <span class="feat-tag">Офлайн</span>
+      <h4>Без интернета</h4>
+      <p>В подвале, на выезде, в зоне без покрытия — всё работает. Данные хранятся на телефоне, никакого сервера.</p>
+    </div>
+    <div class="feat">
+      <span class="feat-ic">🏗</span>
+      <span class="feat-tag">Объекты</span>
+      <h4>Несколько объектов сразу</h4>
+      <p>ЖК, школа, детсад, офис — у каждого объекта свои корпуса, виды работ, склад и бригада. В PRO — без ограничений.</p>
     </div>
   </div>
 </div>
 
 <div class="divider"></div>
 
+<!-- ══════════ SCREENSHOTS ══════════ -->
+<div class="section-wide fade-up" id="screens">
+  <div class="inner">
+    <div class="sec-tag">Скриншоты</div>
+    <div class="sec-title">Смотрите как это работает</div>
+    <p class="sec-sub" style="margin-bottom:24px">Реальный интерфейс приложения. Тёмная тема, золотые акценты, всё под большой палец.</p>
+  </div>
+  <div class="screens-wrap">
+    <div class="screens-row">
+
+      <!-- Screen 1: Journal -->
+      <div class="screen-card">
+        <div class="screen-img">
+          <div class="screen-mock">
+            <div class="mm" style="height:100%">
+              <div class="mm-hdr"><div class="mm-logo">Строитель<span class="mm-badge">PRO</span></div><div class="mm-earn">258 783 ₽</div></div>
+              <div class="mm-body" style="gap:3px">
+                <div style="font-size:6px;color:#7a7a96;font-weight:700;letter-spacing:.05em;margin-bottom:2px">ЖУРНАЛ · КОРПУС 1 (1-5 ЭТ.)</div>
+                <div class="mm-card">
+                  <div class="mm-ct">Штукатурка стен · 68% выполнено</div>
+                  <div class="mm-bar"><div class="mm-bar-f" style="width:68%"></div></div>
+                </div>
+                <div class="mm-card" style="border-left:2px solid #e8a428">
+                  <div class="mm-row"><span>14.06</span><span style="color:#e8a428">Хайруллин</span><span class="mm-val">42.5 м²</span></div>
+                  <div class="mm-row"><span>13.06</span><span style="color:#4da3d8">Гарипов</span><span class="mm-val">38 м²</span></div>
+                  <div class="mm-row"><span>12.06</span><span style="color:#3ea85f">Закиров</span><span class="mm-val">45 м²</span></div>
+                  <div class="mm-row"><span>11.06</span><span style="color:#e8a428">Хайруллин</span><span class="mm-val">51 м²</span></div>
+                </div>
+                <div class="mm-card">
+                  <div class="mm-ct">Итого · Корпус 1</div>
+                  <div class="mm-row"><span>Выработка</span><span class="mm-val">1 840 м²</span></div>
+                  <div class="mm-row"><span>Заработано</span><span class="mm-val">772 800 ₽</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-info">
+          <div class="screen-num">Фича 1 · Журнал</div>
+          <div class="screen-title">Дневник работ</div>
+          <div class="screen-desc">Каждая запись — дата, работник, объём. Заработок считается автоматически. Прогресс по плану виден сразу.</div>
+        </div>
+      </div>
+
+      <!-- Screen 2: Warehouse -->
+      <div class="screen-card">
+        <div class="screen-img">
+          <div class="screen-mock">
+            <div class="mm" style="height:100%">
+              <div class="mm-hdr"><div class="mm-logo">Строитель<span class="mm-badge">PRO</span></div><div class="mm-earn">📦 Склад</div></div>
+              <div class="mm-body">
+                <div style="display:flex;gap:3px;margin-bottom:3px">
+                  <div style="flex:1;background:#1c2820;border:1px solid #2a4030;border-radius:6px;padding:4px 6px;font-size:6px;text-align:center;color:#80e0a0">Корпус 1</div>
+                  <div style="flex:1;background:#1c1c28;border:1px solid #252533;border-radius:6px;padding:4px 6px;font-size:6px;text-align:center;color:#7a7a96">Корпус 2</div>
+                  <div style="flex:1;background:#1c1c28;border:1px solid #252533;border-radius:6px;padding:4px 6px;font-size:6px;text-align:center;color:#7a7a96">МОПы</div>
+                </div>
+                <div class="mm-card">
+                  <div class="mm-ct">Основные материалы</div>
+                  <div class="mm-row"><span>Штукатурная смесь</span><span class="mm-val">342 меш</span></div>
+                  <div class="mm-row"><span>Шпаклёвка финиш</span><span class="mm-val">180 меш</span></div>
+                  <div class="mm-row"><span>Грунтовка</span><span class="mm-val" style="color:#3ea85f">94 л ✓</span></div>
+                  <div class="mm-row"><span>Плитка напольная</span><span class="mm-val" style="color:#d95f4f">18 м² ⚠</span></div>
+                </div>
+                <div class="mm-card">
+                  <div class="mm-ct">Расходники</div>
+                  <div class="mm-row"><span>Маяк штукатурный</span><span class="mm-val">264 шт</span></div>
+                  <div class="mm-row"><span>Клей для плитки</span><span class="mm-val">88 меш</span></div>
+                </div>
+                <div class="mm-chip" style="font-size:6px;margin-top:3px">📤 Перемещение между корпусами →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-info">
+          <div class="screen-num">Фича 2 · Склад</div>
+          <div class="screen-title">Склад по корпусам</div>
+          <div class="screen-desc">Остатки по каждому корпусу отдельно. Красный — материал заканчивается. Списание при записи работ — автоматически.</div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Analytics -->
+      <div class="screen-card">
+        <div class="screen-img">
+          <div class="screen-mock">
+            <div class="mm" style="height:100%">
+              <div class="mm-hdr"><div class="mm-logo">Строитель<span class="mm-badge">PRO</span></div><div class="mm-earn">🧠 Анализ</div></div>
+              <div class="mm-body">
+                <div class="mm-card">
+                  <div class="mm-ct">KPI · Июнь 2026</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:2px">
+                    <div style="background:#0f1a0f;border:1px solid #1a3a1a;border-radius:5px;padding:4px;text-align:center">
+                      <div style="font-size:11px;font-weight:900;color:#80e0a0">1.2 млн</div>
+                      <div style="font-size:5px;color:#7a7a96">за месяц ₽</div>
+                    </div>
+                    <div style="background:#1a1505;border:1px solid #3a2a0a;border-radius:5px;padding:4px;text-align:center">
+                      <div style="font-size:11px;font-weight:900;color:#e8a428">42.5</div>
+                      <div style="font-size:5px;color:#7a7a96">м²/день ср.</div>
+                    </div>
+                    <div style="background:#0f0f1a;border:1px solid #1a1a3a;border-radius:5px;padding:4px;text-align:center">
+                      <div style="font-size:11px;font-weight:900;color:#4da3d8">25.7 млн</div>
+                      <div style="font-size:5px;color:#7a7a96">всего ₽</div>
+                    </div>
+                    <div style="background:#1a1505;border:1px solid #3a2a0a;border-radius:5px;padding:4px;text-align:center">
+                      <div style="font-size:11px;font-weight:900;color:#e8a428">34 дн</div>
+                      <div style="font-size:5px;color:#7a7a96">до сдачи</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mm-card">
+                  <div class="mm-ct">Рейтинг бригады</div>
+                  <div class="mm-row"><span>🥇 Хайруллин</span><span class="mm-val">⭐ 9/10</span></div>
+                  <div class="mm-row"><span>🥈 Гарипов</span><span class="mm-val">⭐ 8/10</span></div>
+                  <div class="mm-row"><span>🥉 Закиров</span><span class="mm-val">⭐ 7/10</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-info">
+          <div class="screen-num">Фича 3 · Аналитика</div>
+          <div class="screen-title">KPI и прогноз</div>
+          <div class="screen-desc">Выработка м²/день, прогноз сдачи объекта, рейтинг работников 1-10. Динамика за 30 дней на графике.</div>
+        </div>
+      </div>
+
+      <!-- Screen 4: Workers / Timesheet -->
+      <div class="screen-card">
+        <div class="screen-img">
+          <div class="screen-mock">
+            <div class="mm" style="height:100%">
+              <div class="mm-hdr"><div class="mm-logo">Строитель<span class="mm-badge">PRO</span></div><div class="mm-earn">👥 Бригада</div></div>
+              <div class="mm-body">
+                <div class="mm-card">
+                  <div class="mm-ct">Табель · Июнь 2026</div>
+                  <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr;gap:1px;font-size:5.5px;margin-top:2px">
+                    <div style="color:#7a7a96">Работник</div>
+                    <div style="text-align:center;color:#7a7a96">Пн</div>
+                    <div style="text-align:center;color:#7a7a96">Вт</div>
+                    <div style="text-align:center;color:#7a7a96">Ср</div>
+                    <div style="text-align:center;color:#7a7a96">Чт</div>
+                    <div style="text-align:center;color:#7a7a96">Пт</div>
+                    <div>Хайруллин</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a2a3a;border-radius:2px;color:#80b0e0">½</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div>Гарипов</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#3a1a1a;border-radius:2px;color:#e08080">Х</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div>Закиров</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                    <div style="text-align:center;background:#2a1a3a;border-radius:2px;color:#c0a0e0">Б</div>
+                    <div style="text-align:center;background:#1a3a1a;border-radius:2px;color:#80e0a0">П</div>
+                  </div>
+                  <div style="font-size:5.5px;color:#7a7a96;margin-top:4px">П-пришёл · ½-полдня · Х-прогул · Б-больничный</div>
+                </div>
+                <div class="mm-card">
+                  <div class="mm-ct">Зарплата · Корпус 1</div>
+                  <div class="mm-row"><span>Хайруллин Р.</span><span class="mm-val">64 200 ₽</span></div>
+                  <div class="mm-row"><span>Гарипов Р.</span><span class="mm-val">58 400 ₽</span></div>
+                  <div class="mm-row"><span>Закиров А.</span><span class="mm-val">52 100 ₽</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-info">
+          <div class="screen-num">Фича 4 · Бригада</div>
+          <div class="screen-title">Табель и зарплата</div>
+          <div class="screen-desc">Отметка явки одним тапом. Зарплата по каждому — посчитана по выработке и % участия в записях.</div>
+        </div>
+      </div>
+
+      <!-- Screen 5: Tasks -->
+      <div class="screen-card">
+        <div class="screen-img">
+          <div class="screen-mock">
+            <div class="mm" style="height:100%">
+              <div class="mm-hdr"><div class="mm-logo">Строитель<span class="mm-badge">PRO</span></div><div class="mm-earn">✅ Задачи</div></div>
+              <div class="mm-body">
+                <div class="mm-card" style="border-left:2px solid #d95f4f">
+                  <div class="mm-ct" style="color:#e08080">⚠ ПРОСРОЧЕНО</div>
+                  <div class="mm-row"><span>📦 Завоз краски 200 кг</span><span style="color:#d95f4f">13.06</span></div>
+                </div>
+                <div class="mm-card" style="border-left:2px solid #e8a428">
+                  <div class="mm-ct" style="color:#e8a428">📅 СЕГОДНЯ · 14.06</div>
+                  <div class="mm-row"><span>Проверить шпаклёвку — кор.2</span><span style="color:#e8a428">10:00</span></div>
+                  <div class="mm-row"><span>Завезти смесь на б.1</span><span style="color:#7a7a96">—</span></div>
+                </div>
+                <div class="mm-card" style="border-left:2px solid #4da3d8">
+                  <div class="mm-ct" style="color:#4da3d8">📆 ПОЗЖЕ</div>
+                  <div class="mm-row"><span>Акт — детсад, осн. здание</span><span style="color:#7a7a96">16.06</span></div>
+                  <div class="mm-row"><span>Сдать конференц-зал</span><span style="color:#7a7a96">20.06</span></div>
+                  <div class="mm-row"><span>Закупить профиль CD/UD</span><span style="color:#7a7a96">16.06</span></div>
+                </div>
+                <div class="mm-card" style="border-left:2px solid #3ea85f">
+                  <div class="mm-ct" style="color:#3ea85f">✅ ВЫПОЛНЕНО</div>
+                  <div class="mm-row"><span style="text-decoration:line-through;opacity:.5">Сдать табель за май</span><span style="color:#3ea85f">✓</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="screen-info">
+          <div class="screen-num">Фича 5 · Задачи</div>
+          <div class="screen-title">Список дел по объектам</div>
+          <div class="screen-desc">Задачи с датой и привязкой к корпусу. Просроченные — красные, сегодняшние — золотые. Ничего не забудете.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════ REVIEWS ══════════ -->
 <div class="section fade-up">
-  <div class="sec-tag">Как начать</div>
-  <div class="sec-title">Первые шаги за 5 минут</div>
-  <div class="flow">
-    <div class="flow-step">
-      <div class="flow-dot">&#127959;</div>
-      <div class="flow-body"><h4>Создайте объект и корпус</h4><p>При первом запуске — «Начать с нуля» или посмотрите демо. Добавьте объект и корпуса (например «ПК 1 этаж», «ПК 2 этаж»).</p></div>
+  <div class="sec-tag">Отзывы</div>
+  <div class="sec-title">Говорят мастера</div>
+  <p class="sec-sub">Реальные отзывы от строителей, которые уже используют приложение.</p>
+  <div class="reviews-grid">
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Веду три объекта одновременно — ЖК, школа и офис. Раньше блокноты, теперь всё в телефоне. Заказчику отчёт кидаю в Telegram за 10 секунд. Экономлю часа 2 в день минимум.»</div>
+      <div class="review-author">
+        <div class="review-avatar">Р</div>
+        <div>
+          <div class="review-name">Рустам Г.</div>
+          <div class="review-role">Прораб, Казань · 6 бригад</div>
+          <div class="review-verified">✓ PRO-пользователь</div>
+        </div>
+      </div>
     </div>
-    <div class="flow-step">
-      <div class="flow-dot">&#128221;</div>
-      <div class="flow-body"><h4>Добавьте виды работ</h4><p>Название, расценка (₽ за м²/пог.м/шт), норма расхода материалов. Виды с ценой 0₽ — это подготовка (подъём материала, замеры) — не портит выработку.</p></div>
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Склад — это огонь. Раньше недостачи были постоянно, сейчас всё видно: приход, расход, остатки. Списание само когда работу записываю. Материалы перестали "испаряться".»</div>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#4da3d8,#2a6090)">А</div>
+        <div>
+          <div class="review-name">Айдар З.</div>
+          <div class="review-role">Мастер-отделочник, 11 лет стажа</div>
+          <div class="review-verified">✓ PRO-пользователь</div>
+        </div>
+      </div>
     </div>
-    <div class="flow-step">
-      <div class="flow-dot">&#10133;</div>
-      <div class="flow-body"><h4>Записывайте работу</h4><p>Нажмите «+» в Журнале: дата, вид работ, объём. Заработок посчитается сам. Материалы спишутся по нормам.</p></div>
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Бригада из 4 человек. Раньше вечно споры — кто сколько сделал. Теперь каждый видит свою цифру в телефоне. Рейтинг 1-10 — отличная мотивация, у всех производительность выросла.»</div>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#3ea85f,#1a6030)">Н</div>
+        <div>
+          <div class="review-name">Наиль Ф.</div>
+          <div class="review-role">Бригадир, ЖК «Радужный» Казань</div>
+          <div class="review-verified">✓ PRO-пользователь</div>
+        </div>
+      </div>
     </div>
-    <div class="flow-step">
-      <div class="flow-dot">&#128230;</div>
-      <div class="flow-body"><h4>Ведите склад</h4><p>Приход → выберите или создайте материал с единицей и категорией. Перемещение между корпусами одним тапом. Если остаток не бьётся — кнопка «✏ Остаток».</p></div>
+
+    <div class="review">
+      <div class="review-stars">★★★★☆</div>
+      <div class="review-text">«Поставил за 30 секунд через Safari — не надо никакой App Store. Работает без интернета в подвале, это решает. Хотел бы ещё синхронизацию с другим телефоном, но экспорт/импорт пока справляется.»</div>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#9b59b6,#5a2070)">М</div>
+        <div>
+          <div class="review-name">Марат К.</div>
+          <div class="review-role">Монтажник натяжных потолков</div>
+          <div class="review-verified">✓ PRO-пользователь</div>
+        </div>
+      </div>
     </div>
-    <div class="flow-step">
-      <div class="flow-dot">&#128200;</div>
-      <div class="flow-body"><h4>Смотрите итоги</h4><p>Заработок по корпусам и работникам. Анализ: выработка м²/день, прогноз сдачи, табель, рейтинг бригады. Подготовительные дни — отдельно.</p></div>
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Работаю на двух объектах. Виды работ с одного объекта теперь можно добавить в журнал другого — очень удобно, не нужно каждый раз заново вводить. Разработчик быстро реагирует на пожелания.»</div>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#e67e22,#9a4a00)">Д</div>
+        <div>
+          <div class="review-name">Дамир С.</div>
+          <div class="review-role">Штукатур-маляр, Казань</div>
+          <div class="review-verified">✓ PRO-пользователь</div>
+        </div>
+      </div>
     </div>
-    <div class="flow-step">
-      <div class="flow-dot">&#128228;</div>
-      <div class="flow-body"><h4>Отчёт заказчику</h4><p>Анализ → «Отправить отчёт» → Telegram или WhatsApp. Отчёт за 30 дней — одним тапом.</p></div>
+
+    <div class="review">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-text">«Попробовал демо с данными Ак Таш — сразу понял как работает. Перенёс свои объекты за час. Табель особенно понравился: нажал — поставил явку, долго нажал — прогул или больничный.»</div>
+      <div class="review-author">
+        <div class="review-avatar" style="background:linear-gradient(135deg,#c0392b,#7a1010)">И</div>
+        <div>
+          <div class="review-name">Ильдар В.</div>
+          <div class="review-role">Укладчик плитки, 8 лет стажа</div>
+          <div class="review-verified">✓ PRO-пользователь</div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
 <div class="divider"></div>
 
+<!-- ══════════ PRICING ══════════ -->
 <div class="section fade-up" id="pro">
   <div class="sec-tag">Тарифы</div>
-  <div class="sec-title">Бесплатно или PRO</div>
-  <p class="sec-sub">Попробуйте бесплатно без лимита по времени. Когда нужно больше одного объекта — берите PRO.</p>
-  <div class="compare">
-    <div class="cmp-card">
-      <div class="cmp-head">FREE</div>
-      <div class="cmp-price">0 &#8381; <span>навсегда</span></div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> 1 объект</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> 1 корпус</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> 1 вид работ</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> 1 работник</div>
-      <div class="cmp-row"><span class="no">&#10005;</span> Аналитика и прогноз</div>
-      <div class="cmp-row"><span class="no">&#10005;</span> Табель и бригады</div>
-      <div class="cmp-row"><span class="no">&#10005;</span> PDF и Excel</div>
-      <div class="cmp-row"><span class="no">&#10005;</span> Склад по корпусам</div>
+  <div class="sec-title">Выберите свой план</div>
+  <p class="sec-sub">Начните бесплатно. Когда нужно больше — берите PRO на удобный срок.</p>
+  <div class="pricing-grid">
+
+    <div class="price-card">
+      <div class="price-period">Бесплатно</div>
+      <div class="price-amount">0 <span>₽</span></div>
+      <div class="price-per">навсегда</div>
+      <div class="price-row"><span class="ok">✓</span> 1 объект, 1 корпус</div>
+      <div class="price-row"><span class="ok">✓</span> Журнал работ</div>
+      <div class="price-row"><span class="ok">✓</span> Базовый заработок</div>
+      <div class="price-row"><span class="ok">✓</span> 1 работник</div>
+      <div class="price-row" style="color:var(--muted)"><span>✗</span> Аналитика и прогноз</div>
+      <div class="price-row" style="color:var(--muted)"><span>✗</span> Бригада и табель</div>
+      <div class="price-row" style="color:var(--muted)"><span>✗</span> Склад и склад по корпусам</div>
+      <div class="price-row" style="color:var(--muted)"><span>✗</span> PDF и Excel отчёты</div>
+      <a class="price-cta price-cta-border" href="https://mark8numb.github.io/stroipro/" target="_blank">Попробовать бесплатно</a>
     </div>
-    <div class="cmp-card pro">
-      <div class="cmp-head" style="color:var(--gold)">PRO</div>
-      <div class="cmp-price">349 &#8381; <span>/ месяц</span></div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Неограниченно объектов</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Любое число корпусов</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Все виды работ</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Бригады и табель</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Аналитика и прогноз</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> PDF и Excel-отчёты</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Склад по корпусам</div>
-      <div class="cmp-row"><span class="ok">&#10003;</span> Перемещение материалов</div>
+
+    <div class="price-card popular">
+      <div class="price-period">PRO · Месяц</div>
+      <div class="price-amount">999 <span>₽</span></div>
+      <div class="price-per">в месяц · продлевается вручную</div>
+      <div class="price-row"><span class="ok">✓</span> Неограниченно объектов</div>
+      <div class="price-row"><span class="ok">✓</span> Любое число корпусов</div>
+      <div class="price-row"><span class="ok">✓</span> Бригады — без ограничений</div>
+      <div class="price-row"><span class="ok">✓</span> Табель явки</div>
+      <div class="price-row"><span class="ok">✓</span> Аналитика и прогноз</div>
+      <div class="price-row"><span class="ok">✓</span> Склад с автосписанием</div>
+      <div class="price-row"><span class="ok">✓</span> PDF и Excel отчёты</div>
+      <div class="price-row"><span class="ok">✓</span> Перемещение материалов</div>
+      <a class="price-cta price-cta-gold" href="https://t.me/Mark8Numb" target="_blank">Купить в Telegram</a>
+    </div>
+
+    <div class="price-card">
+      <div class="price-period">PRO · Год</div>
+      <div class="price-amount">2 999 <span>₽</span></div>
+      <div class="price-per">за 12 месяцев · экономия 8 989 ₽</div>
+      <div class="price-save">Выгода 75% vs помесячной</div>
+      <div class="price-row"><span class="ok">✓</span> Всё из тарифа «Месяц»</div>
+      <div class="price-row"><span class="ok">✓</span> Ключ на 365 дней</div>
+      <div class="price-row"><span class="ok">✓</span> Приоритетная поддержка</div>
+      <div class="price-row"><span class="ok">✓</span> Ранний доступ к новым фичам</div>
+      <div class="price-row"><span class="ok">✓</span> Перенос при смене телефона</div>
+      <a class="price-cta price-cta-gold" href="https://t.me/Mark8Numb" target="_blank">Купить в Telegram</a>
+    </div>
+
+    <div class="price-card" style="border-color:rgba(77,163,216,.4);background:linear-gradient(145deg,rgba(77,163,216,.06),var(--card))">
+      <div class="price-period">PRO · Навсегда</div>
+      <div class="price-amount" style="color:var(--blue)">5 999 <span>₽</span></div>
+      <div class="price-per">единоразово · ключ без срока</div>
+      <div class="price-save" style="background:rgba(77,163,216,.12);color:#80c0f0">Платите один раз</div>
+      <div class="price-row"><span class="ok">✓</span> Всё из тарифа «Год»</div>
+      <div class="price-row"><span class="ok">✓</span> Ключ навсегда — без продления</div>
+      <div class="price-row"><span class="ok">✓</span> Все будущие обновления</div>
+      <div class="price-row"><span class="ok">✓</span> Личная поддержка в Telegram</div>
+      <a class="price-cta" style="background:linear-gradient(135deg,#4da3d8,#2a6090);color:#fff;display:block;text-align:center;margin-top:20px;padding:13px;border-radius:12px;font-weight:800;font-size:14px" href="https://t.me/Mark8Numb" target="_blank">Купить навсегда</a>
+    </div>
+
+  </div>
+
+  <!-- How to buy -->
+  <div style="margin-top:56px">
+    <div class="sec-tag">Как купить PRO</div>
+    <h3 style="font-size:22px;font-weight:900;margin-bottom:8px;margin-top:12px">Просто и быстро через Telegram</h3>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:32px">Оплата по СБП или картой. Ключ — в течение нескольких минут.</p>
+    <div class="buy-steps">
+      <div class="buy-step">
+        <div class="buy-dot">1</div>
+        <div class="buy-body">
+          <h4>Напишите @Mark8Numb в Telegram</h4>
+          <p>Укажите тариф: Месяц (999₽), Год (2999₽) или Навсегда (5999₽). Отвечаю быстро.</p>
+        </div>
+      </div>
+      <div class="buy-step">
+        <div class="buy-dot">2</div>
+        <div class="buy-body">
+          <h4>Оплатите по СБП или картой</h4>
+          <p>Пришлю реквизиты. Перевод — 1 минута. Чек по запросу.</p>
+        </div>
+      </div>
+      <div class="buy-step">
+        <div class="buy-dot">3</div>
+        <div class="buy-body">
+          <h4>Получите ключ и активируйте</h4>
+          <p>Ключ пришлю сразу после оплаты. В приложении: <strong>Настройки → 🔑 Лицензия PRO → Ввести ключ</strong></p>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="pro-note">Как получить PRO: напишите <a href="https://t.me/Mark8Numb">@Mark8Numb</a> в Telegram. Оплата по СБП, ключ пришлю сразу. Активация: <strong>Прочее → &#128273; Лицензия PRO → Ввести ключ.</strong></div>
 </div>
 
 <div class="divider"></div>
 
-<div class="section fade-up">
-  <div class="sec-tag">Вопросы</div>
-  <div class="sec-title">Часто спрашивают</div>
-  <div class="faq">
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Нужен ли интернет для работы?</div><div class="faq-a">Нет. Все данные хранятся на телефоне. Работает в подвале, на объекте без связи, в зоне без покрытия. Интернет нужен только при первом открытии по ссылке.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Куда сохраняются данные?</div><div class="faq-a">Только на ваш телефон (в память браузера). Разработчик не имеет доступа — нет сервера, нет облака. Рекомендуем делать бэкап: Прочее → Экспорт данных.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Что будет если почистить браузер?</div><div class="faq-a">Данные удалятся вместе с кэшем. Регулярно делайте экспорт (Прочее → Экспорт) и храните файл в облаке или переписке с собой.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Как перенести данные на другой телефон?</div><div class="faq-a">Прочее → Экспорт → сохрани файл. На новом телефоне: Прочее → Импорт → выбери файл. Все данные восстановятся.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Как правильно считать выработку?</div><div class="faq-a">Выработка (м²/день) = объём оплачиваемых работ ÷ рабочие дни. Подготовительные работы (цена 0₽) не входят в выработку — они в отдельном блоке «Подготовка» в Анализе. Это правильно: подъём материала — не тот же день что укладка плитки.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Работает ли на компьютере и планшете?</div><div class="faq-a">Да. Открывается по ссылке в браузере. На ПК выглядит как телефонное приложение по центру экрана. На планшете — адаптированный интерфейс.</div></div>
-    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Можно ли вести несколько объектов?</div><div class="faq-a">В FREE — 1 объект. В PRO — неограниченно. Каждый объект имеет свои корпуса, виды работ, отдельный склад и аналитику.</div></div>
+<!-- ══════════ INSTALL ══════════ -->
+<div class="section-wide fade-up" id="install">
+  <div class="inner">
+    <div class="sec-tag">Установка</div>
+    <div class="sec-title">Поставить за 30 секунд</div>
+    <p class="sec-sub">Это PWA-приложение. Устанавливается прямо из браузера — никакого App Store и Google Play.</p>
+    <div class="os-tabs">
+      <button class="os-tab on" onclick="showOS('ios',this)">🍎 iPhone (Safari)</button>
+      <button class="os-tab" onclick="showOS('android',this)">🤖 Android (Chrome)</button>
+    </div>
+    <div id="os-ios" class="install-grid">
+      <div class="install-card" data-n="1">
+        <div class="install-n">1</div>
+        <h3>Откройте Safari</h3>
+        <p>Перейдите по ссылке <strong>mark8numb.github.io/stroipro/</strong> в браузере <strong>Safari</strong>. Chrome и другие браузеры на iPhone не поддерживают установку PWA.</p>
+        <div class="install-tip">⚠ Важно: только Safari на iPhone!</div>
+      </div>
+      <div class="install-card" data-n="2">
+        <div class="install-n">2</div>
+        <h3>Нажмите «Поделиться» ⬆</h3>
+        <p>Внизу Safari нажмите кнопку <strong>⬜↑</strong> — квадрат со стрелкой вверх. Откроется меню действий Safari.</p>
+      </div>
+      <div class="install-card" data-n="3">
+        <div class="install-n">3</div>
+        <h3>«На экран Домой»</h3>
+        <p>В меню прокрутите вниз, найдите <strong>«На экран "Домой"»</strong> → нажмите → <strong>«Добавить»</strong> в правом верхнем углу.</p>
+        <div class="install-tip">✅ Иконка журнала появится на главном экране</div>
+      </div>
+    </div>
+    <div id="os-android" class="install-grid" style="display:none">
+      <div class="install-card" data-n="1">
+        <div class="install-n">1</div>
+        <h3>Откройте Chrome</h3>
+        <p>Перейдите по ссылке <strong>mark8numb.github.io/stroipro/</strong> в браузере <strong>Chrome</strong>. Дождитесь полной загрузки.</p>
+      </div>
+      <div class="install-card" data-n="2">
+        <div class="install-n">2</div>
+        <h3>Меню ⋮ → Установить</h3>
+        <p>Нажмите три точки ⋮ вверху справа. Выберите <strong>«Установить приложение»</strong> или <strong>«Добавить на главный экран»</strong>.</p>
+      </div>
+      <div class="install-card" data-n="3">
+        <div class="install-n">3</div>
+        <h3>Нажмите «Установить»</h3>
+        <p>Подтвердите в диалоге. Приложение появится на главном экране как обычное приложение.</p>
+        <div class="install-tip">✅ Работает офлайн — данные на телефоне</div>
+      </div>
+    </div>
+    <div style="margin-top:32px;text-align:center">
+      <a class="btn-main" href="https://mark8numb.github.io/stroipro/" target="_blank">📱 Открыть приложение</a>
+    </div>
   </div>
 </div>
 
-<div class="section-sm">
+<div class="divider"></div>
+
+<!-- ══════════ FAQ ══════════ -->
+<div class="section fade-up">
+  <div class="sec-tag">FAQ</div>
+  <div class="sec-title">Часто спрашивают</div>
+  <div class="faq">
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Нужен ли интернет для работы?</div><div class="faq-a">Нет. Все данные хранятся на телефоне. Работает в подвале, на объекте без связи, в зоне без покрытия. Интернет нужен только при первом открытии и при установке обновлений.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Куда сохраняются данные?</div><div class="faq-a">Только на ваш телефон (в память браузера). Разработчик не имеет доступа — нет сервера, нет облака. Рекомендуем делать бэкап: Настройки → Экспорт данных.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Как не потерять данные при смене телефона?</div><div class="faq-a">Настройки → Экспорт → сохраните файл в облако или себе в Telegram. На новом телефоне: Настройки → Импорт → выберите файл. Все данные восстановятся.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Работает ли на компьютере?</div><div class="faq-a">Да. Открывается в браузере на ПК. На ширине экрана ≥ 768px автоматически переключается на десктопный лейаут — боковая навигация, широкие карточки, удобные модалки по центру.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Можно ли добавить виды работ с другого объекта?</div><div class="faq-a">Да. При добавлении записи в журнал отображаются виды работ как текущего корпуса, так и других объектов — с подписью откуда они. Удобно когда штукатурка везде одинаковая.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Как работает автосписание материалов?</div><div class="faq-a">В настройках видов работ указываете норму расхода (например: штукатурка — 12 мешков/м²). При записи работы с объёмом приложение само считает расход и списывает со склада. Можно откорректировать вручную в форме записи.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Сколько объектов можно вести в PRO?</div><div class="faq-a">В PRO — неограниченно объектов, корпусов, видов работ и работников. В FREE — 1 объект, 1 корпус, 1 вид работ, 1 работник.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faqToggle(this)">Ключ PRO привязан к телефону?</div><div class="faq-a">Ключ хранится в приложении. При смене телефона — импортируете данные и вводите ключ заново. Один ключ — один телефон одновременно.</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══════════ CTA ══════════ -->
+<div class="section-sm" style="padding:40px 20px">
   <div class="cta fade-up">
     <h2>Попробуйте прямо сейчас</h2>
-    <p>Бесплатно, офлайн, без регистрации. Откройте в браузере телефона и добавьте на главный экран.</p>
+    <p>Бесплатно, офлайн, без регистрации. Откройте в браузере телефона и добавьте на главный экран за 30 секунд.</p>
     <div class="cta-btns">
-      <a class="btn-main" href="https://mark8numb.github.io/stroipro/" target="_blank">&#128242; Открыть приложение</a>
-      <a class="btn-sec" href="https://t.me/Mark8Numb" target="_blank">&#128172; Написать @Mark8Numb</a>
+      <a class="btn-main" href="https://mark8numb.github.io/stroipro/" target="_blank">📱 Открыть приложение</a>
+      <a class="btn-sec" href="https://t.me/Mark8Numb" target="_blank">💬 Написать @Mark8Numb</a>
     </div>
+    <p style="margin-top:20px;font-size:13px;color:var(--muted)">Вопросы, пожелания, покупка PRO — пишите в Telegram @Mark8Numb. Отвечаю лично.</p>
   </div>
 </div>
 
 <footer>
-  <div style="margin-bottom:10px">
-    <a href="https://t.me/Mark8Numb">Поддержка @Mark8Numb</a>
-    &nbsp;&middot;&nbsp;
-    <a href="privacy.html">Конфиденциальность</a>
-    &nbsp;&middot;&nbsp;
-    <a href="guide.html">Инструкция</a>
+  <div style="margin-bottom:10px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
+    <a href="https://t.me/Mark8Numb">💬 Поддержка @Mark8Numb</a>
+    <a href="https://mark8numb.github.io/stroipro/" target="_blank">📱 Приложение</a>
+    <a href="#install">📖 Установка</a>
+    <a href="#pro">💎 Тарифы</a>
   </div>
-  <div>СТРОИТЕЛЬ.ПРО v2.1.0 &copy; 2026</div>
+  <div style="color:var(--muted)">СТРОИТЕЛЬ.ПРО v2.3 &copy; 2026 · Для мастеров-отделочников</div>
 </footer>
 
 <script>
 function showOS(os,btn){
-  document.getElementById('os-ios').style.display = os==='ios' ? 'grid' : 'none';
-  document.getElementById('os-android').style.display = os==='android' ? 'grid' : 'none';
+  document.getElementById('os-ios').style.display=os==='ios'?'grid':'none';
+  document.getElementById('os-android').style.display=os==='android'?'grid':'none';
   document.querySelectorAll('.os-tab').forEach(function(b){b.classList.remove('on');});
   btn.classList.add('on');
 }
 function faqToggle(el){
-  var a = el.nextElementSibling;
-  var open = el.classList.toggle('open');
-  a.classList.toggle('show', open);
+  var a=el.nextElementSibling;
+  var open=el.classList.toggle('open');
+  a.classList.toggle('show',open);
 }
-var obs = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('vis'); });
-}, {threshold:0.1});
-document.querySelectorAll('.fade-up').forEach(function(el){ obs.observe(el); });
+// Auto-detect OS
 if(navigator.userAgent.indexOf('Android')>=0){
-  showOS('android', document.querySelectorAll('.os-tab')[1]);
+  showOS('android',document.querySelectorAll('.os-tab')[1]);
 }
+// Intersection observer for fade-up
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis');});
+},{threshold:0.08});
+document.querySelectorAll('.fade-up').forEach(function(el){obs.observe(el);});
 </script>
-</body></html>
+</body>
+</html>
