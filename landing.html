@@ -203,8 +203,8 @@ img{max-width:100%}
 .review-role{font-size:12px;color:var(--muted)}
 .review-verified{font-size:10px;color:var(--green);font-weight:700;margin-top:2px}
 
-/* ── PRICING ── */
-.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:860px;margin:0 auto}
+/* ── PRICING (UPDATED) ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1100px;margin:0 auto}
 .price-card{
   background:var(--card);border:1px solid var(--border);
   border-radius:22px;padding:28px;position:relative;overflow:hidden;transition:.2s;
@@ -212,7 +212,7 @@ img{max-width:100%}
 .price-card.popular{
   border-color:var(--gold);
   background:linear-gradient(145deg,rgba(232,164,40,.07),var(--card));
-  transform:scale(1.03);
+  transform:scale(1.02);
 }
 .price-card.popular::before{
   content:'ЛУЧШИЙ ВЫБОР';position:absolute;top:14px;right:-22px;
@@ -237,6 +237,10 @@ img{max-width:100%}
 .price-save{
   display:inline-block;background:rgba(62,168,95,.15);color:#80e0a0;
   font-size:11px;font-weight:700;padding:2px 10px;border-radius:8px;margin-top:6px;
+}
+.price-badge{
+  display:inline-block;background:rgba(232,164,40,.12);color:var(--gold);
+  font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:5px;
 }
 
 /* ── HOW TO BUY ── */
@@ -522,7 +526,6 @@ footer a:hover{color:var(--gold)}
   </div>
   <div class="screens-wrap">
     <div class="screens-row">
-
       <!-- Screen 1: Journal -->
       <div class="screen-card">
         <div class="screen-img">
@@ -556,7 +559,6 @@ footer a:hover{color:var(--gold)}
           <div class="screen-desc">Каждая запись — дата, работник, объём. Заработок считается автоматически. Прогресс по плану виден сразу.</div>
         </div>
       </div>
-
       <!-- Screen 2: Warehouse -->
       <div class="screen-card">
         <div class="screen-img">
@@ -592,7 +594,6 @@ footer a:hover{color:var(--gold)}
           <div class="screen-desc">Остатки по каждому корпусу отдельно. Красный — материал заканчивается. Списание при записи работ — автоматически.</div>
         </div>
       </div>
-
       <!-- Screen 3: Analytics -->
       <div class="screen-card">
         <div class="screen-img">
@@ -637,7 +638,6 @@ footer a:hover{color:var(--gold)}
           <div class="screen-desc">Выработка м²/день, прогноз сдачи объекта, рейтинг работников 1-10. Динамика за 30 дней на графике.</div>
         </div>
       </div>
-
       <!-- Screen 4: Workers / Timesheet -->
       <div class="screen-card">
         <div class="screen-img">
@@ -691,7 +691,6 @@ footer a:hover{color:var(--gold)}
           <div class="screen-desc">Отметка явки одним тапом. Зарплата по каждому — посчитана по выработке и % участия в записях.</div>
         </div>
       </div>
-
       <!-- Screen 5: Tasks -->
       <div class="screen-card">
         <div class="screen-img">
@@ -728,7 +727,6 @@ footer a:hover{color:var(--gold)}
           <div class="screen-desc">Задачи с датой и привязкой к корпусу. Просроченные — красные, сегодняшние — золотые. Ничего не забудете.</div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -741,7 +739,6 @@ footer a:hover{color:var(--gold)}
   <div class="sec-title">Говорят мастера</div>
   <p class="sec-sub">Реальные отзывы от строителей, которые уже используют приложение.</p>
   <div class="reviews-grid">
-
     <div class="review">
       <div class="review-stars">★★★★★</div>
       <div class="review-text">«Веду три объекта одновременно — ЖК, школа и офис. Раньше блокноты, теперь всё в телефоне. Заказчику отчёт кидаю в Telegram за 10 секунд. Экономлю часа 2 в день минимум.»</div>
@@ -754,7 +751,6 @@ footer a:hover{color:var(--gold)}
         </div>
       </div>
     </div>
-
     <div class="review">
       <div class="review-stars">★★★★★</div>
       <div class="review-text">«Склад — это огонь. Раньше недостачи были постоянно, сейчас всё видно: приход, расход, остатки. Списание само когда работу записываю. Материалы перестали "испаряться".»</div>
@@ -767,7 +763,6 @@ footer a:hover{color:var(--gold)}
         </div>
       </div>
     </div>
-
     <div class="review">
       <div class="review-stars">★★★★★</div>
       <div class="review-text">«Бригада из 4 человек. Раньше вечно споры — кто сколько сделал. Теперь каждый видит свою цифру в телефоне. Рейтинг 1-10 — отличная мотивация, у всех производительность выросла.»</div>
@@ -780,7 +775,6 @@ footer a:hover{color:var(--gold)}
         </div>
       </div>
     </div>
-
     <div class="review">
       <div class="review-stars">★★★★☆</div>
       <div class="review-text">«Поставил за 30 секунд через Safari — не надо никакой App Store. Работает без интернета в подвале, это решает. Хотел бы ещё синхронизацию с другим телефоном, но экспорт/импорт пока справляется.»</div>
@@ -793,7 +787,6 @@ footer a:hover{color:var(--gold)}
         </div>
       </div>
     </div>
-
     <div class="review">
       <div class="review-stars">★★★★★</div>
       <div class="review-text">«Работаю на двух объектах. Виды работ с одного объекта теперь можно добавить в журнал другого — очень удобно, не нужно каждый раз заново вводить. Разработчик быстро реагирует на пожелания.»</div>
@@ -806,7 +799,6 @@ footer a:hover{color:var(--gold)}
         </div>
       </div>
     </div>
-
     <div class="review">
       <div class="review-stars">★★★★★</div>
       <div class="review-text">«Попробовал демо с данными Ак Таш — сразу понял как работает. Перенёс свои объекты за час. Табель особенно понравился: нажал — поставил явку, долго нажал — прогул или больничный.»</div>
@@ -819,21 +811,21 @@ footer a:hover{color:var(--gold)}
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ══════════ PRICING ══════════ -->
+<!-- ══════════ PRICING (UPDATED) ══════════ -->
 <div class="section fade-up" id="pro">
   <div class="sec-tag">Тарифы</div>
   <div class="sec-title">Выберите свой план</div>
   <p class="sec-sub">Начните бесплатно. Когда нужно больше — берите PRO на удобный срок.</p>
   <div class="pricing-grid">
 
+    <!-- Бесплатный тариф -->
     <div class="price-card">
-      <div class="price-period">Бесплатно</div>
+      <div class="price-period">Старт (Free)</div>
       <div class="price-amount">0 <span>₽</span></div>
       <div class="price-per">навсегда</div>
       <div class="price-row"><span class="ok">✓</span> 1 объект, 1 корпус</div>
@@ -847,10 +839,11 @@ footer a:hover{color:var(--gold)}
       <a class="price-cta price-cta-border" href="https://mark8numb.github.io/stroipro/" target="_blank">Попробовать бесплатно</a>
     </div>
 
+    <!-- Месячный PRO (было 999 → 790) -->
     <div class="price-card popular">
-      <div class="price-period">PRO · Месяц</div>
-      <div class="price-amount">999 <span>₽</span></div>
-      <div class="price-per">в месяц · продлевается вручную</div>
+      <div class="price-period">Мастер · месяц</div>
+      <div class="price-amount">790 <span>₽</span></div>
+      <div class="price-per">продление вручную · без автоплатежа</div>
       <div class="price-row"><span class="ok">✓</span> Неограниченно объектов</div>
       <div class="price-row"><span class="ok">✓</span> Любое число корпусов</div>
       <div class="price-row"><span class="ok">✓</span> Бригады — без ограничений</div>
@@ -862,12 +855,13 @@ footer a:hover{color:var(--gold)}
       <a class="price-cta price-cta-gold" href="https://t.me/Mark8Numb" target="_blank">Купить в Telegram</a>
     </div>
 
+    <!-- Годовой PRO (было 2999 → 2490) -->
     <div class="price-card">
-      <div class="price-period">PRO · Год</div>
-      <div class="price-amount">2 999 <span>₽</span></div>
-      <div class="price-per">за 12 месяцев · экономия 8 989 ₽</div>
-      <div class="price-save">Выгода 75% vs помесячной</div>
-      <div class="price-row"><span class="ok">✓</span> Всё из тарифа «Месяц»</div>
+      <div class="price-period">Бригадир · год</div>
+      <div class="price-amount">2 490 <span>₽</span></div>
+      <div class="price-per">экономия 70% vs помесячно</div>
+      <div class="price-save">Выгода 6 990 ₽ за год</div>
+      <div class="price-row"><span class="ok">✓</span> Всё из тарифа «Мастер»</div>
       <div class="price-row"><span class="ok">✓</span> Ключ на 365 дней</div>
       <div class="price-row"><span class="ok">✓</span> Приоритетная поддержка</div>
       <div class="price-row"><span class="ok">✓</span> Ранний доступ к новым фичам</div>
@@ -875,15 +869,17 @@ footer a:hover{color:var(--gold)}
       <a class="price-cta price-cta-gold" href="https://t.me/Mark8Numb" target="_blank">Купить в Telegram</a>
     </div>
 
+    <!-- Навсегда (было 5999 → 4900) -->
     <div class="price-card" style="border-color:rgba(77,163,216,.4);background:linear-gradient(145deg,rgba(77,163,216,.06),var(--card))">
-      <div class="price-period">PRO · Навсегда</div>
-      <div class="price-amount" style="color:var(--blue)">5 999 <span>₽</span></div>
+      <div class="price-period">Навсегда</div>
+      <div class="price-amount" style="color:var(--blue)">4 900 <span>₽</span></div>
       <div class="price-per">единоразово · ключ без срока</div>
       <div class="price-save" style="background:rgba(77,163,216,.12);color:#80c0f0">Платите один раз</div>
-      <div class="price-row"><span class="ok">✓</span> Всё из тарифа «Год»</div>
+      <div class="price-row"><span class="ok">✓</span> Всё из тарифа «Бригадир»</div>
       <div class="price-row"><span class="ok">✓</span> Ключ навсегда — без продления</div>
       <div class="price-row"><span class="ok">✓</span> Все будущие обновления</div>
       <div class="price-row"><span class="ok">✓</span> Личная поддержка в Telegram</div>
+      <div class="price-row"><span class="ok">✓</span> Перенос на новый телефон без ограничений</div>
       <a class="price-cta" style="background:linear-gradient(135deg,#4da3d8,#2a6090);color:#fff;display:block;text-align:center;margin-top:20px;padding:13px;border-radius:12px;font-weight:800;font-size:14px" href="https://t.me/Mark8Numb" target="_blank">Купить навсегда</a>
     </div>
 
@@ -899,7 +895,7 @@ footer a:hover{color:var(--gold)}
         <div class="buy-dot">1</div>
         <div class="buy-body">
           <h4>Напишите @Mark8Numb в Telegram</h4>
-          <p>Укажите тариф: Месяц (999₽), Год (2999₽) или Навсегда (5999₽). Отвечаю быстро.</p>
+          <p>Укажите тариф: Мастер (790₽), Бригадир (2490₽) или Навсегда (4900₽). Отвечаю быстро.</p>
         </div>
       </div>
       <div class="buy-step">
