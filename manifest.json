@@ -2,20 +2,20 @@
   "name": "СТРОИТЕЛЬ.ПРО",
   "short_name": "СтройПро",
   "description": "Быстрый учёт строительных работ на объекте. Работает без интернета.",
-  "start_url": "/stroipro/",
-  "scope": "/stroipro/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#1e3a8a",
   "background_color": "#f8fafc",
   "icons": [
     {
-      "src": "/stroipro/icon-192x192.png",
+      "src": "/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/stroipro/icon-512x512.png",
+      "src": "/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
