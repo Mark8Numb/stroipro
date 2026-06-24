@@ -393,6 +393,8 @@ s,small{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--m
 .forecast-detail-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;gap:8px}
 .forecast-detail-row span:first-child{color:var(--text2)}
 .forecast-detail-sep{height:1px;background:var(--border2);margin:8px 0}
+.ai-sum-hdr{display:grid;grid-template-columns:80px 1fr 1fr;gap:4px;padding:6px 0;border-bottom:2px solid var(--border2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-weight:700}
+.ai-sum-row{display:grid;grid-template-columns:80px 1fr 1fr;gap:4px;padding:8px 0;border-bottom:1px solid var(--border);align-items:center}
 .wh-search-row{padding:8px 0 2px}
 .wh-search-inp{width:100%;padding:9px 14px;border:1.5px solid var(--border);border-radius:12px;background:var(--bg3);color:var(--text);font-size:14px;font-family:var(--font);outline:none;box-sizing:border-box}
 .wh-search-inp:focus{border-color:var(--gold)}
@@ -3557,6 +3559,30 @@ function sheetCalDay(dateStr){
       +((e.photos&&e.photos.length)?'\x3cdiv style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px">'+e.photos.map(function(src,pi){return '\x3cimg src="'+src+'" data-a="view-ent-photo" data-id="'+e.id+'" data-idx="'+pi+'" style="width:56px;height:56px;object-fit:cover;border-radius:8px;cursor:pointer">';}).join('')+'\x3c/div>':'');
   }).join('');
 
+  // Задачи и примечания за этот день
+  var goals=(S.goals||[]).filter(function(g){return g.date===dateStr&&!g.hidden;});
+  var goalsHtml=goals.length?('\x3cdiv style="margin-top:12px">\x3cdiv style="font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:6px">✅ ЗАДАЧИ / ПРИМЕЧАНИЯ</div>'
+    +goals.map(function(g){
+      var icon=g.isNote?'📝':g.done?'✅':'☐';
+      return '\x3cdiv style="display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--border)">'
+        +'\x3cspan style="font-size:14px;flex-shrink:0">'+icon+'\x3c/span>'
+        +'\x3cdiv>\x3cdiv style="font-size:13px;color:'+(g.done?'var(--muted)':'var(--text)')+'">'+esc(g.text)+'\x3c/div>'
+        +(g.time?'\x3cdiv style="font-size:10px;color:var(--muted)">🕐 '+esc(g.time)+'\x3c/div>':'')
+        +'\x3c/div>\x3c/div>';
+    }).join('')+'\x3c/div>'):'' ;
+
+  // Движения по складу за этот день
+  var wlogDay=(S.wlog||[]).filter(function(r){return r.date===dateStr;});
+  var whHtml=wlogDay.length?('\x3cdiv style="margin-top:12px">\x3cdiv style="font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:6px">📦 СКЛАД\x3c/div>'
+    +wlogDay.slice(0,20).map(function(r){
+      var lbl=getMatLabel(r.key);
+      var bld=r.buildingId?(S.buildings.find(function(b){return b.id===r.buildingId;})||{}).name:'';
+      return '\x3cdiv style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px">'
+        +'\x3cspan style="color:var(--text2);max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(lbl)+(bld?' · '+esc(bld):'')+'\x3c/span>'
+        +'\x3cspan style="font-weight:700;color:'+(r.qty>=0?'var(--green)':'var(--red)')+'">'+(r.qty>=0?'+':'')+r.qty+' шт\x3c/span>'
+        +'\x3c/div>';
+    }).join('')+'\x3c/div>'):'' ;
+
   // Табель за этот день
   var STATUS_LBL={p:'✅ Пришёл',h:'½ Полдня',a:'❌ Прогул',b:'🤒 Больничный',v:'🏖 Отпуск',u:'🏠 За свой счёт'};
   var STATUS_CLR={p:'var(--green)',h:'var(--gold)',a:'var(--red)',b:'#e69','v':'#4af','u':'var(--muted)'};
@@ -3565,15 +3591,20 @@ function sheetCalDay(dateStr){
     if(!st)return '';
     var clr=STATUS_CLR[st]||'var(--muted)';
     var lbl=STATUS_LBL[st]||st;
-    return '<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)">'
-      +'<span style="font-size:13px">'+esc(u.name)+(u.team?'<span style="font-size:10px;color:var(--muted)"> · '+esc(u.team)+'</span>':'')+'</span>'
-      +'<span style="font-size:12px;font-weight:700;color:'+clr+'">'+lbl+'</span>'
-      +'</div>';
+    return '\x3cdiv style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)">'
+      +'\x3cspan style="font-size:13px">'+esc(u.name)+(u.team?'\x3cspan style="font-size:10px;color:var(--muted)"> · '+esc(u.team)+'\x3c/span>':'')+'\x3c/span>'
+      +'\x3cspan style="font-size:12px;font-weight:700;color:'+clr+'">'+lbl+'\x3c/span>'
+      +'\x3c/div>';
   }).filter(Boolean).join('');
 
-  showModal('\x3cdiv class="sheet">\x3cdiv class="shdl">\x3c/div>\x3cdiv class="shtitle">'+fmtD(dateStr)+'\x3c/div>\x3cdiv class="shbody">'
+  // Обновляем глобальную переменную для возврата к дню после просмотра фото
+  window._calDayOpen=dateStr;
+
+  showModal('\x3cdiv class="sheet" style="max-height:88vh">\x3cdiv class="shdl">\x3c/div>\x3cdiv class="shtitle">'+fmtD(dateStr)+'\x3c/div>\x3cdiv class="shbody" style="overflow-y:auto;max-height:calc(88vh - 110px)">'
     +'\x3cdiv style="display:flex;gap:16px;margin-bottom:10px">\x3cdiv>\x3cb style="font-size:20px;color:var(--green)">'+fmtRub(Math.round(earn))+'\x3c/b>\x3cdiv style="font-size:11px;color:var(--muted)">заработано\x3c/div>\x3c/div>\x3cdiv>\x3cb style="font-size:20px">'+vol.toFixed(1)+' м²\x3c/b>\x3cdiv style="font-size:11px;color:var(--muted)">объём\x3c/div>\x3c/div>\x3c/div>'
     +(rows||'\x3cdiv style="color:var(--muted);font-size:13px;margin-bottom:10px">Нет записей за этот день\x3c/div>')
+    +goalsHtml
+    +whHtml
     +(tsRows?'\x3cdiv style="margin-top:12px">\x3cdiv style="font-size:10px;letter-spacing:2px;color:var(--gold);font-weight:700;margin-bottom:6px">📋 ТАБЕЛЬ\x3c/div>'+tsRows+'\x3c/div>':'')
     +'\x3c/div>\x3cdiv class="shfoot">\x3cbutton class="btn btn-gold" data-a="close-modal">Закрыть\x3c/button>\x3c/div>\x3c/div>');
 }
@@ -3926,29 +3957,37 @@ function renderAI(){
 
   var h='';
 
-  // ── Period switcher + KPI grid
-  h+='<div class="card card-gold">';
-  h+='<div class="card-title">📊 Аналитика</div>';
-  h+='<div class="psw-row">'+perBtns+'</div>';
-  h+='<div class="ai-grid" style="margin-top:10px">';
-  h+='<div class="ai-stat"><span class="ai-sv ai-green">'+fmtRub(Math.round(pEarn))+'</span><span class="ai-sl">за период</span></div>';
-  h+='<div class="ai-stat"><span class="ai-sv">'+pVol.toFixed(1)+'</span><span class="ai-sl">м² за период</span></div>';
-  h+='<div class="ai-stat"><span class="ai-sv ai-orange">'+fmtRub(Math.round(de))+'</span><span class="ai-sl">сегодня</span></div>';
-  h+='<div class="ai-stat"><span class="ai-sv">'+dv.toFixed(1)+'</span><span class="ai-sl">м²/день ср.</span></div>';
-  h+='</div>';
-  h+='</div>';
+  // ── Сводка всех периодов сразу — без переключения
+  var _dayEnts=S.entries.filter(function(e){return e.dateFrom===td;});
+  var _weekEnts=S.entries.filter(function(e){var d=new Date(e.dateFrom+'T12:00');return(now-d)/864e5<7&&(now-d)/864e5>=0;});
+  var _monEnts=S.entries.filter(function(e){var d=new Date(e.dateFrom+'T12:00');return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();});
+  var _dayE=_dayEnts.reduce(function(s,e){return s+entEarn(e);},0);
+  var _dayV=_dayEnts.reduce(function(s,e){return s+Number(e.volume);},0);
+  var _weekE=_weekEnts.reduce(function(s,e){return s+entEarn(e);},0);
+  var _weekV=_weekEnts.reduce(function(s,e){return s+Number(e.volume);},0);
+  var _monE=_monEnts.reduce(function(s,e){return s+entEarn(e);},0);
+  var _monV=_monEnts.reduce(function(s,e){return s+Number(e.volume);},0);
 
-  // ── Chart
-  h+=renderEarnChart();
-
-  // ── All-time totals
   h+='<div class="card">';
-  h+='<div class="card-title">💰 Итого за всё время</div>';
-  h+='<div class="ai-grid">';
-  h+='<div class="ai-stat"><span class="ai-sv ai-green">'+fmtRub(Math.round(total))+'</span><span class="ai-sl">заработок</span></div>';
-  h+='<div class="ai-stat"><span class="ai-sv">'+totalVol.toFixed(1)+'</span><span class="ai-sl">всего м²</span></div>';
-  h+='<div class="ai-stat"><span class="ai-sv">'+fmtRub(Math.round(avgDayEarn))+'</span><span class="ai-sl">в день (ср.)</span></div>';
-  h+='<div class="ai-stat"><span class="ai-sv">'+avgDayVol.toFixed(1)+'</span><span class="ai-sl">м²/день (ср.)</span></div>';
+  h+='<div class="card-title">📊 Аналитика</div>';
+  // Таблица строками: Период | ₽ | м²
+  h+='<div style="overflow:hidden">';
+  h+='<div class="ai-sum-hdr"><span>Период</span><span>Заработок</span><span>Объём</span></div>';
+  var _rows=[
+    {lbl:'Сегодня',e:_dayE,v:_dayV,unit:'м²'},
+    {lbl:'Неделя',e:_weekE,v:_weekV,unit:'м²'},
+    {lbl:'Месяц',e:_monE,v:_monV,unit:'м²'},
+    {lbl:'Всего',e:total,v:totalVol,unit:'м²'},
+    {lbl:'Ср./день',e:avgDayEarn,v:avgDayVol,unit:'м²/д',avg:true},
+  ];
+  _rows.forEach(function(r,i){
+    var sep=i===3?';border-top:2px solid var(--border2);font-weight:700':'';
+    h+='<div class="ai-sum-row" style="'+(i===4?'color:var(--muted)':'')+sep+'">';
+    h+='<span style="font-size:13px">'+r.lbl+'</span>';
+    h+='<span style="font-size:14px;font-weight:700;color:var(--green)">'+fmtRub(Math.round(r.e))+'</span>';
+    h+='<span style="font-size:13px;color:var(--text2)">'+r.v.toFixed(1)+' '+r.unit+'</span>';
+    h+='</div>';
+  });
   h+='</div>';
   h+='</div>';
 
@@ -4089,6 +4128,8 @@ function _renderFaq(){
 }
 
 const CHANGELOG=[
+  ["v5.4.14","Аналитика: убран переключатель Период. Теперь одна таблица сразу показывает Сегодня / Неделя / Месяц / Всего / Ср.день — заработок и объём по каждому. Ничего нажимать не нужно."],
+  ["v5.4.13","Календарь активности: карточка дня теперь показывает также ✅ задачи и примечания за этот день, 📦 движения по складу (приходы/расходы) и 📋 табель. При просмотре фото из карточки дня кнопка «← Назад» возвращает обратно в карточку дня, а не закрывает всё."],
   ["v5.4.12","Время в журнале: today() переведён на локальное время (getFullYear/Month/Date), время в карточке записи через getHours/getMinutes — больше не отстаёт на 3 часа. Склад: поиск с debounce 350мс + восстановление фокуса после render — клавиатура не пропадает. Комплектующие: первая опция в select «— выберите —» вместо автовыбора Траверса. Прогноз: тап по строке открывает детальную модалку как именно посчитаны дни."],
   ["v5.4.11","Доделки: кнопка «✓ Готово» на каждой доделке — выполненные уходят вниз с полупрозрачностью, в заголовке счётчик N/Всего. FAB задач: три варианта — Задачу / Фотозаметку / Примечание. Примечания отображаются с иконкой 📝. Финансы: блок «Выплачено / Осталось выдать» над списком выплат. Целевая площадь: при изменении фиксируется дата и предыдущее значение, показывается под строкой «Осталось заработать»."],
   ["v5.4.10","Баг пачки: при добавлении/удалении компонента модалка пересоздавалась и теряла несохранённые изменения полей (пачка, название, вес). Теперь перед пересозданием все поля считываются и сразу записываются в S.matCfg. Поиск по складу: строка фильтрации над списком материалов, мгновенная фильтрация по названию."],
@@ -4983,6 +5024,7 @@ document.addEventListener('click',e=>{
     case 'naryad-set':    sheetNaryad();break;
     case 'save-naryad':   {const nv=String(document.getElementById('naryadDayInp')?.value||'').trim();try{localStorage.setItem('bpro_naryad_day',nv);}catch(e){}closeModal();render();toast('✓');break;}
     case 'cal-day':       sheetCalDay(btn.dataset.date);break;
+    case 'cal-day-back':  {var _dbs=btn.dataset.date;closeModal();setTimeout(function(){sheetCalDay(_dbs);},50);break;}
     case 'cal-nav':       {const _ym=(ui&&ui.calMonth)||today().slice(0,7);const _pp=_ym.split('-');const _yy=parseInt(_pp[0],10),_mm=parseInt(_pp[1],10)-1;const _dlt=parseInt(btn.dataset.d,10)||0;const _nd=new Date(_yy,_mm+_dlt,1);ui.calMonth=_nd.getFullYear()+'-'+String(_nd.getMonth()+1).padStart(2,'0');render();break;}
     case 'toggle-distrib': {const turningOn=!(ui&&ui.showDistrib);ui.showDistrib=turningOn;if(turningOn){_shakeScreen();_burstFx(btn,['📐','📏','▦','м²','м²'],true);}render();break;}
     case 'toggle-excl-prep': ui.earnExclPrep=!ui.earnExclPrep;render();break;
@@ -5019,7 +5061,7 @@ document.addEventListener('click',e=>{
     case 'new-bld':case 'new-bld-in': if(!IS_PRO&&getBldgs(btn.dataset.pid||ui.pid).length>=2){_proUpsell('\u0411\u043e\u043b\u044c\u0448\u0435 2 \u043a\u043e\u0440\u043f\u0443\u0441\u043e\u0432');break;}sheetBld('',btn.dataset.pid||ui.pid);break;
     case 'edit-bld':      sheetBld(btn.dataset.bid);break;
     case 'edit-mat':      sheetMat(btn.dataset.key);break;
-    case 'close-modal':   window._wtMats=null;window._wtConsums=null;closeModal();break;
+    case 'close-modal':   window._wtMats=null;window._wtConsums=null;window._calDayOpen=null;closeModal();break;
     case 'fab-tasks':     showModal(`\x3cdiv class="sheet">\x3cdiv class="shdl">\x3c/div>
       \x3cdiv class="shtitle" style="text-align:center;padding:18px 18px 6px">Что добавить?</div>
       \x3cdiv class="shbody" style="display:flex;flex-direction:column;gap:12px;padding:16px">
@@ -5072,7 +5114,9 @@ document.addEventListener('click',e=>{
     case 'view-ent-photo':{const eid2=btn.dataset.id,idx2=parseInt(btn.dataset.idx,10);
       const ent3=S.entries.find(x=>String(x.id)===String(eid2));
       if(!ent3||!ent3.photos||!ent3.photos[idx2])break;
-      showModal('\x3cdiv class="sheet">\x3cdiv class="shdl">\x3c/div>\x3cdiv class="shbody" style="text-align:center">\x3cimg src="'+ent3.photos[idx2]+'" style="max-width:100%;border-radius:10px">\x3c/div>\x3cdiv class="shfoot">\x3cbutton class="btn btn-ghost" data-a="del-ent-photo" data-id="'+eid2+'" data-idx="'+idx2+'">🗑 Удалить\x3c/button>\x3cbutton class="btn btn-gold" data-a="close-modal">Закрыть\x3c/button>\x3c/div>\x3c/div>');break;}
+      const _calDay=window._calDayOpen||null; // запомненная дата открытого дня
+      const _closeAction=_calDay?`data-a="cal-day-back" data-date="${_calDay}"`:' data-a="close-modal"';
+      showModal('\x3cdiv class="sheet">\x3cdiv class="shdl">\x3c/div>\x3cdiv class="shbody" style="text-align:center">\x3cimg src="'+ent3.photos[idx2]+'" style="max-width:100%;border-radius:10px">\x3c/div>\x3cdiv class="shfoot">\x3cbutton class="btn btn-ghost" data-a="del-ent-photo" data-id="'+eid2+'" data-idx="'+idx2+'">🗑 Удалить\x3c/button>\x3cbutton class="btn btn-gold" '+_closeAction+'>← Назад\x3c/button>\x3c/div>\x3c/div>');break;}
     case 'del-ent-photo':{const eid3=btn.dataset.id,idx3=parseInt(btn.dataset.idx,10);
       act(()=>{const ent4=S.entries.find(x=>String(x.id)===String(eid3));if(ent4&&ent4.photos)ent4.photos.splice(idx3,1);});
       closeModal();toast('🗑 Фото удалено');break;}
