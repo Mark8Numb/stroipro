@@ -4,144 +4,602 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Строитель.ПРО — умный учёт для строителей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, sans-serif;
       background: #0a0a0c;
       color: #ede8dc;
       line-height: 1.6;
     }
     .container {
-      max-width: 900px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 20px 16px 60px;
+      padding: 0 20px 60px;
     }
+
+    /* HEADER */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0 30px;
-      border-bottom: 1px solid #2c2c28;
+      padding: 20px 0 30px;
+      border-bottom: 1px solid #1e1e1a;
     }
-    .logo { font-size: 22px; font-weight: 700; letter-spacing: 1.2px; font-family: 'Oswald', -apple-system, sans-serif; }
+    .logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
     .logo span { color: #d4920a; }
     .badge-pro {
-      background: #d4920a; color: #0a0800; font-size: 11px; font-weight: 800;
-      padding: 4px 10px; border-radius: 20px; letter-spacing: 0.5px;
+      background: #d4920a;
+      color: #0a0800;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
-    .hero { text-align: center; padding: 40px 0 30px; }
-    .hero h1 { font-size: 32px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; }
-    .hero h1 span { color: #d4920a; }
-    .hero p { font-size: 17px; color: #a09880; max-width: 560px; margin: 0 auto 24px; }
-    .hero .sub { font-size: 14px; color: #6a6050; margin-top: -12px; margin-bottom: 24px; }
+    .badge-free {
+      background: rgba(61,158,92,0.15);
+      color: #3d9e5c;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      border: 1px solid rgba(61,158,92,0.2);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 50px 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-left h1 {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: -0.5px;
+    }
+    .hero-left h1 .highlight { color: #d4920a; }
+    .hero-left .subtitle {
+      font-size: 17px;
+      color: #a09880;
+      margin-bottom: 24px;
+      max-width: 480px;
+    }
+    .hero-left .price-tag {
+      display: inline-block;
+      background: rgba(212,146,10,0.12);
+      border: 1px solid rgba(212,146,10,0.25);
+      border-radius: 10px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #d4920a;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
     .btn-primary {
       display: inline-block;
       background: linear-gradient(145deg, #e0a010, #c47c08);
-      color: #0a0800; font-weight: 800; font-size: 18px; padding: 16px 40px;
-      border-radius: 14px; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(212,146,10,0.4);
+      color: #0a0800;
+      font-weight: 800;
+      font-size: 17px;
+      padding: 14px 36px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 4px 24px rgba(212,146,10,0.35);
       transition: transform 0.15s, box-shadow 0.15s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
     }
-    .btn-primary:hover { transform: scale(1.02); box-shadow: 0 6px 28px rgba(212,146,10,0.55); }
+    .btn-primary:hover { transform: scale(1.02); box-shadow: 0 6px 32px rgba(212,146,10,0.5); }
     .btn-secondary {
-      display: inline-block; background: transparent; color: #a09880;
-      font-weight: 600; font-size: 14px; padding: 12px 24px;
-      border-radius: 12px; border: 1.5px solid #2c2c28; text-decoration: none;
-      margin-top: 10px; transition: border-color 0.2s;
-    }
-    .btn-secondary:hover { border-color: #d4920a; }
-    .btn-demo {
-      display: inline-block; background: transparent; color: #4a9fd4;
-      font-weight: 700; font-size: 16px; padding: 14px 32px;
-      border-radius: 14px; border: 2px solid #4a9fd4; text-decoration: none;
-      margin-top: 10px; transition: background 0.2s, color 0.2s; cursor: pointer;
-    }
-    .btn-demo:hover { background: rgba(74,159,212,0.15); border-color: #60b0ff; color: #60b0ff; }
-    .btn-demo .small { display: block; font-size: 11px; font-weight: 400; color: #6a6050; margin-top: 2px; }
-    .btn-demo:hover .small { color: #8aa8c0; }
-    .features {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 40px 0 50px;
-    }
-    .feature {
-      background: #161614; border: 1px solid #2c2c28; border-radius: 14px;
-      padding: 20px 18px; transition: border-color 0.2s;
-    }
-    .feature:hover { border-color: #d4920a; }
-    .feature .icon { font-size: 28px; margin-bottom: 8px; }
-    .feature h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .feature p { font-size: 13px; color: #a09880; line-height: 1.5; }
-    .price-block {
-      background: #161614; border: 1px solid #2c2c28; border-radius: 16px;
-      padding: 30px 24px; text-align: center; margin: 20px 0 40px;
-    }
-    .price-block .price { font-size: 38px; font-weight: 900; color: #d4920a; }
-    .price-block .period { font-size: 14px; color: #6a6050; }
-    .price-block .desc { font-size: 14px; color: #a09880; margin: 10px 0 20px; }
-    .price-block ul { list-style: none; text-align: left; max-width: 400px; margin: 0 auto 20px; }
-    .price-block ul li { padding: 6px 0; font-size: 14px; color: #ede8dc; }
-    .price-block ul li::before { content: "✓ "; color: #d4920a; font-weight: 700; }
-    .btn-buy {
       display: inline-block;
-      background: linear-gradient(145deg, #e0a010, #c47c08);
-      color: #0a0800; font-weight: 800; font-size: 18px; padding: 16px 50px;
-      border-radius: 14px; text-decoration: none;
-      box-shadow: 0 4px 20px rgba(212,146,10,0.4);
-      transition: transform 0.15s;
+      background: transparent;
+      color: #a09880;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 1.5px solid #2c2c28;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      cursor: pointer;
+      font-family: inherit;
     }
-    .btn-buy:hover { transform: scale(1.02); }
-    .download-section { text-align: center; padding: 30px 0 20px; }
+    .btn-secondary:hover { border-color: #d4920a; color: #d4920a; }
+    .btn-demo {
+      display: inline-block;
+      background: transparent;
+      color: #4a9fd4;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: 12px;
+      border: 2px solid #4a9fd4;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-demo:hover { background: rgba(74,159,212,0.1); border-color: #60b0ff; color: #60b0ff; }
+    .btn-demo .small { display: block; font-size: 11px; font-weight: 400; color: #6a6050; }
+    .btn-demo:hover .small { color: #8aa8c0; }
+
+    .hero-right {
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+    }
+    .hero-right .app-preview {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.8;
+    }
+    .hero-right .preview-text {
+      font-size: 14px;
+      color: #6a6050;
+    }
+    .hero-right .preview-text b { color: #ede8dc; }
+
+    /* STATS BANNER */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 30px 0 40px;
+      border-bottom: 1px solid #1e1e1a;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-item .number {
+      font-size: 28px;
+      font-weight: 900;
+      color: #d4920a;
+      font-family: 'Oswald', sans-serif;
+    }
+    .stat-item .label {
+      font-size: 13px;
+      color: #6a6050;
+      margin-top: 2px;
+    }
+
+    /* STORY BLOCK — ваша личная история */
+    .story {
+      padding: 50px 0 30px;
+      border-bottom: 1px solid #1e1e1a;
+    }
+    .story h2 {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Oswald', sans-serif;
+      margin-bottom: 8px;
+    }
+    .story h2 span { color: #d4920a; }
+    .story .sub {
+      font-size: 15px;
+      color: #6a6050;
+      margin-bottom: 20px;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+    .story-grid .left {
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .story-grid .left .pain {
+      font-size: 15px;
+      color: #a09880;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .story-grid .left .pain b { color: #d95f4f; }
+    .story-grid .left .quote {
+      font-size: 18px;
+      font-weight: 700;
+      color: #d4920a;
+      font-style: italic;
+      border-left: 3px solid #d4920a;
+      padding-left: 16px;
+      margin: 16px 0;
+    }
+    .story-grid .right {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .story-grid .right .step {
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .story-grid .right .step .num {
+      font-size: 20px;
+      font-weight: 900;
+      color: #d4920a;
+      font-family: 'Oswald', sans-serif;
+      min-width: 32px;
+    }
+    .story-grid .right .step p {
+      font-size: 14px;
+      color: #a09880;
+    }
+    .story-grid .right .step p b { color: #ede8dc; }
+
+    /* BENEFITS — выгода, не функции */
+    .benefits {
+      padding: 50px 0 30px;
+      border-bottom: 1px solid #1e1e1a;
+    }
+    .benefits h2 {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Oswald', sans-serif;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .benefits h2 span { color: #d4920a; }
+    .benefits .sub {
+      text-align: center;
+      font-size: 15px;
+      color: #6a6050;
+      margin-bottom: 30px;
+    }
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .benefit {
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .benefit:hover { border-color: #d4920a; }
+    .benefit .icon { font-size: 32px; margin-bottom: 8px; }
+    .benefit h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: #ede8dc; }
+    .benefit p { font-size: 13px; color: #a09880; line-height: 1.5; }
+
+    /* SOCIAL PROOF */
+    .social-proof {
+      padding: 40px 0 30px;
+      border-bottom: 1px solid #1e1e1a;
+    }
+    .social-proof h2 {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #6a6050;
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .proof-item {
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 12px;
+      padding: 18px 16px;
+    }
+    .proof-item .stars {
+      color: #d4920a;
+      font-size: 16px;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+    .proof-item .text {
+      font-size: 13px;
+      color: #a09880;
+      line-height: 1.5;
+      font-style: italic;
+    }
+    .proof-item .author {
+      font-size: 12px;
+      color: #6a6050;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* PRICING — новая сетка по вашим тарифам */
+    .pricing {
+      padding: 50px 0 30px;
+      border-bottom: 1px solid #1e1e1a;
+    }
+    .pricing h2 {
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Oswald', sans-serif;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .pricing h2 span { color: #d4920a; }
+    .pricing .sub {
+      text-align: center;
+      font-size: 15px;
+      color: #6a6050;
+      margin-bottom: 30px;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .plan {
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 14px;
+      padding: 24px 18px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .plan:hover {
+      border-color: #d4920a;
+      transform: translateY(-3px);
+    }
+    .plan.popular {
+      border-color: #d4920a;
+      background: #1e1e1a;
+      box-shadow: 0 0 30px rgba(212,146,10,0.06);
+    }
+    .plan.popular::before {
+      content: "⭐ Выгодно!";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #d4920a;
+      color: #0a0800;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .plan .name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ede8dc;
+    }
+    .plan .price {
+      font-size: 28px;
+      font-weight: 900;
+      color: #d4920a;
+      margin: 6px 0 2px;
+    }
+    .plan .price small {
+      font-size: 13px;
+      font-weight: 400;
+      color: #6a6050;
+    }
+    .plan .period {
+      font-size: 12px;
+      color: #6a6050;
+      margin-bottom: 4px;
+    }
+    .plan .saving {
+      font-size: 12px;
+      color: #3d9e5c;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .plan .per-month {
+      font-size: 13px;
+      color: #6a6050;
+      margin-bottom: 14px;
+    }
+    .plan .per-month b { color: #ede8dc; }
+    .plan ul {
+      list-style: none;
+      text-align: left;
+      font-size: 12px;
+      color: #a09880;
+      margin: 0 0 16px;
+      padding: 0;
+    }
+    .plan ul li {
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .plan ul li::before {
+      content: "✓";
+      color: #3d9e5c;
+      font-weight: 700;
+    }
+    .btn-plan {
+      display: inline-block;
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      border: 2px solid #2c2c28;
+      background: transparent;
+      color: #ede8dc;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-plan:hover { border-color: #d4920a; color: #d4920a; }
+    .btn-plan.primary {
+      background: linear-gradient(145deg, #e0a010, #c47c08);
+      border-color: #d4920a;
+      color: #0a0800;
+    }
+    .btn-plan.primary:hover { box-shadow: 0 4px 16px rgba(212,146,10,0.3); }
+
+    /* COMPARE TABLE */
+    .compare {
+      margin-top: 30px;
+      background: #161614;
+      border: 1px solid #2c2c28;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .compare table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .compare th {
+      background: #1e1e1a;
+      padding: 12px 16px;
+      text-align: left;
+      color: #6a6050;
+      font-weight: 600;
+    }
+    .compare td {
+      padding: 10px 16px;
+      border-bottom: 1px solid #1e1e1a;
+      color: #a09880;
+    }
+    .compare td b { color: #ede8dc; }
+    .compare td .check { color: #3d9e5c; font-weight: 700; }
+    .compare td .cross { color: #6a6050; }
+    .compare tr:last-child td { border-bottom: none; }
+
+    /* SECURITY */
+    .security-block {
+      background: #1e1e1a;
+      border: 1px solid #2c2c28;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin: 30px 0 20px;
+    }
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      font-size: 12px;
+    }
+    .security-item {
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+    }
+    .security-item .title { font-weight: 700; font-size: 13px; }
+    .security-item .desc { color: #6a6050; font-size: 11px; }
+    .security-item.ok { background: rgba(61,158,92,0.08); border: 1px solid rgba(61,158,92,0.2); }
+    .security-item.ok .title { color: #3d9e5c; }
+    .security-item.blue { background: rgba(74,159,212,0.08); border: 1px solid rgba(74,159,212,0.2); }
+    .security-item.blue .title { color: #4a9fd4; }
+    .security-item.gold { background: rgba(212,146,10,0.08); border: 1px solid rgba(212,146,10,0.2); }
+    .security-item.gold .title { color: #d4920a; }
+    .security-item.warn { background: rgba(217,95,79,0.06); border: 1px solid rgba(217,95,79,0.15); }
+    .security-item.warn .title { color: #d95f4f; }
+    .security-note {
+      font-size: 11px;
+      color: #6a6050;
+      margin-top: 12px;
+      border-top: 1px solid #2c2c28;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    /* DOWNLOAD */
+    .download-section {
+      text-align: center;
+      padding: 40px 0 20px;
+    }
     .download-section h2 { font-size: 24px; margin-bottom: 8px; }
     .download-section p { color: #a09880; font-size: 15px; margin-bottom: 20px; }
     .download-buttons { display: flex; flex-direction: column; gap: 12px; align-items: center; }
     .btn-download {
-      display: inline-block; background: #1e1e1a; border: 1.5px solid #2c2c28;
-      color: #ede8dc; font-weight: 600; font-size: 16px; padding: 14px 36px;
-      border-radius: 12px; text-decoration: none; transition: border-color 0.2s, background 0.2s;
-      width: 100%; max-width: 340px; text-align: center;
+      display: inline-block;
+      background: #1e1e1a;
+      border: 1.5px solid #2c2c28;
+      color: #ede8dc;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 36px;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+      max-width: 340px;
+      text-align: center;
     }
     .btn-download:hover { border-color: #d4920a; background: #2a2a24; }
     .btn-download .small { display: block; font-size: 12px; color: #6a6050; font-weight: 400; }
     .btn-download.demo-link { border-color: #4a9fd4; color: #4a9fd4; }
     .btn-download.demo-link:hover { border-color: #60b0ff; color: #60b0ff; background: rgba(74,159,212,0.08); }
-    .security-block {
-      background: #1e1e1a; border: 1px solid #2c2c28; border-radius: 14px;
-      padding: 18px 20px; margin: 20px 0;
-    }
-    .security-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 12px;
-    }
-    .security-item {
-      border-radius: 10px; padding: 10px 12px;
-    }
-    .security-item.ok { background: rgba(61,158,92,0.08); border: 1px solid rgba(61,158,92,0.2); }
-    .security-item.blue { background: rgba(74,159,212,0.08); border: 1px solid rgba(74,159,212,0.2); }
-    .security-item.gold { background: rgba(212,146,10,0.08); border: 1px solid rgba(212,146,10,0.2); }
-    .security-item.warn { background: rgba(217,95,79,0.06); border: 1px solid rgba(217,95,79,0.15); }
-    .security-item .title { font-weight: 700; }
-    .security-item .desc { color: #6a6050; font-size: 11px; }
-    .security-note {
-      font-size: 11px; color: #6a6050; margin-top: 12px;
-      border-top: 1px solid #2c2c28; padding-top: 10px;
-    }
+
+    /* FOOTER */
     .footer {
-      text-align: center; padding-top: 30px; border-top: 1px solid #2c2c28;
-      margin-top: 30px; font-size: 13px; color: #6a6050;
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #1e1e1a;
+      margin-top: 30px;
+      font-size: 13px;
+      color: #6a6050;
     }
     .footer a { color: #a09880; text-decoration: none; }
     .footer a:hover { color: #d4920a; }
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 26px; }
-      .features { grid-template-columns: 1fr; gap: 12px; }
-      .price-block .price { font-size: 30px; }
-      .btn-primary, .btn-buy { font-size: 16px; padding: 14px 28px; }
-      .header { flex-wrap: wrap; gap: 8px; }
-      .badge-pro { font-size: 10px; padding: 3px 8px; }
-      .security-grid { grid-template-columns: 1fr; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; gap: 24px; }
+      .hero h1 { font-size: 28px; }
+      .stats { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .story-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .security-grid { grid-template-columns: 1fr 1fr; }
+      .compare { overflow-x: auto; }
+      .compare table { font-size: 12px; }
     }
-    @media (min-width: 900px) {
-      .container { padding: 30px 40px 80px; }
-      .hero h1 { font-size: 42px; }
+    @media (max-width: 480px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 24px; }
+      .hero-buttons { flex-direction: column; width: 100%; }
+      .hero-buttons .btn-primary,
+      .hero-buttons .btn-secondary,
+      .hero-buttons .btn-demo {
+        width: 100%;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -149,136 +607,333 @@
 
   <div class="container">
 
+    <!-- HEADER -->
     <div class="header">
       <div class="logo">Строитель.<span>ПРО</span></div>
-      <span class="badge-pro">🔥 PRO версия</span>
+      <div>
+        <span class="badge-free">🚀 Бесплатный старт</span>
+        <span class="badge-pro">PRO</span>
+      </div>
     </div>
 
+    <!-- HERO -->
     <div class="hero">
-      <h1>Учёт стройки, который <span>не подведёт</span></h1>
-      <p>Журнал работ, склад, деньги, бригада — всё в одном приложении. Работает без интернета на любом Android-телефоне.</p>
-      <div class="sub">🔒 Все данные хранятся только у вас на устройстве</div>
-
-      <a href="#download" class="btn-primary">📥 Скачать приложение</a>
-
-      <div style="margin-top: 12px;">
-        <button class="btn-demo" onclick="openDemo()">
-          🚀 Попробовать прямо в браузере
-          <span class="small">Откроется в новом окне, можно сразу пользоваться</span>
-        </button>
+      <div class="hero-left">
+        <div class="price-tag">💡 Бесплатно для 1 объекта · PRO от 490 ₽/мес</div>
+        <h1>Учёт стройки, который <span class="highlight">экономит часы</span> и убирает головную боль</h1>
+        <p class="subtitle">Журнал работ, склад, деньги, бригада — всё в одном приложении. Без интернета, без регистрации, без ежемесячной платы за базовые функции.</p>
+        <div class="hero-buttons">
+          <a href="#download" class="btn-primary">📥 Начать бесплатно</a>
+          <button class="btn-demo" onclick="openDemo()">
+            🚀 Попробовать в браузере
+            <span class="small">Откроется в новом окне</span>
+          </button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="app-preview">📱</div>
+        <div class="preview-text">
+          <b>5 600+</b> записей учтено<br>
+          <span style="color:#6a6050;">Работает на любом Android</span>
+        </div>
       </div>
     </div>
 
-    <div class="features">
-      <div class="feature">
-        <div class="icon">📋</div>
-        <h3>Журнал работ</h3>
-        <p>Записывайте объёмы, виды работ, прикрепляйте фото. Заработок и расход материалов считаются автоматически.</p>
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-item">
+        <div class="number">4+</div>
+        <div class="label">объекта в одном приложении</div>
       </div>
-      <div class="feature">
-        <div class="icon">📦</div>
-        <h3>Склад по корпусам</h3>
-        <p>Остатки материалов по каждому объекту. Приход и расход — в пару касаний.</p>
+      <div class="stat-item">
+        <div class="number">12</div>
+        <div class="label">видов работ на стройке</div>
       </div>
-      <div class="feature">
-        <div class="icon">👥</div>
-        <h3>Бригада и табель</h3>
-        <p>Список работников, распределение по бригадам, досье каждого — явка, выработка, оценка.</p>
+      <div class="stat-item">
+        <div class="number">30+</div>
+        <div class="label">материалов на складе</div>
       </div>
-      <div class="feature">
-        <div class="icon">💰</div>
-        <h3>Финансы и аналитика</h3>
-        <p>Заработок за день/неделю/месяц, налог, авансы, прогноз сдачи объектов.</p>
+      <div class="stat-item">
+        <div class="number">5 мин</div>
+        <div class="label">в день на учёт вместо часа</div>
       </div>
     </div>
 
-    <!-- === НОВЫЙ БЛОК БЕЗОПАСНОСТИ === -->
+    <!-- STORY — ваша история -->
+    <div class="story">
+      <h2>Как я создал <span>Строитель.ПРО</span></h2>
+      <div class="sub">Потому что устал терять время на бумажки и считать в уме</div>
+      <div class="story-grid">
+        <div class="left">
+          <div class="pain">
+            <b>😤 Проблема:</b> Каждый вечер я сидел с блокнотом, пытаясь вспомнить, сколько штукатурки ушло на кухню, кто работал и сколько кому заплатить. 
+            Заметки терялись, цифры путались, бригада ждала расчёта.
+          </div>
+          <div class="quote">
+            «Я тратил до часа в день на учёт. Это 20 часов в месяц — целая рабочая неделя!»
+          </div>
+          <div class="pain" style="margin-bottom:0;">
+            Решил: <b style="color:#d4920a;">хватит</b>. Сделал приложение, которое само считает объёмы, зарплату и остатки материалов. Теперь 5 минут — и всё готово.
+          </div>
+        </div>
+        <div class="right">
+          <div class="step">
+            <div class="num">01</div>
+            <p><b>Блокнот и Excel</b> — постоянно терял данные, путался в цифрах, бригада ждала расчёта</p>
+          </div>
+          <div class="step">
+            <div class="num">02</div>
+            <p><b>Поиск готовых решений</b> — слишком сложные или дорогие, требуют интернета и обучения</p>
+          </div>
+          <div class="step">
+            <div class="num">03</div>
+            <p><b>Создал своё</b> — простое, офлайн, понятное без инструкций. Для прорабов и бригадиров</p>
+          </div>
+          <div class="step">
+            <div class="num">04</div>
+            <p><b>Результат</b> — <b style="color:#3d9e5c;">экономия 20 часов в месяц</b> и больше никаких головных болей</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BENEFITS — выгода для пользователя -->
+    <div class="benefits">
+      <h2>Что вы <span>получаете</span></h2>
+      <div class="sub">Не функции, а реальные результаты, которые экономят ваше время и деньги</div>
+      <div class="benefits-grid">
+        <div class="benefit">
+          <div class="icon">⏱️</div>
+          <h3>Экономия времени</h3>
+          <p>Вместо часа на бумажки — 5 минут в день. 20 часов в месяц — целая рабочая неделя!</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">💰</div>
+          <h3>Точные расчёты</h3>
+          <p>Никаких ошибок в зарплате. Приложение само считает объёмы и суммы по вашим расценкам.</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">📦</div>
+          <h3>Склад под контролем</h3>
+          <p>Знаете, сколько осталось материалов. Никаких сюрпризов «ой, штукатурка кончилась».</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">🧠</div>
+          <h3>Меньше головной боли</h3>
+          <p>Всё в одном месте. Не надо держать в голове цифры — приложение всё помнит.</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">📊</div>
+          <h3>Прогноз и аналитика</h3>
+          <p>Знаете, когда сдадите объект. Видите, кто из бригады работает лучше.</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">📱</div>
+          <h3>Работает без интернета</h3>
+          <p>На стройке, в подвале, за городом — данные всегда с вами. Никакой регистрации.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF -->
+    <div class="social-proof">
+      <h2>💬 Что говорят те, кто уже пользуется</h2>
+      <div class="proof-grid">
+        <div class="proof-item">
+          <div class="stars">★★★★★</div>
+          <div class="text">«Раньше считал всё в Excel, вечно путался. Теперь 5 минут и готово. Бригада довольна — расчёты прозрачные.»</div>
+          <div class="author">— Сергей, прораб, стаж 8 лет</div>
+        </div>
+        <div class="proof-item">
+          <div class="stars">★★★★★</div>
+          <div class="text">«У меня 3 объекта одновременно. Всё в одном приложении — не надо переключаться между блокнотами. Очень удобно.»</div>
+          <div class="author">— Дмитрий, бригадир</div>
+        </div>
+        <div class="proof-item">
+          <div class="stars">★★★★★</div>
+          <div class="text">«Склад всегда под контролем. Знаю, когда заказывать материалы. Не бегаю в последний момент.»</div>
+          <div class="author">— Алексей, ИП, отделочные работы</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING — ваша тарифная сетка -->
+    <div class="pricing">
+      <h2>Выберите <span>свой тариф</span></h2>
+      <div class="sub">Начните бесплатно — платите только когда приложение реально приносит пользу</div>
+      <div class="pricing-grid">
+        <!-- 1 месяц -->
+        <div class="plan">
+          <div class="name">📆 1 месяц</div>
+          <div class="price">490 <small>₽</small></div>
+          <div class="period">на 30 дней</div>
+          <div class="per-month">≈ <b>490 ₽</b> / месяц</div>
+          <ul>
+            <li>Все PRO-функции</li>
+            <li>Без ограничений</li>
+            <li>Аналитика и прогнозы</li>
+          </ul>
+          <a href="https://t.me/Mark8Numb" target="_blank" class="btn-plan">Выбрать</a>
+        </div>
+
+        <!-- 3 месяца -->
+        <div class="plan">
+          <div class="name">📆 3 месяца</div>
+          <div class="price">1 290 <small>₽</small></div>
+          <div class="period">на 90 дней</div>
+          <div class="saving">💰 экономия 180 ₽</div>
+          <div class="per-month">≈ <b>430 ₽</b> / месяц</div>
+          <ul>
+            <li>Все PRO-функции</li>
+            <li>Без ограничений</li>
+            <li>Аналитика и прогнозы</li>
+          </ul>
+          <a href="https://t.me/Mark8Numb" target="_blank" class="btn-plan primary">Выбрать</a>
+        </div>
+
+        <!-- 6 месяцев -->
+        <div class="plan popular">
+          <div class="name">📆 6 месяцев</div>
+          <div class="price">2 290 <small>₽</small></div>
+          <div class="period">на 180 дней</div>
+          <div class="saving">💰 экономия 650 ₽</div>
+          <div class="per-month">≈ <b>380 ₽</b> / месяц</div>
+          <ul>
+            <li>Все PRO-функции</li>
+            <li>Без ограничений</li>
+            <li>Аналитика и прогнозы</li>
+            <li>⭐ Приоритетная поддержка</li>
+          </ul>
+          <a href="https://t.me/Mark8Numb" target="_blank" class="btn-plan primary">Выбрать</a>
+        </div>
+
+        <!-- 1 год -->
+        <div class="plan" style="border-color:#3d9e5c;">
+          <div class="name">📆 1 год</div>
+          <div class="price">3 990 <small>₽</small></div>
+          <div class="period">на 365 дней</div>
+          <div class="saving">💰 экономия 1 890 ₽</div>
+          <div class="per-month">≈ <b>330 ₽</b> / месяц</div>
+          <ul>
+            <li>Все PRO-функции</li>
+            <li>Без ограничений</li>
+            <li>Аналитика и прогнозы</li>
+            <li>⭐ Приоритетная поддержка</li>
+            <li>🎁 Бонус: настройка под ваш объект</li>
+          </ul>
+          <a href="https://t.me/Mark8Numb" target="_blank" class="btn-plan" style="border-color:#3d9e5c; color:#3d9e5c;">Выбрать</a>
+        </div>
+      </div>
+
+      <!-- Сравнительная таблица FREE vs PRO -->
+      <div class="compare">
+        <table>
+          <thead>
+            <tr>
+              <th>Что входит</th>
+              <th style="text-align:center;">FREE</th>
+              <th style="text-align:center; color:#d4920a;">PRO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b>Количество объектов</b></td>
+              <td style="text-align:center;">1</td>
+              <td style="text-align:center; color:#d4920a; font-weight:700;">♾️</td>
+            </tr>
+            <tr>
+              <td><b>Корпусов / этажей</b></td>
+              <td style="text-align:center;">2</td>
+              <td style="text-align:center; color:#d4920a; font-weight:700;">♾️</td>
+            </tr>
+            <tr>
+              <td><b>Видов работ</b></td>
+              <td style="text-align:center;">3</td>
+              <td style="text-align:center; color:#d4920a; font-weight:700;">♾️</td>
+            </tr>
+            <tr>
+              <td><b>Аналитика и прогнозы</b></td>
+              <td style="text-align:center;">—</td>
+              <td style="text-align:center; color:#3d9e5c; font-weight:700;">✅</td>
+            </tr>
+            <tr>
+              <td><b>Сравнение работников</b></td>
+              <td style="text-align:center;">—</td>
+              <td style="text-align:center; color:#3d9e5c; font-weight:700;">✅</td>
+            </tr>
+            <tr>
+              <td><b>Отчёты для заказчика</b></td>
+              <td style="text-align:center;">—</td>
+              <td style="text-align:center; color:#3d9e5c; font-weight:700;">✅</td>
+            </tr>
+            <tr>
+              <td><b>Приоритетная поддержка</b></td>
+              <td style="text-align:center;">—</td>
+              <td style="text-align:center; color:#3d9e5c; font-weight:700;">✅</td>
+            </tr>
+            <tr style="background:#1a1a17;">
+              <td><b style="font-size:15px; color:#d4920a;">Цена</b></td>
+              <td style="text-align:center; font-size:18px; font-weight:700; color:#3d9e5c;">0 ₽</td>
+              <td style="text-align:center; font-size:18px; font-weight:700; color:#d4920a;">от 490 ₽/мес</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
     <div class="security-block">
-      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-        <span style="font-size: 28px;">🛡️</span>
-        <div style="font-size: 16px; font-weight: 700; color: #ede8dc;">Безопасность установки</div>
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+        <span style="font-size:24px;">🛡️</span>
+        <div style="font-size:15px; font-weight:700; color:#ede8dc;">Безопасно и надёжно</div>
       </div>
-
-      <p style="font-size: 13px; color: #a09880; line-height: 1.6; margin-bottom: 6px;">
-        <b style="color: #ede8dc;">Почему Google пишет «не проверено»?</b>
-      </p>
-      <p style="font-size: 13px; color: #a09880; line-height: 1.6; margin-bottom: 10px;">
-        Приложение распространяется напрямую (APK-файл), а не через Google Play.
-        Google Play Protect <b style="color: #ede8dc;">проверяет</b> файл на вирусы — и если всё чисто,
-        разрешает установку с кнопкой <b style="color: #d4920a;">«Установить всё равно»</b>.
-      </p>
-
       <div class="security-grid">
         <div class="security-item ok">
-          <div class="title" style="color: #3d9e5c;">✅ Без вирусов</div>
-          <div class="desc">Код приложения открыт и чист</div>
+          <div class="title">✅ Без вирусов</div>
+          <div class="desc">Код проверен и чист</div>
         </div>
         <div class="security-item blue">
-          <div class="title" style="color: #4a9fd4;">📂 Данные на телефоне</div>
-          <div class="desc">Ничего не отправляется в интернет</div>
+          <div class="title">📂 Данные на телефоне</div>
+          <div class="desc">Ничего не отправляется</div>
         </div>
         <div class="security-item gold">
-          <div class="title" style="color: #d4920a;">🔓 Офлайн-работа</div>
-          <div class="desc">Не требует разрешений к интернету</div>
+          <div class="title">🔓 Работает офлайн</div>
+          <div class="desc">Интернет не нужен</div>
         </div>
         <div class="security-item warn">
-          <div class="title" style="color: #d95f4f;">⚠️ Защита Google</div>
-          <div class="desc">Play Protect проверяет — если найдет угрозу, предупредит</div>
+          <div class="title">⚠️ Play Protect</div>
+          <div class="desc">Проверяет при установке</div>
         </div>
       </div>
-
       <div class="security-note">
-        📌 Если при установке появляется предупреждение «Это приложение не проверено Google» —
-        нажмите <b style="color: #d4920a;">«Установить всё равно»</b>.
-        Это стандартное сообщение для всех APK-файлов.
+        📌 При установке Google может показать «не проверено» — это нормально для APK. Нажмите <b style="color:#d4920a;">«Установить всё равно»</b>.
       </div>
     </div>
 
-    <div class="price-block">
-      <div class="price">1 990 ₽</div>
-      <div class="period">на 1 год · PRO-доступ</div>
-      <div class="desc">Разблокируйте все функции приложения</div>
-      <ul>
-        <li>Неограниченное количество объектов и корпусов</li>
-        <li>Сравнение работников и рейтинг</li>
-        <li>Прогноз сдачи по видам работ</li>
-        <li>Доделки и фотозаметки</li>
-        <li>Подробная аналитика и графики</li>
-        <li>Экспорт отчётов для заказчика</li>
-      </ul>
-      <a href="https://t.me/Mark8Numb" target="_blank" class="btn-buy">🚀 Купить PRO-ключ</a>
-      <div style="font-size: 12px; color: #6a6050; margin-top: 12px;">
-        Оплата и получение ключа — в Telegram
-      </div>
-    </div>
-
+    <!-- DOWNLOAD -->
     <div class="download-section" id="download">
-      <h2>📲 Скачать бесплатно</h2>
-      <p>Версия для Android (APK-файл). Установите и пользуйтесь.</p>
-
+      <h2>📲 Начните прямо сейчас</h2>
+      <p>Скачайте бесплатно — всё работает без интернета и регистрации</p>
       <div class="download-buttons">
         <a href="https://drive.google.com/uc?export=download&id=1O0_BfpCraMSiDDFHOEfnIGOqxisKbsZf" class="btn-download">
           ⬇ Скачать APK
           <span class="small">~ 500 КБ · Версия 5.6.5</span>
         </a>
-
         <button class="btn-download demo-link" onclick="openDemo()">
           🚀 Попробовать в браузере
-          <span class="small">Откроется в новом окне, данные сохраняются</span>
+          <span class="small">Откроется в новом окне</span>
         </button>
-
-        <a href="https://t.me/StroyApp" target="_blank" class="btn-download" style="border-color: #d4920a; color: #d4920a;">
+        <a href="https://t.me/StroyApp" target="_blank" class="btn-download" style="border-color:#d4920a; color:#d4920a;">
           💬 Telegram-канал
-          <span class="small">Новости и обновления</span>
+          <span class="small">Новости, обновления, поддержка</span>
         </a>
-
-        <a href="#price" class="btn-secondary" style="border-style: dashed;">🔑 Уже есть ключ? Активируйте в приложении</a>
       </div>
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
       <p>Строитель.ПРО v5.6.5 · Офлайн-приложение · Все данные на вашем устройстве</p>
-      <p style="margin-top: 4px;">
+      <p style="margin-top:4px;">
         <a href="https://t.me/Mark8Numb" target="_blank">Поддержка</a> ·
         <a href="#" onclick="alert('Политика конфиденциальности: мы не собираем и не храним ваши данные. Всё остаётся на вашем телефоне.'); return false;">Политика</a>
       </p>
