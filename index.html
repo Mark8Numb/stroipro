@@ -320,6 +320,118 @@
       font-weight: 600;
     }
 
+    /* PROMO: ПРИВЕДИ ПРОРАБА */
+    .promo-friend {
+      background: linear-gradient(145deg, #1e1e1a, #161614);
+      border: 2px solid #d4920a;
+      border-radius: 16px;
+      padding: 28px 22px;
+      margin: 30px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promo-friend::before {
+      content: "👷";
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 80px;
+      opacity: 0.06;
+      transform: rotate(15deg);
+    }
+
+    .promo-friend .badge {
+      display: inline-block;
+      background: #d4920a;
+      color: #0a0800;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 12px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .promo-friend h3 {
+      font-size: 20px;
+      font-weight: 800;
+      font-family: 'Oswald', sans-serif;
+      color: #ede8dc;
+      margin-bottom: 6px;
+    }
+
+    .promo-friend h3 span {
+      color: #d4920a;
+    }
+
+    .promo-friend p {
+      font-size: 14px;
+      color: #a09880;
+      margin-bottom: 14px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .promo-friend .steps {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin: 14px 0 18px;
+    }
+
+    .promo-friend .step {
+      background: #0a0a0c;
+      border: 1px solid #2c2c28;
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-width: 100px;
+      flex: 1;
+      max-width: 140px;
+    }
+
+    .promo-friend .step .num {
+      font-size: 18px;
+      font-weight: 900;
+      color: #d4920a;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .promo-friend .step .text {
+      font-size: 11px;
+      color: #a09880;
+      margin-top: 2px;
+    }
+
+    .promo-friend .btn-promo {
+      display: inline-block;
+      background: linear-gradient(145deg, #e0a010, #c47c08);
+      color: #0a0800;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 10px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.15s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .promo-friend .btn-promo:hover {
+      transform: scale(1.02);
+    }
+
+    .promo-friend .limit {
+      font-size: 11px;
+      color: #6a6050;
+      margin-top: 8px;
+    }
+
     /* PRICING */
     .pricing {
       padding: 50px 0 30px;
@@ -736,6 +848,34 @@
           <div class="author">— Алексей, ИП, отделочные работы</div>
         </div>
       </div>
+    </div>
+
+    <!-- АКЦИЯ: ПРИВЕДИ ПРОРАБА -->
+    <div class="promo-friend">
+      <div class="badge">👷 Только для своих</div>
+
+      <h3>Приведи прораба или бригадира — <span>получи PRO</span></h3>
+
+      <p>Приведи коллегу, который тоже ведёт стройку. Когда он установит приложение — вы оба получите <b>2 недели PRO-доступа бесплатно</b>.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">01</div>
+          <div class="text">Дай ссылку на канал</div>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <div class="text">Коллега пишет @Mark8Numb</div>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <div class="text">Вы оба получаете PRO</div>
+        </div>
+      </div>
+
+      <a href="https://t.me/StroyApp" target="_blank" class="btn-promo">🚀 Привести коллегу →</a>
+
+      <div class="limit">❗ Можно пригласить только одного. Акция до конца июля.</div>
     </div>
 
     <!-- PRICING — ваша тарифная сетка -->
