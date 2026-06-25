@@ -128,23 +128,6 @@
       font-family: inherit;
     }
     .btn-secondary:hover { border-color: #d4920a; color: #d4920a; }
-    .btn-demo {
-      display: inline-block;
-      background: transparent;
-      color: #4a9fd4;
-      font-weight: 700;
-      font-size: 15px;
-      padding: 14px 28px;
-      border-radius: 12px;
-      border: 2px solid #4a9fd4;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-      cursor: pointer;
-      font-family: inherit;
-    }
-    .btn-demo:hover { background: rgba(74,159,212,0.1); border-color: #60b0ff; color: #60b0ff; }
-    .btn-demo .small { display: block; font-size: 11px; font-weight: 400; color: #6a6050; }
-    .btn-demo:hover .small { color: #8aa8c0; }
 
     .hero-right {
       background: #161614;
@@ -187,7 +170,7 @@
       margin-top: 2px;
     }
 
-    /* STORY BLOCK — ваша личная история */
+    /* STORY BLOCK */
     .story {
       padding: 50px 0 30px;
       border-bottom: 1px solid #1e1e1a;
@@ -258,7 +241,7 @@
     }
     .story-grid .right .step p b { color: #ede8dc; }
 
-    /* BENEFITS — выгода, не функции */
+    /* BENEFITS */
     .benefits {
       padding: 50px 0 30px;
       border-bottom: 1px solid #1e1e1a;
@@ -337,7 +320,7 @@
       font-weight: 600;
     }
 
-    /* PRICING — новая сетка по вашим тарифам */
+    /* PRICING */
     .pricing {
       padding: 50px 0 30px;
       border-bottom: 1px solid #1e1e1a;
@@ -544,7 +527,12 @@
     }
     .download-section h2 { font-size: 24px; margin-bottom: 8px; }
     .download-section p { color: #a09880; font-size: 15px; margin-bottom: 20px; }
-    .download-buttons { display: flex; flex-direction: column; gap: 12px; align-items: center; }
+    .download-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
     .btn-download {
       display: inline-block;
       background: #1e1e1a;
@@ -562,8 +550,6 @@
     }
     .btn-download:hover { border-color: #d4920a; background: #2a2a24; }
     .btn-download .small { display: block; font-size: 12px; color: #6a6050; font-weight: 400; }
-    .btn-download.demo-link { border-color: #4a9fd4; color: #4a9fd4; }
-    .btn-download.demo-link:hover { border-color: #60b0ff; color: #60b0ff; background: rgba(74,159,212,0.08); }
 
     /* FOOTER */
     .footer {
@@ -595,8 +581,7 @@
       .hero h1 { font-size: 24px; }
       .hero-buttons { flex-direction: column; width: 100%; }
       .hero-buttons .btn-primary,
-      .hero-buttons .btn-secondary,
-      .hero-buttons .btn-demo {
+      .hero-buttons .btn-secondary {
         width: 100%;
         text-align: center;
       }
@@ -623,11 +608,7 @@
         <h1>Учёт стройки, который <span class="highlight">экономит часы</span> и убирает головную боль</h1>
         <p class="subtitle">Журнал работ, склад, деньги, бригада — всё в одном приложении. Без интернета, без регистрации, без ежемесячной платы за базовые функции.</p>
         <div class="hero-buttons">
-          <a href="#download" class="btn-primary">📥 Начать бесплатно</a>
-          <button class="btn-demo" onclick="openDemo()">
-            🚀 Попробовать в браузере
-            <span class="small">Откроется в новом окне</span>
-          </button>
+          <a href="#download" class="btn-primary">📥 Скачать</a>
         </div>
       </div>
       <div class="hero-right">
@@ -919,13 +900,13 @@
           ⬇ Скачать APK
           <span class="small">~ 500 КБ · Версия 5.6.5</span>
         </a>
-        <button class="btn-download demo-link" onclick="openDemo()">
-          🚀 Попробовать в браузере
-          <span class="small">Откроется в новом окне</span>
-        </button>
         <a href="https://t.me/StroyApp" target="_blank" class="btn-download" style="border-color:#d4920a; color:#d4920a;">
           💬 Telegram-канал
           <span class="small">Новости, обновления, поддержка</span>
+        </a>
+        <a href="https://max.ru/join/rfP-leSCQydRM7wp1AvU-gJaEowu963aSQuGCXvBRX0" target="_blank" class="btn-download" style="border-color:#8a2be2; color:#8a2be2;">
+          🚀 MAX
+          <span class="small">Чат и общение</span>
         </a>
       </div>
     </div>
@@ -940,36 +921,6 @@
     </div>
 
   </div>
-
-  <script>
-    function openDemo() {
-      var url = window.location.href.split('?')[0] + '?mode=demo';
-      var win = window.open(url, '_blank', 'width=420,height=800,scrollbars=yes,resizable=yes');
-      if (!win || win.closed || typeof win.closed === 'undefined') {
-        window.location.href = url;
-      }
-    }
-
-    (function() {
-      if (window.location.search.indexOf('mode=demo') !== -1) {
-        var container = document.querySelector('.container');
-        if (container) container.style.display = 'none';
-        var app = document.getElementById('app');
-        if (app) {
-          app.style.display = 'block';
-          app.style.height = '100vh';
-          app.style.width = '100vw';
-          app.style.position = 'fixed';
-          app.style.top = '0';
-          app.style.left = '0';
-          app.style.zIndex = '9999';
-          app.style.background = '#0a0a0c';
-        }
-        var toast = document.getElementById('toast');
-        if (toast) toast.style.display = 'none';
-      }
-    })();
-  </script>
 
 </body>
 </html>
